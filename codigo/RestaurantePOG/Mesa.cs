@@ -22,7 +22,7 @@ namespace RestaurantePOG
     }
         public void AtenderCliente(Cliente cliente)/// Atribui um cliente a mesa e marca a mesa como ocupada
     {
-        this.cliente = cliente;
+       // this.cliente = cliente;
         this.status = true;
     }
 
@@ -33,7 +33,7 @@ namespace RestaurantePOG
         public void AtendimentoEncerrado()///Marca a mesa com disponivel e libera o cliente que estava nela 
     {
         this.status = false;
-        this.cliente = null;
+        //this.cliente = null;
     }
  public int Id
     {
@@ -45,10 +45,10 @@ namespace RestaurantePOG
         get { return capacidade; }
     }
 
-    public Cliente Cliente
-    {
-        get { return cliente; }
-    }
+   // public Cliente Cliente
+   // {
+        //get { return cliente; }
+  //  }
     public Queue<FilaEspera> FilaEspera
     {
         get { return filaEspera; }

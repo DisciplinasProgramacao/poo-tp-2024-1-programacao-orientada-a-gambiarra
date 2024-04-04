@@ -9,9 +9,10 @@ namespace RestaurantePOG
     /// </summary>
     public class Restaurante
 	{
-		Requisicao [] requisicao;
-		Queue <FilaEspera> FilaEspera;
-
+		private List <Requisicao> requisicao;
+		private Queue <FilaEspera> FilaEspera;
+        private List<Mesa> mesas;
+        private List <Cliente> clientes;
         /// <summary>
         /// Método para atender um cliente no restaurante
         /// </summary>
@@ -38,5 +39,7 @@ namespace RestaurantePOG
 		{
 			throw new NotImplementedException();
 		}
+
+
 	}
 }
