@@ -24,7 +24,7 @@ namespace RestaurantePOG {
         public void AdicionarCliente(Cliente cliente)
         {
             clientes.Enqueue(cliente);
-        }
+        }   
 
         /// <summary>
         /// Método para remover e retornar o próximo cliente da fila de espera

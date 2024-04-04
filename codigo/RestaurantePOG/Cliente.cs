@@ -8,15 +8,15 @@ namespace RestaurantePOG
     /// Classe representando o cliente do restaurante
     /// </summary>
     public class Cliente
-	{
-		String nome;
+	{   
+  		String nome;
 		int quantidadePessoa;
 
         /// <summary>
-        /// Método para solicitar uma reserva no restaurante
+        /// Mï¿½todo para solicitar uma reserva no restaurante
         /// </summary>
         /// <param name="quantidadePessoa">Quantidade de pessoas no grupo</param>
-        /// <returns>Objeto Requisicao representando a solicitação de reserva</returns>
+        /// <returns>Objeto Requisicao representando a solicitaï¿½ï¿½o de reserva</returns>
         public Requisicao solicitarReserva(int quantidadePessoa)
 		{
 			throw new NotImplementedException();
