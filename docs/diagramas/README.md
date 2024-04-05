@@ -13,6 +13,7 @@ Atualização da versão 02:
 ![image](https://github.com/DisciplinasProgramacao/poo-tp-2024-1-programacao-orientada-a-gambiarra/assets/51711866/6faf5c23-e787-4ab2-ab79-015d32606b24)
 
 Atualização da versão 02, após comentários do professor:
-![image](https://github.com/DisciplinasProgramacao/poo-tp-2024-1-programacao-orientada-a-gambiarra/assets/51711866/1d06a4ef-17ab-42e6-b7a2-736fc9e5995d)
+![image](https://github.com/DisciplinasProgramacao/poo-tp-2024-1-programacao-orientada-a-gambiarra/assets/51711866/4094d77f-2cf8-4db3-b2ff-9d86a9a21f66)
+
 
 
