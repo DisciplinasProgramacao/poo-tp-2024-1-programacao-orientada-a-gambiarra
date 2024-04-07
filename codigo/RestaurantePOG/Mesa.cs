@@ -11,47 +11,76 @@ namespace RestaurantePOG
 	{
     private int id;
     private int capacidade;
-    private bool status;
-    private Queue<FilaEspera> filaEspera; /// fila de espera de clientes que desejam ocupar a mesa
+    private bool ocupada;
+   
         public Mesa(int id, int capacidade)
     {
         this.id = id;
         this.capacidade = capacidade;
-        this.status = false;
-        this.filaEspera = new Queue<FilaEspera>();
+        this.ocupada = false;
+    }
+    public static List<Mesa> CriarMesas(int quantidade)
+    {
+        List<Mesa> mesas = new List<Mesa>();
+
+        // Cria 10 mesas
+        for (int i = 0; i < quantidade; i++)
+        {
+            if (i < 4)
+            {
+                mesas.Add(new Mesa(i + 1, 4));
+            }
+            else if (i < 8)
+            {
+                mesas.Add(new Mesa(i + 1, 6));
+            }
+            else
+            {
+                mesas.Add(new Mesa(i + 1, 8));
+            }
+        }
+
+        return mesas;
     }
         public void AtenderCliente(Cliente cliente)/// Atribui um cliente a mesa e marca a mesa como ocupada
     {
-       // this.cliente = cliente;
-        this.status = true;
+        this.cliente = cliente;
+        this.ocupada = true;
     }
 
         public bool statusOcupacao()///Retorna true se a mesa estiver ocupada e false se estiver disponivel
 		{
-			 return status;
+			 return ocupada;
 		}
         public void AtendimentoEncerrado()///Marca a mesa com disponivel e libera o cliente que estava nela 
     {
-        this.status = false;
-        //this.cliente = null;
+        this.ocupada = false;
+        this.cliente = null;
     }
  public int Id
     {
         get { return id; }
     }
-
-    public int Capacidade
+ public void setId(int id)
     {
-        get { return capacidade; }
+        this.id = id;
+    }
+      public int getCapacidade()
+    {
+        return capacidade;
+    }
+ public bool isOcupada()
+    {
+        return ocupada;
+    }
+    public void setOcupada(bool ocupada)
+    {
+        this.ocupada = ocupada;
     }
 
-   // public Cliente Cliente
-   // {
-        //get { return cliente; }
-  //  }
-    public Queue<FilaEspera> FilaEspera
+    public override string ToString()
     {
-        get { return filaEspera; }
+        return "Mesa " + id + " (" + capacidade + " pessoas)";
     }
 }
 }
