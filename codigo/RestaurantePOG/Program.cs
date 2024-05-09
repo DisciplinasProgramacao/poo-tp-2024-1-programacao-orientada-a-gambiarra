@@ -10,7 +10,6 @@ namespace RestaurantePOG
         #endregion
 
         #region Região dos Métodos do Menu
-
         /// <summary>
         /// Cadastra cliente em uma lista.
         /// </summary>
