@@ -17,7 +17,7 @@ namespace RestaurantePOG
         private List<Requisicao> lista_requisicao;
         private List<Mesa> mesas;
         private List<Requisicao> filaEspera;
-        private <Cardapio> cardapio;
+        private Cardapio cardapio;
         #endregion
 
         #region Construtores
@@ -32,7 +32,7 @@ namespace RestaurantePOG
                 new Mesa(8), new Mesa(8)
             }
             this.filaEspera = new List<Requisicao>();
-            this.cardapio = new Cardapio;
+            this.cardapio = new Cardapio();
            
         }
         #endregion
@@ -51,63 +51,45 @@ namespace RestaurantePOG
             return clientesEmAtendimento;
         }
 
-        public void iniciaAtendimento(Requisicao requisicao)
+        public bool estahAptoAtendimento(Requisicao requisicao) 
         {
-            requisicao.associaMesa()
+            foreach (Mesa mesa in getMesasDisponiveis())
+            {
+                if (requisicao.getQuantidadePessoas() < mesa.getCapacidade())
+                {
+                    return true;
+                }  
+            }
+            return false;
         }
 
-        public void atenderCliente(Cliente cliente, int qntPessoas)
+        public void atenderCliente(Requisicao requisicao)
         {
-
-            Requisicao requisicao = cliente.fazerRequisicao(quantPessoas);
-            return realizarAlocacaoMesa(requisicao);
-        }
-
-        private Boolean validaClienteEmEspera(Requisicao requisicao)
-        {
-            if ()
+            Mesa mesa = new Mesa();
+            foreach (Mesa mesaDisp in getMesasDisponiveis())
             {
-
-                return true;
+                if (requisicao.getQuantidadePessoas() < mesaDisp.getCapacidade())
+                {
+                    mesa = mesaDisp;
+                    break;
+                }
             }
-            else
-            {
-
-                return false;
-            }
-        }
-
-        private Boolean validaStatusRequisicao(Requisicao requisicao)
-        {
-            if ()
-            {
-
-                return true;
-            }
-            else
-            {
-
-                return false;
-            }
+            requisicao.iniciarRequisicao(mesa);
         }
 
         private List<Mesa> getMesasDisponiveis()
         {
             List<Mesa> getMesasDisponiveis = new List<Mesa>();
-            foreach (Mesa mesas in Mesas)
+            foreach (Mesa mesa in mesas)
             {
-                if (!mesas.Ocupada)
+                if (!mesa.EstahOcupada())
                 {
-                    getMesasDisponiveis.Add(mesas);
+                    getMesasDisponiveis.Add(mesa);
                 }
             }
             return getMesasDisponiveis;
         }
 
-        private Requisicao getProximoFilaEspera(int capacidade)
-        {
-
-        }
         #endregion
     }
 }
