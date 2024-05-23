@@ -10,82 +10,104 @@ namespace RestaurantePOG
     /// Classe representando o restaurante
     /// </summary>
     public class Restaurante
-{
-	#region atributos
-	private List<Requisicao> requisicao = new List<Requisicao>();
-	private List<Mesa> mesas = new List<Mesa>();
-	private Queue<Cliente> filaClientes = new Queue<Cliente>();
-	private Queue<Cliente> filaEspera = new Queue<Cliente>();
-	private int maxMesas = 10;
-	#endregion
+    {
+        #region atributos
+        private static int MAX_MESA = 10;
+        private static String nome;
+        private List<Requisicao> lista_requisicao;
+        private List<Mesa> mesas;
+        private List<Requisicao> filaEspera;
+        private <Cardapio> cardapio;
+        #endregion
 
-	#region Construtores
-	public Restaurante(List<Mesa> mesas)
-	{
-		this.mesas = mesas;
-		this.filaClientes = new Queue<Cliente>();
-		this.filaEspera = new Queue<Cliente>();
-		this.maxMesas = 10;
-		this.requisicao = new List<Requisicao>();
-	}
-    #endregion
-
-    #region métodos
-    public void atenderCliente(Cliente cliente, int qntPessoas)
-	{
-		Console.WriteLine("Atendido: " + filaClientes.Peek());
-		filaClientes.Dequeue();
-		cliente.solicitarReserva(qntPessoas);
-	}
-
-   
-    private void addFilaEspera(Cliente cliente)
-	{
-		 filaEspera.Enqueue(cliente);
-         Console.WriteLine("Cliente adicionado à fila de espera.");
-	}
-
-    
-	private void atenderFilaEspera(Cliente cliente, int qntPessoas)
-	{
-		Console.WriteLine("Atendido: " + filaEspera.Peek());
-		filaEspera.Dequeue();
-		cliente.solicitarReserva(qntPessoas);
-	}
-
-	public void encerrarAtendimento(int idRequisicao)
-	{
-		
-	}
-
-
-	public void reservarMesa(Mesa mesa)
-	{
-		mesa.isOcupada();
-	}
-
-	private String verificarMesaDisponivel()
-	{
-		 StringBuilder listaMesas = new StringBuilder();
-            foreach(Mesa mesa in mesas)
+        #region Construtores
+        public Restaurante(String nome) 
+        {
+            this.nome = nome;
+            this.lista_requisicao = new List<Requisicao>();
+            this.mesas = new List<Mesa>
             {
-                listaMesas.AppendLine(String.Format("Capacidade Mesa: {0} Disponibilidade: {1}"+ mesa.getCapacidade(), mesa.statusOcupacao()));
+                new Mesa(4), new Mesa(4), new Mesa(4), new Mesa(4),
+                new Mesa(6), new Mesa(6), new Mesa(6), new Mesa(6),
+                new Mesa(8), new Mesa(8)
             }
-            return listaMesas.ToString();
-	}
-	public String relatorioFila(Cliente cliente)
-	{
-		StringBuilder relatorioFila = new StringBuilder();
-		foreach	(Cliente obj in filaClientes)
-		{
-			relatorioFila.Append(obj.ToString() + "(Fila de atendimento)");
-		}
-		foreach	(Cliente obj in filaEspera)
-		{
-			relatorioFila.Append(obj.ToString() + "(Fila de espera)");
-		}
-		return relatorioFila.ToString();
-	}
-    #endregion
-}
+            this.filaEspera = new List<Requisicao>();
+            this.cardapio = new Cardapio;
+           
+        }
+        #endregion
+
+        #region métodos
+        public Requisicao consultarEmAtendimentos()
+        {
+            List<Requisicao> clientesEmAtendimento = new List<Requisicao>();
+            foreach (Requisicao requisicao in lista_requisicao)
+            {
+                if (requisicao.getStatus = 1)
+                {
+                    clientesEmAtendimento.Add(Requisicao)
+                }
+            }
+            return clientesEmAtendimento;
+        }
+
+        public void iniciaAtendimento(Requisicao requisicao)
+        {
+            requisicao.associaMesa()
+        }
+
+        public void atenderCliente(Cliente cliente, int qntPessoas)
+        {
+
+            Requisicao requisicao = cliente.fazerRequisicao(quantPessoas);
+            return realizarAlocacaoMesa(requisicao);
+        }
+
+        private Boolean validaClienteEmEspera(Requisicao requisicao)
+        {
+            if ()
+            {
+
+                return true;
+            }
+            else
+            {
+
+                return false;
+            }
+        }
+
+        private Boolean validaStatusRequisicao(Requisicao requisicao)
+        {
+            if ()
+            {
+
+                return true;
+            }
+            else
+            {
+
+                return false;
+            }
+        }
+
+        private List<Mesa> getMesasDisponiveis()
+        {
+            List<Mesa> getMesasDisponiveis = new List<Mesa>();
+            foreach (Mesa mesas in Mesas)
+            {
+                if (!mesas.Ocupada)
+                {
+                    getMesasDisponiveis.Add(mesas);
+                }
+            }
+            return getMesasDisponiveis;
+        }
+
+        private Requisicao getProximoFilaEspera(int capacidade)
+        {
+
+        }
+        #endregion
+    }
 }
