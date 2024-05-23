@@ -7,7 +7,7 @@ namespace RestaurantePOG {
     public class Program{
 
     #region Variavel Global
-    //Restaurante restaurante = new Restaurante("POG - Comidinhas Veganas");
+    Restaurante restaurante = new Restaurante("POG - Comidinhas Veganas");
     static LinkedList<Cliente> clientes;
     #endregion
 
@@ -18,7 +18,7 @@ namespace RestaurantePOG {
 
             while(continuar) {
                 exibeMenuPrincipal();
-                opcao = escolheOpcao(1, 5);
+                opcao = escolheOpcao(1, 6);
                 Console.Clear();
             
                 switch(opcao) {
@@ -149,33 +149,17 @@ namespace RestaurantePOG {
             Console.Clear();
             while(!valido){
                 exibeMenuAtendimento();
-                opcao = escolheOpcao(1, 3);
+                opcao = escolheOpcao(1, 4);
 
                 switch(opcao) {
                     case 1:
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                        realizarPedido();
-=======
-                        RealizarPedido(requisicao);
->>>>>>> Stashed changes
-=======
-                        RealizarPedido(requisicao);
->>>>>>> Stashed changes
+                        realizarPedido(requisicao);
                         break;
                     case 2:
                         mostrarConta(requisicao);
                         break;
                     case 3:
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-                        fecharConta();
-=======
-                        FecharConta(requisicao);
->>>>>>> Stashed changes
-=======
-                        FecharConta(requisicao);
->>>>>>> Stashed changes
+                        fecharConta(requisicao);
                         break;
                     case 4:
                         valido = false;
@@ -185,16 +169,7 @@ namespace RestaurantePOG {
         }
 
         /// <summary>Mostra o Cardápio do Restaurante</summary>
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        public static void mostrarCardapio() { 
-            List<Item> itensCardapio = restaurante.ConsultaItensCardapio();
-=======
         public static void MostrarCardapio() { 
->>>>>>> Stashed changes
-=======
-        public static void MostrarCardapio() { 
->>>>>>> Stashed changes
             int contador = 1;
 
             foreach(Item item in restaurante.ConsultaItensCardapio()) {
@@ -216,31 +191,16 @@ namespace RestaurantePOG {
             Console.WriteLine("\nItem Adicionado ao Cardápio!");  
         }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-        public static void realizarPedido() {
-            mostrarCardapio();
-            
+        /// <summary>Registra um pedido na comanda da requisição especificada</summary>
+        /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
+        public static void realizarPedido(Requisicao requisicao) {
+            MostrarCardapio();
+            ...
         }
 
+        /// <summary>Monstra as informações da Conta da requisição especificada</summary>
+        /// <param name="requisicao">Requisição que deseja-se exibir as informações da conta</param>
         public static void mostrarConta(Requisicao requisicao) {
-
-        }
-
-        public static void fecharConta() {
-
-
-=======
-        /// <summary>Registra um pedido na comanda da requisição especificada</summary>
-        /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
-        public static void RealizarPedido(Requisicao requisicao) {
-            MostrarCardapio();
-            ...
-        }
-
-        /// <summary>Monstra as informações da Conta da requisição especificada</summary>
-        /// <param name="requisicao">Requisição que deseja-se exibir as informações da conta</param>
-        public static void MostrarConta(Requisicao requisicao) {
             Console.WriteLine("=============================");
             Console.WriteLine("===         CONTA         ==="); 
             Console.WriteLine("=============================");
@@ -248,31 +208,10 @@ namespace RestaurantePOG {
             Console.WriteLine("=============================");
         }
 
-=======
-        /// <summary>Registra um pedido na comanda da requisição especificada</summary>
-        /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
-        public static void RealizarPedido(Requisicao requisicao) {
-            MostrarCardapio();
-            ...
-        }
-
-        /// <summary>Monstra as informações da Conta da requisição especificada</summary>
-        /// <param name="requisicao">Requisição que deseja-se exibir as informações da conta</param>
-        public static void MostrarConta(Requisicao requisicao) {
-            Console.WriteLine("=============================");
-            Console.WriteLine("===         CONTA         ==="); 
-            Console.WriteLine("=============================");
-            ...
-            Console.WriteLine("=============================");
-        }
-
->>>>>>> Stashed changes
         /// <summary>Encerra o atendimento de um cliente e fecha a conta da requisição especificada </summary>
         /// <param name="requisicao">>Requisição que deseja-se fechar a conta</param>
-        public static void FecharConta(Requisicao requisicao) {
+        public static void fecharConta(Requisicao requisicao) {
             ...
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
         }
         /// <summary>
         /// Cria uma lista de clientes.
@@ -295,8 +234,6 @@ namespace RestaurantePOG {
             foreach(Cliente cliente in clientes) {
                 Console.WriteLine(clientes.ToString());
             }
-=======
->>>>>>> Stashed changes
         }
     }
 }
