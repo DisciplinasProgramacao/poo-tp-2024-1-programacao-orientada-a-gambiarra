@@ -90,6 +90,16 @@ namespace RestaurantePOG
             return getMesasDisponiveis;
         }
 
+        public void adicionaFilaEspera(Requisicao requisicao)
+        {
+            filaEspera.add(requisicao);
+        }
+
+        public void adicionarRequisicao(Requisicao requisicao)
+        {
+            lista_requisicao.add(requisicao);
+        }
+
         #endregion
     }
 }
