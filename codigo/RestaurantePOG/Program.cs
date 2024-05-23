@@ -18,26 +18,29 @@ namespace RestaurantePOG {
 
             while(continuar) {
                 exibeMenuPrincipal();
-                opcao = escolheOpcao(1, 6);
+                opcao = escolheOpcao(1, 7);
                 Console.Clear();
             
                 switch(opcao) {
                     case 1:
-                        cadastrarCliente();
+                        cadastrarCliente(); //Da entrada em um novo cliente e adiciona na fila de espera
                         break;
                     case 2:
-                        atenderCliente();
+                        iniciaAtendimento(); //Tentar atender um sujeito
                         break;
                     case 3:
-                        mostrarCardapio();
+                        atenderCliente(); //Registrar um pedido de um sujeito em atendimento
                         break;
                     case 4:
-                        cadastrarItemCardapio();
+                        mostrarCardapio(); //Mostra o cardápio do restaurante
                         break;
                     case 5:
-                        imprimirListaClientes();
+                        cadastrarItemCardapio(); //Adiciona um novo item 
                         break;
                     case 6:
+                        imprimirListaClientes();
+                        break;
+                    case 7:
                         continuar = false;
                         Console.WriteLine("Encerrando Programa...");
                         System.Threading.Thread.Sleep(500);
@@ -52,11 +55,12 @@ namespace RestaurantePOG {
             Console.WriteLine("======= MENU PRINCIPAL ======="); 
             Console.WriteLine("==============================\n");
             Console.WriteLine("1 - Cadastrar Cliente");
-            Console.WriteLine("2 - Atender Cliente");
-            Console.WriteLine("3 - Mostrar Cardápio");
-            Console.WriteLine("4 - Incluir Item no Cardápio");
-            Console.WriteLine("5 - Exibir Lista de Clientes");
-            Console.WriteLine("6 - Encerrar Programa.\n");
+            Console.WriteLine("2 - Iniciar Atendimento");
+            Console.WriteLine("3 - Atender Cliente");
+            Console.WriteLine("4 - Mostrar Cardápio");
+            Console.WriteLine("5 - Incluir Item no Cardápio");
+            Console.WriteLine("6 - Exibir Lista de Clientes");
+            Console.WriteLine("7 - Encerrar Programa.\n");
         }
 
         /// <summary>Mostra Menu de Atendimento ao Cliente</summary>
@@ -128,7 +132,30 @@ namespace RestaurantePOG {
             //Gera uma nova requisição de um novo cliente.
             Requisicao novaRequisicao = new Requisicao(nome, qtdPessoas);
             restaurante.AdicionarRequisicao(novaRequisicao);
-            Console.WriteLine("\nCliente Cadastrado!");     
+            restaurante.adicionaFilaEspera(novaRequisicao);
+            Console.WriteLine("\nCliente Cadastrado!");
+        }
+
+        /// <summary>Muda o status de um cliente na Fila de espera para um cliente em atendimento (Associa uma mesa, registra Hora e muda o status)</summary>
+        public static void iniciaAtendimento(){
+            int opcao, contador = 1;
+            bool valido = false;
+
+            List<Requisicao> emEspera = restaurante.ConsultaFilaEspera();
+
+            foreach(Requisicao requisicao in emEspera) {
+                Console.WriteLine(contador + " - " + requisicao.ToString());
+                contador++;
+            }
+
+            Console.WriteLine("Selecione o Cliente que deseja atender: ")
+            opcao = escolheOpcao(1, emEspera.Count());
+            Requisicao requisicao = emEspera[--opcao];
+            
+            valido = restaurante.estahAptoAtendimento(requisicao);
+
+            if (valido){ restaurante.atenderCliente(requisicao); }
+            else { Console.WriteLine("Não é possível atender esse cliente.") }
         }
 
         /// <summary>Realiza o atendimento do Cliente</summary>
@@ -169,7 +196,7 @@ namespace RestaurantePOG {
         }
 
         /// <summary>Mostra o Cardápio do Restaurante</summary>
-        public static void MostrarCardapio() { 
+        public static void mostrarCardapio() { 
             int contador = 1;
 
             foreach(Item item in restaurante.ConsultaItensCardapio()) {
@@ -213,9 +240,10 @@ namespace RestaurantePOG {
         public static void fecharConta(Requisicao requisicao) {
             ...
         }
-        /// <summary>
-        /// Cria uma lista de clientes.
-        /// </summary>
+
+
+
+        /// <summary>Cria uma lista de clientes </summary>
         static void gerarClientes() {
             
             String[] nomes = {"Rafael Bilu", "Zé Ivaldo","Lucas Silva", "Lucas Ramero"
@@ -227,9 +255,8 @@ namespace RestaurantePOG {
                 clientes.AddLast(novo);
             }
         }
-        /// <summary>
-        /// Imprimi uma lista de nomes dos clientes.
-        /// </summary>
+
+        /// <summary>Imprimi uma lista de nomes dos clientes. </summary>
         private static void imprimirListaClientes() {
             foreach(Cliente cliente in clientes) {
                 Console.WriteLine(clientes.ToString());
