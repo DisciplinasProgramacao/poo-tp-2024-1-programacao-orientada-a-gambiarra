@@ -9,30 +9,28 @@ namespace RestaurantePOG
     /// </summary>
     public class Requisicao
     {
-        int id;
-        Cliente cliente;
-        DateTime entrada;
-        DateTime saida;
-        Mesa mesa;
+        private int id;
+        private static int proximoId = 1;
+        private int status;                 // 0 = Esperando Fila     1 = Em Atendimento    2 = finalizado
+        private Cliente cliente;
+        private int quantidadedePessoas;
+        private Mesa? mesa;
+        private Comanda comanda;
+        private DateTime entrada;
+        private DateTime saida;
 
         ///<summary>
         ///Construtor padrão da requisição
         ///<summary>
-        public Requisicao(int id, Cliente cliente, Mesa mesa)
+        public Requisicao(Cliente cliente, Mesa mesa)
         {
-            this.id = int.Parse(mesa.id.ToString() + cliente.idCliente.ToString());
+            this.id = proximoId;
+            this.proximoId++;
+            this.status = 0;
             this.cliente = cliente;
-            this.entrada = new DateTime.Now();
+            this quantidadedePessoas = this.cliente.quantidadePessoa;
+            this.entrada = Horas();
             this.mesa = mesa;
-        }
-
-        /// <summary>
-        /// Método para adicionar uma mesa à requisição
-        /// </summary>
-        /// <returns>A mesa adicionada à requisição</returns>
-        public Mesa AddMesa(Mesa mesa)
-        {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -40,18 +38,59 @@ namespace RestaurantePOG
         /// </summary>
         public void FinalizarRequisicao()
         {
-            this.saida = new DateTime.Now();
-            this.mesa.ocupada = false;
+            this.status = AlteraStatus();
+            LiberaMesa();
+            this.comanda.FecharComanda();
+            this.saida = Horas();
+        }
+
+        ///<summary>
+        ///Calcula o valor para cada pessoa
+        ///</summary>
+        ///<returns>Valor dividido igualmente entre as pessoas da mesa</returns>
+        public double CalculaValorPorPessoa()
+        {
+            double valorPorPessoa = this.comanda.valor_total_itens / (double)this.quantidadedePessoas;
+            return valorPorPessoa;
+        }
+
+        ///<summary>
+        ///Define a requisição como atendida e cria a comanda
+        ///</summary>
+        ///<returns>Retorna true</returns>
+        private int AlteraStatus()
+        {
+            bool stat = this.status++;
+            this.comanda = new Comanda();
+            return stat;
         }
 
         /// <summary>
-        /// Método que gera o relatório da requisição
-        /// <summary>
-        /// <returns>Retorna o relatório por string<returns>
-        public string RelatorioRequisicao()
+        /// Método para adicionar uma mesa à requisição
+        /// </summary>
+        /// <returns>A mesa adicionada à requisição</returns>
+        private Mesa AddMesa(Mesa mesa)
         {
-            string relatorio = ("REQUISIÇÃO  " + this.id.ToString() + "\n" + cliente.nome + "\nMesa " + mesa.Id.ToString() + "\n\nEntrada: " + entrada.ToString("dd/MM/yyyy HH:mm:ss") + "\nSaida: " + saida.ToString("dd/MM/yyyy HH:mm:ss"));
-            return relatorio;
+            this.status = AlteraStatus();
+            this.mesa = mesa;
+        }
+
+        ///<summary>
+        ///Libera a mesa usada na requisicao
+        ///</summary>
+        private void LiberaMesa()
+        {
+            mesa.ocupada = false;
+        }
+
+        ///<summary>
+        ///Gera a hora atual
+        ///</summary>
+        ///<returns>Horario atual</returns>
+        private DateTime Horas()
+        {
+            DateTime horas = new DateTime.Now();
+            return horas;
         }
     }
 }
