@@ -1,0 +1,37 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\gabri\\OneDrive\\projetos\\Programa\u00E7\u00E3o\\POO\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\gabri\\OneDrive\\projetos\\Programa\u00E7\u00E3o\\POO\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\Requisicao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:codigo\\RestaurantePOG\\Requisicao.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Requisicao.cs",
+              "DocumentMoniker": "C:\\Users\\gabri\\OneDrive\\projetos\\Programa\u00E7\u00E3o\\POO\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\Requisicao.cs",
+              "RelativeDocumentMoniker": "codigo\\RestaurantePOG\\Requisicao.cs",
+              "ToolTip": "C:\\Users\\gabri\\OneDrive\\projetos\\Programa\u00E7\u00E3o\\POO\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\Requisicao.cs",
+              "RelativeToolTip": "codigo\\RestaurantePOG\\Requisicao.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAF8AAAABAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-05-22T22:16:41.616Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
