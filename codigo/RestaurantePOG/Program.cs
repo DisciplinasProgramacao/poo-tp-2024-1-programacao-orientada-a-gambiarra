@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Console;
 using System.Collections.Generic;
 
 
@@ -135,10 +136,10 @@ namespace RestaurantePOG {
             List<Requisicao> emAtendimento = restaurante.ConsultarEmAtendimento();
             int opcao, contador = 1;
             bool valido = false;
-            
+
             Console.WriteLine("Selecione o cliente que deseja atender: ");
             foreach(Requisicao requisicao in emAtendimento) {
-                Console.WriteLine(contador + " - " + requisicao.Cliente.nome);
+                Console.WriteLine(contador + " - " + requisicao.ToString());
                 contador++;
             }
 
@@ -152,13 +153,29 @@ namespace RestaurantePOG {
 
                 switch(opcao) {
                     case 1:
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         realizarPedido();
+=======
+                        RealizarPedido(requisicao);
+>>>>>>> Stashed changes
+=======
+                        RealizarPedido(requisicao);
+>>>>>>> Stashed changes
                         break;
                     case 2:
                         mostrarConta(requisicao);
                         break;
                     case 3:
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
                         fecharConta();
+=======
+                        FecharConta(requisicao);
+>>>>>>> Stashed changes
+=======
+                        FecharConta(requisicao);
+>>>>>>> Stashed changes
                         break;
                     case 4:
                         valido = false;
@@ -168,11 +185,19 @@ namespace RestaurantePOG {
         }
 
         /// <summary>Mostra o Cardápio do Restaurante</summary>
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         public static void mostrarCardapio() { 
             List<Item> itensCardapio = restaurante.ConsultaItensCardapio();
+=======
+        public static void MostrarCardapio() { 
+>>>>>>> Stashed changes
+=======
+        public static void MostrarCardapio() { 
+>>>>>>> Stashed changes
             int contador = 1;
 
-            foreach(Item item in itensCardapio) {
+            foreach(Item item in restaurante.ConsultaItensCardapio()) {
                 Console.WriteLine(contador + " - " + itensCardapio.GetItemCardapio());
             }
         }
@@ -191,6 +216,8 @@ namespace RestaurantePOG {
             Console.WriteLine("\nItem Adicionado ao Cardápio!");  
         }
 
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
         public static void realizarPedido() {
             mostrarCardapio();
             
@@ -203,6 +230,49 @@ namespace RestaurantePOG {
         public static void fecharConta() {
 
 
+=======
+        /// <summary>Registra um pedido na comanda da requisição especificada</summary>
+        /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
+        public static void RealizarPedido(Requisicao requisicao) {
+            MostrarCardapio();
+            ...
+        }
+
+        /// <summary>Monstra as informações da Conta da requisição especificada</summary>
+        /// <param name="requisicao">Requisição que deseja-se exibir as informações da conta</param>
+        public static void MostrarConta(Requisicao requisicao) {
+            Console.WriteLine("=============================");
+            Console.WriteLine("===         CONTA         ==="); 
+            Console.WriteLine("=============================");
+            ...
+            Console.WriteLine("=============================");
+        }
+
+=======
+        /// <summary>Registra um pedido na comanda da requisição especificada</summary>
+        /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
+        public static void RealizarPedido(Requisicao requisicao) {
+            MostrarCardapio();
+            ...
+        }
+
+        /// <summary>Monstra as informações da Conta da requisição especificada</summary>
+        /// <param name="requisicao">Requisição que deseja-se exibir as informações da conta</param>
+        public static void MostrarConta(Requisicao requisicao) {
+            Console.WriteLine("=============================");
+            Console.WriteLine("===         CONTA         ==="); 
+            Console.WriteLine("=============================");
+            ...
+            Console.WriteLine("=============================");
+        }
+
+>>>>>>> Stashed changes
+        /// <summary>Encerra o atendimento de um cliente e fecha a conta da requisição especificada </summary>
+        /// <param name="requisicao">>Requisição que deseja-se fechar a conta</param>
+        public static void FecharConta(Requisicao requisicao) {
+            ...
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
         }
         /// <summary>
         /// Cria uma lista de clientes.
@@ -225,6 +295,8 @@ namespace RestaurantePOG {
             foreach(Cliente cliente in clientes) {
                 Console.WriteLine(clientes.ToString());
             }
+=======
+>>>>>>> Stashed changes
         }
     }
 }
