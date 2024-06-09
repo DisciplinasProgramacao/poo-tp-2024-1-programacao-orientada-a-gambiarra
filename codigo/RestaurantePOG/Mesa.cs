@@ -10,77 +10,50 @@ namespace RestaurantePOG
     public class Mesa
 	{
     private int id;
+    private int proximoId;
     private int capacidade;
-    private bool ocupada;
+    private bool status;
    
-        public Mesa(int id, int capacidade)
+        public Mesa(int id, int proximoId, int capacidade)
     {
         this.id = id;
+        this.proximoId = proximoId;
         this.capacidade = capacidade;
-        this.ocupada = false;
-    }
-    public static List<Mesa> CriarMesas(int quantidade)
-    {
-        List<Mesa> mesas = new List<Mesa>();
-
-        // Cria 10 mesas
-        for (int i = 0; i < quantidade; i++)
-        {
-            if (i < 4)
-            {
-                mesas.Add(new Mesa(i + 1, 4));
-            }
-            else if (i < 8)
-            {
-                mesas.Add(new Mesa(i + 1, 6));
-            }
-            else
-            {
-                mesas.Add(new Mesa(i + 1, 8));
-            }
-        }
-
-        return mesas;
-    }
-        public void AtenderCliente(Cliente cliente)/// Atribui um cliente a mesa e marca a mesa como ocupada
-    {
-        this.cliente = cliente;
-        this.ocupada = true;
-    }
-
-        public bool statusOcupacao()///Retorna true se a mesa estiver ocupada e false se estiver disponivel
-		{
-			 return ocupada;
-		}
-        public void AtendimentoEncerrado()///Marca a mesa com disponivel e libera o cliente que estava nela 
-    {
-        this.ocupada = false;
-        this.cliente = null;
+        this.status = false;
     }
  public int Id
     {
         get { return id; }
+        set { id = value;}
     }
- public void setId(int id)
+    public int ProximoId
     {
-        this.id = id;
+        get {return proximoId; }
+        set {proximoId = value; }
     }
-      public int getCapacidade()
+      public int Capacidade
     {
-        return capacidade;
+        get { return capacidade; }
+        set { proximoId = value; }
     }
- public bool isOcupada()
+ public bool Status
     {
-        return ocupada;
+        get { return status;}
+        set { status = value;}
     }
-    public void setOcupada(bool ocupada)
+    public bool EstahOcupada() // retorna true se a mesa estiver ocupada e false caso contrario
     {
-        this.ocupada = ocupada;
+        return status;
     }
 
-    public override string ToString()
+    public void Ocupar() // define o status da mesa para ocupado
     {
-        return "Mesa " + id + " (" + capacidade + " pessoas)";
+        status = true;
+    }
+
+    public void Desocupar() // define o status da mesa para desocupado
+    {
+        status = false;
     }
 }
 }
