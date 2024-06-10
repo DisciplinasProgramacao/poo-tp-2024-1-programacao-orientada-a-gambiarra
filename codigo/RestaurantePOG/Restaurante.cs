@@ -63,6 +63,7 @@ namespace RestaurantePOG
             return false;
         }
 
+
         public void atenderCliente(Requisicao requisicao)
         {
             Mesa mesa = new Mesa();
@@ -100,6 +101,27 @@ namespace RestaurantePOG
             lista_requisicao.add(requisicao);
         }
 
+        public Requisicao getRequisicao(int index){
+            return lista_requisicao[index];
+        }
+
+        public int getTamanhoLista(string opcao){
+            int tamanho = 0;
+
+            if (opcao.Equals("Atendimento")){
+                            /// 
+            } else if(opcao.Equals("Espera")){
+                            ///    
+            } else if(opcao.Equals("Cardapio")){
+                            ///
+            }
+        
+            return tamanho;
+        }
+
+
+
         #endregion
+
     }
 }

@@ -7,10 +7,11 @@ namespace RestaurantePOG
     /// Classe representando o cliente do restaurante.
     /// </summary>
     public class Cliente {
-        private string nome;
+        private string? nome;
         public Cliente(string nome) {
             this.nome = nome;
         }
+
        /// <summary>
        /// Retorna a lista de clientes cadastrados
        /// </summary>

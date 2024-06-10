@@ -5,36 +5,41 @@ using System.Text;
 namespace RestaurantePOG
 {
     /// <summary>
-    /// Classe representando uma requisição de atendimento no restaurante
+    /// Classe representando uma requisiï¿½ï¿½o de atendimento no restaurante
     /// </summary>
     public class Requisicao
     {
+        private static int proximoId;
         private int id;
-        private static int proximoId = 1;
         private int status;                 // 0 = Esperando Fila     1 = Em Atendimento    2 = finalizado
         private Cliente cliente;
         private int quantidadedePessoas;
         private Mesa? mesa;
-        private Comanda comanda;
-        private DateTime entrada;
-        private DateTime saida;
+        private Comanda? comanda;
+        private DateTime? hora_entrada;
+        private DateTime? hora_saida;
+
+        static Requisicao(){
+            proximoId = 1;
+        }
 
         ///<summary>
-        ///Construtor padrão da requisição
+        ///Construtor padrao da requisicao
         ///<summary>
-        public Requisicao(Cliente cliente, Mesa mesa)
+        public Requisicao(string? nome, int qtdPessoas)
         {
-            this.id = proximoId;
-            this.proximoId++;
+            this.id = proximoId++;
             this.status = 0;
-            this.cliente = cliente;
-            this quantidadedePessoas = this.cliente.quantidadePessoa;
-            this.entrada = Horas();
-            this.mesa = mesa;
+            this.cliente = new Cliente(nome);
+            this.quantidadedePessoas = qtdPessoas;
+            this.mesa = null;
+            this.comanda = null;
+            this.hora_entrada = null;
+            this.hora_saida = null;
         }
 
         /// <summary>
-        /// Método para finalizar a requisição
+        /// Mï¿½todo para finalizar a requisiï¿½ï¿½o
         /// </summary>
         public void FinalizarRequisicao()
         {
@@ -55,7 +60,7 @@ namespace RestaurantePOG
         }
 
         ///<summary>
-        ///Define a requisição como atendida e cria a comanda
+        ///Define a requisiï¿½ï¿½o como atendida e cria a comanda
         ///</summary>
         ///<returns>Retorna true</returns>
         private int AlteraStatus()
@@ -66,9 +71,9 @@ namespace RestaurantePOG
         }
 
         /// <summary>
-        /// Método para adicionar uma mesa à requisição
+        /// Mï¿½todo para adicionar uma mesa ï¿½ requisiï¿½ï¿½o
         /// </summary>
-        /// <returns>A mesa adicionada à requisição</returns>
+        /// <returns>A mesa adicionada ï¿½ requisiï¿½ï¿½o</returns>
         private Mesa AddMesa(Mesa mesa)
         {
             this.status = AlteraStatus();

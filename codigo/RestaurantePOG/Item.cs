@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace RestaurantePOG {
     internal class Item {
-        protected string nome;
-        protected float preco;
+        protected string? nome;
+        protected double preco;
 
-        public Item(string nome, float preco) {
+        public Item(string? nome, double preco) {
             this.nome = nome;
             this.preco = preco;
         }
 
-        public float getPreco() { return preco; }   
+        public double getPreco() { return preco; }   
     }
 
 }

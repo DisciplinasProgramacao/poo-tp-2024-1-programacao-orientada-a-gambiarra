@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Console;
 using System.Collections.Generic;
 
 
@@ -7,12 +6,10 @@ namespace RestaurantePOG {
     public class Program{
 
     #region Variavel Global
-    Restaurante restaurante = new Restaurante("POG - Comidinhas Veganas");
-    static LinkedList<Cliente> clientes;
+    static Restaurante restaurante = new("POG - Comidinhas Veganas");
     #endregion
 
         static void Main(string[] args) {
-            gerarClientes();
             bool continuar = true;
             int opcao;
 
@@ -80,7 +77,7 @@ namespace RestaurantePOG {
         /// <returns>retorna a opçãpo selecionada em um numero inteiro</returns>
         private static int escolheOpcao(int min, int max) {
             bool valido = false;
-            int numero;
+            int numero = 0;
 
             while(!valido){
                 numero = digitaInteiro();
@@ -93,13 +90,13 @@ namespace RestaurantePOG {
         /// <returns>Retorna um numero inteiro válido</returns>
         private static int digitaInteiro(){
             bool numerico, valido = false;
-            string input;
-            int inteiro;
-
+            int inteiro = 0;
+            string? input;
+            
             while(!valido){ 
                 input = Console.ReadLine();
-                numerico = int.TryParse(Console.ReadLine());
-                if (numerico) { inteiro = int.Parse(input); valido = true; }
+                numerico = int.TryParse(input, out inteiro);
+                if (numerico) { valido = true; }
                 else { Console.Write("Digite um valor valor válido: "); }
             }
             return inteiro;
@@ -107,15 +104,15 @@ namespace RestaurantePOG {
 
         /// <summary>Verifica se o um numero a ser digitado é do tipo double. Repete o processo até conseguir um numero válido</summary>
         /// <returns>Retorna um numero double válido</returns>
-        private static int digitaDouble(){
+        private static double digitaDouble(){
             bool numerico, valido = false;
-            string input;
-            double real;
+            double real = 0;
+            string? input;
 
             while(!valido){ 
                 input = Console.ReadLine();
-                numerico = double.TryParse(Console.ReadLine());
-                if (numerico) { real = double.Parse(input); valido = true; }
+                numerico = double.TryParse(input, out real);
+                if (numerico) { valido = true; }
                 else { Console.Write("Digite um valor valor válido: "); }
             }
             return real;
@@ -124,54 +121,45 @@ namespace RestaurantePOG {
         /// <summary>Realiza o Cadastro do cliente no restaurante</summary>
         public static void cadastrarCliente() {
             Console.Write("Informe o nome do cliente: ");
-            string nome = Console.ReadLine();
+            string? nome = Console.ReadLine();
             
             Console.Write("Insira a quantidade de pessoas: ");
             int qtdPessoas = digitaInteiro();
 
             //Gera uma nova requisição de um novo cliente.
-            Requisicao novaRequisicao = new Requisicao(nome, qtdPessoas);
-            restaurante.AdicionarRequisicao(novaRequisicao);
+            Requisicao novaRequisicao = new(nome, qtdPessoas);
+            restaurante.adicionarRequisicao(novaRequisicao);
             restaurante.adicionaFilaEspera(novaRequisicao);
             Console.WriteLine("\nCliente Cadastrado!");
         }
 
         /// <summary>Muda o status de um cliente na Fila de espera para um cliente em atendimento (Associa uma mesa, registra Hora e muda o status)</summary>
         public static void iniciaAtendimento(){
-            int opcao, contador = 1;
             bool valido = false;
+            int opcao;
 
-            List<Requisicao> emEspera = restaurante.ConsultaFilaEspera();
-
-            foreach(Requisicao requisicao in emEspera) {
-                Console.WriteLine(contador + " - " + requisicao.ToString());
-                contador++;
-            }
-
-            Console.WriteLine("Selecione o Cliente que deseja atender: ")
-            opcao = escolheOpcao(1, emEspera.Count());
-            Requisicao requisicao = emEspera[--opcao];
+            Console.WriteLine(restaurante.exibeListaEspera());
+            Console.WriteLine("Selecione o Cliente que deseja atender: ");
+            opcao = escolheOpcao(1, restaurante.getTamanhoLista("Espera"));
             
+            Requisicao requisicao = restaurante.getRequisicao(--opcao);
+
             valido = restaurante.estahAptoAtendimento(requisicao);
 
             if (valido){ restaurante.atenderCliente(requisicao); }
-            else { Console.WriteLine("Não é possível atender esse cliente.") }
+            else { Console.WriteLine("Não é possível atender esse cliente."); }
         }
 
         /// <summary>Realiza o atendimento do Cliente</summary>
         public static void atenderCliente() { 
-            List<Requisicao> emAtendimento = restaurante.ConsultarEmAtendimento();
-            int opcao, contador = 1;
             bool valido = false;
+            int opcao;
 
             Console.WriteLine("Selecione o cliente que deseja atender: ");
-            foreach(Requisicao requisicao in emAtendimento) {
-                Console.WriteLine(contador + " - " + requisicao.ToString());
-                contador++;
-            }
-
-            opcao = escolheOpcao(1, emAtendimento.Count());
-            Requisicao requisicao = emAtendimento[--opcao];
+            restaurante.exibeListaAtendimento();
+            opcao = escolheOpcao(1, restaurante.getTamanhoLista("Atendimento"));
+            
+            Requisicao requisicao = restaurante.getRequisicao(--opcao);
 
             Console.Clear();
             while(!valido){
@@ -196,33 +184,34 @@ namespace RestaurantePOG {
         }
 
         /// <summary>Mostra o Cardápio do Restaurante</summary>
-        public static void mostrarCardapio() { 
-            int contador = 1;
+        public static void mostrarCardapio() { Console.WriteLine(restaurante.exibeCardapio()); }
 
-            foreach(Item item in restaurante.ConsultaItensCardapio()) {
-                Console.WriteLine(contador + " - " + itensCardapio.GetItemCardapio());
-            }
-        }
+        public static void imprimirListaClientes(){ Console.WriteLine(restaurante.exibeListaClientes()); }
 
         /// <summary>Insere um novo Item no Cardapio</summary>
         public static void cadastrarItemCardapio() {
             Console.Write("Informe o nome do item que deseja adicionar: ");
-            string nome = Console.ReadLine();
+            string? nome = Console.ReadLine();
             
             Console.Write("Insira o preço unitário do item: ");
-            int precoUnitario = digitaDouble();
+            double precoUnitario = digitaDouble();
 
             //Gera um novo item e adiciona ao cardápio
-            Item novoItem = new Item(nome, precoUnitario);
-            restaurante.AdicionarItem(novoItem);
+            Item novoItem = new(nome, precoUnitario);
+            restaurante.adicionarItem(novoItem);
             Console.WriteLine("\nItem Adicionado ao Cardápio!");  
         }
 
         /// <summary>Registra um pedido na comanda da requisição especificada</summary>
         /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
         public static void realizarPedido(Requisicao requisicao) {
-            MostrarCardapio();
-            ...
+            int opcaoCardapio;
+
+            Console.WriteLine(restaurante.exibeCardapio());
+            Console.Write("Digite o Item do Cardápio que deseja pedir: ");
+            opcaoCardapio = escolheOpcao(1, restaurante.getTamanhoLista("Cardapio"));
+
+            restaurante.realizarPedido(requisicao, opcaoCardapio);
         }
 
         /// <summary>Monstra as informações da Conta da requisição especificada</summary>
@@ -231,36 +220,14 @@ namespace RestaurantePOG {
             Console.WriteLine("=============================");
             Console.WriteLine("===         CONTA         ==="); 
             Console.WriteLine("=============================");
-            ...
+             Console.WriteLine(requisicao.exibirDetalhes());
             Console.WriteLine("=============================");
         }
 
         /// <summary>Encerra o atendimento de um cliente e fecha a conta da requisição especificada </summary>
         /// <param name="requisicao">>Requisição que deseja-se fechar a conta</param>
         public static void fecharConta(Requisicao requisicao) {
-            ...
-        }
-
-
-
-        /// <summary>Cria uma lista de clientes </summary>
-        static void gerarClientes() {
-            
-            String[] nomes = {"Rafael Bilu", "Zé Ivaldo","Lucas Silva", "Lucas Ramero"
-                               , "Alvoro Barreal", "Matheus Pereira", "Juan Dinenno",
-                                "Arthur Gomes", "Cássio" };
-
-            foreach (String nome in nomes) {
-                Cliente novo = new Cliente(nome);
-                clientes.AddLast(novo);
-            }
-        }
-
-        /// <summary>Imprimi uma lista de nomes dos clientes. </summary>
-        private static void imprimirListaClientes() {
-            foreach(Cliente cliente in clientes) {
-                Console.WriteLine(clientes.ToString());
-            }
+            restaurante.finalizarAtendimento(requisicao);
         }
     }
 }
