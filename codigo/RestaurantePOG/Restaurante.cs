@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using System.Text;
+using System.Linq;
 
 namespace RestaurantePOG
 {
@@ -13,7 +14,7 @@ namespace RestaurantePOG
     {
         #region atributos
         private static int MAX_MESA = 10;
-        private static String nome;
+        private String nome;
         private List<Requisicao> lista_requisicao;
         private List<Mesa> mesas;
         private List<Requisicao> filaEspera;
@@ -21,16 +22,16 @@ namespace RestaurantePOG
         #endregion
 
         #region Construtores
-        public Restaurante(String nome) 
+        public Restaurante(String nome)
         {
             this.nome = nome;
             this.lista_requisicao = new List<Requisicao>();
             this.mesas = new List<Mesa>
             {
-                new Mesa(4), new Mesa(4), new Mesa(4), new Mesa(4),
-                new Mesa(6), new Mesa(6), new Mesa(6), new Mesa(6),
-                new Mesa(8), new Mesa(8)
-            }
+                new Mesa(1, 4), new Mesa(2, 4), new Mesa(3, 4), new Mesa(4, 4),
+                new Mesa(5, 6), new Mesa(6, 6), new Mesa(7, 6), new Mesa(8, 6),
+                new Mesa(9, 8), new Mesa(10, 8)
+            };
             this.filaEspera = new List<Requisicao>();
             this.cardapio = new Cardapio();
            
@@ -38,19 +39,20 @@ namespace RestaurantePOG
         #endregion
 
         #region métodos
+        
+        /// <summary>
+        /// Retorna quais mesas estão em atendimento
+        /// </summary>
+        /// <returns>Mesa</returns>
         public Requisicao consultarEmAtendimentos()
         {
-            List<Requisicao> clientesEmAtendimento = new List<Requisicao>();
-            foreach (Requisicao requisicao in lista_requisicao)
-            {
-                if (requisicao.getStatus = 1)
-                {
-                    clientesEmAtendimento.Add(Requisicao)
-                }
-            }
-            return clientesEmAtendimento;
+        return lista_requisicao.FirstOrDefault(requisicao => requisicao.getStatus() == 1);
         }
-
+        /// <summary>
+        /// Função de retornar se a requisição pode ser atendida pela quantidade de pessoas.
+        /// </summary>
+        /// <param name="requisicao"></param>
+        /// <returns></returns>
         public bool estahAptoAtendimento(Requisicao requisicao) 
         {
             foreach (Mesa mesa in getMesasDisponiveis())
@@ -63,19 +65,18 @@ namespace RestaurantePOG
             return false;
         }
 
-
         public void atenderCliente(Requisicao requisicao)
         {
-            Mesa mesa = new Mesa();
+            Mesa mesa;
             foreach (Mesa mesaDisp in getMesasDisponiveis())
             {
                 if (requisicao.getQuantidadePessoas() < mesaDisp.getCapacidade())
                 {
                     mesa = mesaDisp;
+                    requisicao.iniciarRequisicao(mesa);
                     break;
                 }
-            }
-            requisicao.iniciarRequisicao(mesa);
+            }    
         }
 
         private List<Mesa> getMesasDisponiveis()
@@ -83,7 +84,7 @@ namespace RestaurantePOG
             List<Mesa> getMesasDisponiveis = new List<Mesa>();
             foreach (Mesa mesa in mesas)
             {
-                if (!mesa.EstahOcupada())
+                if (!mesa.estahOcupada())
                 {
                     getMesasDisponiveis.Add(mesa);
                 }
@@ -93,18 +94,17 @@ namespace RestaurantePOG
 
         public void adicionaFilaEspera(Requisicao requisicao)
         {
-            filaEspera.add(requisicao);
+            filaEspera.Add(requisicao);
         }
 
         public void adicionarRequisicao(Requisicao requisicao)
         {
-            lista_requisicao.add(requisicao);
+            lista_requisicao.Add(requisicao);
         }
 
         public Requisicao getRequisicao(int index){
             return lista_requisicao[index];
         }
-
         public int getTamanhoLista(string opcao){
             int tamanho = 0;
 
@@ -119,7 +119,40 @@ namespace RestaurantePOG
             return tamanho;
         }
 
+        internal void finalizarAtendimento(Requisicao requisicao)
+        {
+            throw new NotImplementedException();
+        }
 
+        internal void realizarPedido(Requisicao requisicao, int opcaoCardapio)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool exibeCardapio()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void exibeListaAtendimento()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool exibeListaEspera()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool exibeListaClientes()
+        {
+            throw new NotImplementedException();
+        }
+
+        internal void adicionarItem(Item novoItem)
+        {
+            throw new NotImplementedException();
+        }
 
         #endregion
 

@@ -41,61 +41,80 @@ namespace RestaurantePOG
         /// <summary>
         /// M�todo para finalizar a requisi��o
         /// </summary>
-        public void FinalizarRequisicao()
+        public void finalizarRequisicao()
         {
-            this.status = AlteraStatus();
-            LiberaMesa();
-            this.comanda.FecharComanda();
-            this.saida = Horas();
+            this.status = alteraStatus();
+            liberaMesa();
+            this.comanda.fechaComanda();
+            this.hora_saida = horas();
         }
 
         ///<summary>
         ///Calcula o valor para cada pessoa
         ///</summary>
         ///<returns>Valor dividido igualmente entre as pessoas da mesa</returns>
-        public double CalculaValorPorPessoa()
+        public double calculaValorPorPessoa()
         {
-            double valorPorPessoa = this.comanda.valor_total_itens / (double)this.quantidadedePessoas;
+            double valorPorPessoa = this.comanda.calcularValorFinalConta() / (double)this.quantidadedePessoas;
             return valorPorPessoa;
         }
 
         ///<summary>
-        ///Define a requisi��o como atendida e cria a comanda
+        ///Define a requisição como atendida e cria a comanda
         ///</summary>
         ///<returns>Retorna true</returns>
-        private int AlteraStatus()
+        private int alteraStatus()
         {
-            bool stat = this.status++;
             this.comanda = new Comanda();
-            return stat;
+            return this.status++; ;
         }
 
         /// <summary>
-        /// M�todo para adicionar uma mesa � requisi��o
+        /// Método para adicionar uma mesa à requisi��o
         /// </summary>
-        /// <returns>A mesa adicionada � requisi��o</returns>
-        private Mesa AddMesa(Mesa mesa)
+        /// <returns>A mesa adicionada à requisição</returns>
+        private Mesa addMesa(Mesa mesa)
         {
-            this.status = AlteraStatus();
+            this.status = alteraStatus();
             this.mesa = mesa;
+            return this.mesa;
         }
 
         ///<summary>
         ///Libera a mesa usada na requisicao
         ///</summary>
-        private void LiberaMesa()
+        private void liberaMesa()
         {
-            mesa.ocupada = false;
+            mesa.desocupar();
         }
 
         ///<summary>
         ///Gera a hora atual
         ///</summary>
         ///<returns>Horario atual</returns>
-        private DateTime Horas()
+        private DateTime horas()
         {
-            DateTime horas = new DateTime.Now();
+            DateTime horas = DateTime.Now;
             return horas;
+        }
+        public int getStatus()
+        {
+            return this.status;
+        }
+
+        internal int getQuantidadePessoas()
+        {
+            return this.quantidadedePessoas;
+        }
+
+        internal void iniciarRequisicao(Mesa mesa)
+        {
+            throw new NotImplementedException();
+        }
+
+        internal bool exibirDetalhes()
+        {
+            throw new NotImplementedException();
         }
     }
 }

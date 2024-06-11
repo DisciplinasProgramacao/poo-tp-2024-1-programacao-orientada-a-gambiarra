@@ -106,7 +106,7 @@ namespace RestaurantePOG {
         /// <returns>Retorna um numero double válido</returns>
         private static double digitaDouble(){
             bool numerico, valido = false;
-            double real = 0;
+            double real = 0.00;
             string? input;
 
             while(!valido){ 

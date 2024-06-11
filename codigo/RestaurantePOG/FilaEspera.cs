@@ -21,7 +21,7 @@ namespace RestaurantePOG {
         /// Método para adicionar um cliente à fila de espera
         /// </summary>
         /// <param name="cliente">Cliente a ser adicionado à fila</param>
-        public void AdicionarCliente(Cliente cliente)
+        public void adicionarCliente(Cliente cliente)
         {
             clientes.Enqueue(cliente);
         }
@@ -30,7 +30,7 @@ namespace RestaurantePOG {
         /// Método para remover e retornar o próximo cliente da fila de espera
         /// </summary>
         /// <returns>Próximo cliente da fila</returns>
-        public Cliente ProximoCliente()
+        public Cliente proximoCliente()
         {
             return clientes.Dequeue();
         }
@@ -39,7 +39,7 @@ namespace RestaurantePOG {
         /// Método para verificar se a fila de espera está vazia
         /// </summary>
         /// <returns>True se a fila estiver vazia, False caso contrário</returns>
-        public bool EstaVazia()
+        public bool estaVazia()
         {
             return clientes.Count == 0;
         }

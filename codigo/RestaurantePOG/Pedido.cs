@@ -15,12 +15,13 @@ namespace RestaurantePOG {
             this.item = item;
             this.valorUnitario = item.getPreco();
         }
-
+        /// <summary>
+        /// Retorna o valor total do pedido.
+        /// </summary>
+        /// <returns>Total dos pedidos</returns>
         public double valorTotal() {
             return valorUnitario * quantidade;
         }
-        
-
 
     }
 }

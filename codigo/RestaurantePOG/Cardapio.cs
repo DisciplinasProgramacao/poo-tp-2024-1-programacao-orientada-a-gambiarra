@@ -9,12 +9,16 @@ public class Cardapio
         itens = new List<Item>();
     }
 
-    public void AdicionarItem(string nome, float preco)
+    public void adicionarItem(string nome, double preco)
     {
         itens.Add(new Item(nome, preco));
     }
-    public List<Item> GetItemCardapio()
-{
-    return itens;
-}
+    public void gerarItens() {
+       
+    }
+    //public List<Item> GetItemCardapio()
+    //{
+   // return itens;
+   // }
+    
 }

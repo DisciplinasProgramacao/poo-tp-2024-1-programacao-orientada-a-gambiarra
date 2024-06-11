@@ -14,46 +14,51 @@ namespace RestaurantePOG
     private int capacidade;
     private bool status;
    
-        public Mesa(int id, int proximoId, int capacidade)
-    {
+        public Mesa(int id, int capacidade)
+        {
         this.id = id;
-        this.proximoId = proximoId;
+
         this.capacidade = capacidade;
         this.status = false;
-    }
- public int Id
-    {
+        }
+        public int Id
+        {
         get { return id; }
         set { id = value;}
-    }
-    public int ProximoId
-    {
+        }
+        public int ProximoId
+        {
         get {return proximoId; }
         set {proximoId = value; }
-    }
-      public int Capacidade
-    {
+        }
+        public int Capacidade
+        {
         get { return capacidade; }
         set { proximoId = value; }
-    }
- public bool Status
-    {
+        }
+        public bool Status
+        {
         get { return status;}
         set { status = value;}
-    }
-    public bool EstahOcupada() // retorna true se a mesa estiver ocupada e false caso contrario
-    {
+        }
+        public bool estahOcupada() // retorna true se a mesa estiver ocupada e false caso contrario
+        {
         return status;
-    }
+        }
 
-    public void Ocupar() // define o status da mesa para ocupado
-    {
+        public void ocupar() // define o status da mesa para ocupado
+        {
         status = true;
-    }
+        }
 
-    public void Desocupar() // define o status da mesa para desocupado
-    {
+        public void desocupar() // define o status da mesa para desocupado
+        {
         status = false;
+        }
+
+        internal int getCapacidade()
+        {
+            return this.capacidade;
+        }
     }
-}
-}
+ }
