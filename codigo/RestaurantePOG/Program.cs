@@ -6,10 +6,14 @@ namespace RestaurantePOG {
     public class Program{
 
     #region Variavel Global
-    static Restaurante restaurante = new("POG - Comidinhas Veganas");
+    public static Restaurante restaurante = new("POG - Comidinhas Veganas");
+    
+    
     #endregion
 
         static void Main(string[] args) {
+            Cardapio cardapio = new Cardapio();
+            cardapio.gerarItens();
             bool continuar = true;
             int opcao;
 
