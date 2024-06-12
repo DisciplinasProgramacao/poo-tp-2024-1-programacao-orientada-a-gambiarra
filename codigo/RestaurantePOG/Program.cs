@@ -1,24 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-
+using System.Runtime.InteropServices;
 
 namespace RestaurantePOG {
     public class Program{
 
     #region Variavel Global
     public static Restaurante restaurante = new("POG - Comidinhas Veganas");
-    
-    
     #endregion
 
         static void Main(string[] args) {   
             restaurante.gerarCardapio();
-            bool continuar = true;
-            int opcao;
 
-            while(continuar) {
+            int opcao=99;
+
+            while(opcao!=7) {
                 exibeMenuPrincipal();
-                opcao = escolheOpcao(1, 7);
+                opcao = escolheOpcao();
                 Console.Clear();
             
                 switch(opcao) {
@@ -38,10 +36,10 @@ namespace RestaurantePOG {
                         cadastrarItemCardapio(); //Adiciona um novo item 
                         break;
                     case 6:
-                        imprimirListaClientes();
+                        imprimirListaClientes(); //Mostra todos os clientes
                         break;
                     case 7:
-                        continuar = false;
+                      
                         Console.WriteLine("Encerrando Programa...");
                         System.Threading.Thread.Sleep(500);
                         break;
@@ -78,14 +76,10 @@ namespace RestaurantePOG {
         /// <param name="min">Valor mínimo dentro do intervalo</param>
         /// <param name="max">Valor maximo dentro do intervalo</param>
         /// <returns>retorna a opçãpo selecionada em um numero inteiro</returns>
-        private static int escolheOpcao(int min, int max) {
-            bool valido = false;
+        private static int escolheOpcao() {
             int numero = 0;
 
-            while(!valido){
-                numero = digitaInteiro();
-                if (numero >= min && numero <= max){ valido = true; }
-            }
+            int.TryParse(Console.ReadLine(), out numero);
             return numero;    
         }
 
@@ -140,34 +134,39 @@ namespace RestaurantePOG {
         public static void iniciaAtendimento(){
             bool valido = false;
             int opcao;
-
-            Console.WriteLine(restaurante.exibeListaEspera());
-            Console.WriteLine("Selecione o Cliente que deseja atender: ");
-            opcao = escolheOpcao(1, restaurante.getTamanhoLista("Espera"));
+           
+            restaurante.atenderProximo();
+            // Console.WriteLine(restaurante.exibeListaEspera());
+            // Console.WriteLine("Selecione o Cliente que deseja atender: ");
+            // nomeCli = Console.ReadLine();
+            // Cliente cliente = restaurante.localizarCliente(nomeCli);
             
-            Requisicao requisicao = restaurante.getRequisicao(--opcao);
+            // Requisicao requisicao = restaurante.getRequisicao(cliente);
 
-            valido = restaurante.estahAptoAtendimento(requisicao);
+            // valido = restaurante.estahAptoAtendimento(requisicao);
 
-            if (valido){ restaurante.atenderCliente(requisicao); }
-            else { Console.WriteLine("Não é possível atender esse cliente."); }
+            // if (valido){ restaurante.atenderCliente(requisicao); }
+            // else { Console.WriteLine("Não é possível atender esse cliente."); }
         }
 
         /// <summary>Realiza o atendimento do Cliente</summary>
         public static void atenderCliente() { 
             bool valido = false;
-            int opcao;
-
+            int opcao=99;
+            string nomeCli;
             Console.WriteLine("Selecione o cliente que deseja atender: ");
-            restaurante.exibeListaAtendimento();
-            opcao = escolheOpcao(1, restaurante.getTamanhoLista("Atendimento"));
+            nomeCli = Console.ReadLine();
+            Cliente cliente = restaurante.localizarCliente(nomeCli);
+
+            // restaurante.exibeListaAtendimento();
+            // opcao = escolheOpcao(1, restaurante.getTamanhoLista("Atendimento"));
             
-            Requisicao requisicao = restaurante.getRequisicao(--opcao);
+             Requisicao requisicao = restaurante.getRequisicao(cliente);
 
             Console.Clear();
-            while(!valido){
+            while(opcao!=4){
                 exibeMenuAtendimento();
-                opcao = escolheOpcao(1, 4);
+                opcao = escolheOpcao();
 
                 switch(opcao) {
                     case 1:
@@ -179,9 +178,7 @@ namespace RestaurantePOG {
                     case 3:
                         fecharConta(requisicao);
                         break;
-                    case 4:
-                        valido = false;
-                        break;
+
                 }
             }
         }
@@ -212,7 +209,7 @@ namespace RestaurantePOG {
 
             Console.WriteLine(restaurante.exibeCardapio());
             Console.Write("Digite o Item do Cardápio que deseja pedir: ");
-            opcaoCardapio = escolheOpcao(1, restaurante.getTamanhoLista("Cardapio"));
+            opcaoCardapio = escolheOpcao();
 
             restaurante.realizarPedido(requisicao, opcaoCardapio);
         }

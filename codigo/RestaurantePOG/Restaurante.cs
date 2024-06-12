@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Text;
 using System.Linq;
+using System.Reflection;
 
 namespace RestaurantePOG
 {
@@ -15,7 +16,7 @@ namespace RestaurantePOG
         #region atributos
         private static int MAX_MESA = 10;
         private String nome;
-        private List<Requisicao> lista_requisicao;
+        private List<Requisicao> lista_requisicao; //todas
         private List<Mesa> mesas;
         private List<Requisicao> filaEspera;
         private Cardapio cardapio;
@@ -44,9 +45,9 @@ namespace RestaurantePOG
         /// Retorna quais mesas estão em atendimento
         /// </summary>
         /// <returns>Mesa</returns>
-        public Requisicao consultarEmAtendimentos()
+        public List<Requisicao> consultarEmAtendimentos()
         {
-        return lista_requisicao.FirstOrDefault(requisicao => requisicao.getStatus() == 1);
+            return lista_requisicao.Where(requisicao => !requisicao.estahFinalizada()).ToList();
         }
         /// <summary>
         /// Função de retornar se a requisição pode ser atendida pela quantidade de pessoas.
@@ -102,18 +103,25 @@ namespace RestaurantePOG
             lista_requisicao.Add(requisicao);
         }
 
-        public Requisicao getRequisicao(int index){
-            return lista_requisicao[index];
+        // public Requisicao getRequisicao(int index){
+        //     if(index<0 || index >= lista_requisicao.Count);
+        //         //exceção
+        //     else return lista_requisicao[index];
+        // }
+
+         public Requisicao getRequisicao(Cliente cliente){
+            return filaEspera.Where( req => req.pertenceAoCliente(cliente)).First();
+                    
         }
         public int getTamanhoLista(string opcao){
             int tamanho = 0;
 
             if (opcao.Equals("Atendimento")){
-                            /// 
+                
             } else if(opcao.Equals("Espera")){
-                            ///    
+                
             } else if(opcao.Equals("Cardapio")){
-                            ///
+                
             }
         
             return tamanho;
@@ -160,6 +168,13 @@ namespace RestaurantePOG
         public void gerarCardapio()
         {
             cardapio.gerarItens();
+        }
+
+        internal void atenderProximo()
+        {
+            //procurar uma mesa livre;
+            //encontrar a primeira requisição que cabe naquela mesa
+            //iniciar atendimento da requisicao
         }
 
         #endregion

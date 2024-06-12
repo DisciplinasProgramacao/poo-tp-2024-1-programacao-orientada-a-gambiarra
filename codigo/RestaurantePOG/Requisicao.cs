@@ -11,7 +11,7 @@ namespace RestaurantePOG
     {
         private static int proximoId;
         private int id;
-        private int status;                 // 0 = Esperando Fila     1 = Em Atendimento    2 = finalizado
+        private bool finalizada;        //enumerador        // 0 = Esperando Fila     1 = Em Atendimento    2 = finalizado
         private Cliente cliente;
         private int quantidadedePessoas;
         private Mesa? mesa;
@@ -29,7 +29,7 @@ namespace RestaurantePOG
         public Requisicao(string? nome, int qtdPessoas)
         {
             this.id = proximoId++;
-            this.status = 0;
+            this.finalizada = false;
             this.cliente = new Cliente(nome);
             this.quantidadedePessoas = qtdPessoas;
             this.mesa = null;
@@ -43,10 +43,14 @@ namespace RestaurantePOG
         /// </summary>
         public void finalizarRequisicao()
         {
-            this.status = alteraStatus();
-            liberaMesa();
+            this.finalizada= true;
+            mesa.desocupar();
             this.comanda.fechaComanda();
             this.hora_saida = horas();
+        }
+
+        public bool pertenceAoCliente(Cliente cliente){
+            return this.cliente.Equals(cliente);
         }
 
         ///<summary>
@@ -63,30 +67,31 @@ namespace RestaurantePOG
         ///Define a requisição como atendida e cria a comanda
         ///</summary>
         ///<returns>Retorna true</returns>
-        private int alteraStatus()
-        {
-            this.comanda = new Comanda();
-            return this.status++; ;
-        }
+        // private int alteraStatus()
+        // {
+        //     this.comanda = new Comanda();
+        //     return this.status++; ;
+        // }
 
         /// <summary>
         /// Método para adicionar uma mesa à requisi��o
         /// </summary>
         /// <returns>A mesa adicionada à requisição</returns>
-        private Mesa addMesa(Mesa mesa)
+        public void iniciarRequisicao(Mesa mesa)
         {
-            this.status = alteraStatus();
+        
             this.mesa = mesa;
-            return this.mesa;
+            this.mesa.ocupar();
+            this.hora_entrada = horas();// hora de agora;
         }
 
         ///<summary>
         ///Libera a mesa usada na requisicao
         ///</summary>
-        private void liberaMesa()
-        {
-            mesa.desocupar();
-        }
+        // private void liberaMesa()
+        // {
+        //     mesa.desocupar();
+        // }
 
         ///<summary>
         ///Gera a hora atual
@@ -97,9 +102,9 @@ namespace RestaurantePOG
             DateTime horas = DateTime.Now;
             return horas;
         }
-        public int getStatus()
+        public bool estahFinalizada()
         {
-            return this.status;
+            return this.finalizada;
         }
 
         internal int getQuantidadePessoas()
@@ -107,10 +112,10 @@ namespace RestaurantePOG
             return this.quantidadedePessoas;
         }
 
-        internal void iniciarRequisicao(Mesa mesa)
-        {
-            throw new NotImplementedException();
-        }
+        // internal void iniciarRequisicao(Mesa mesa)
+        // {
+        //     throw new NotImplementedException();
+        // }
 
         internal bool exibirDetalhes()
         {
