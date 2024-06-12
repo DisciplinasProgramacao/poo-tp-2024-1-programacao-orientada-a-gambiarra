@@ -12,8 +12,8 @@ namespace RestaurantePOG {
     #endregion
 
         static void Main(string[] args) {
-            Cardapio cardapio = new Cardapio();
-            cardapio.gerarItens();
+            
+            restaurante.gerarCardapio();
             bool continuar = true;
             int opcao;
 

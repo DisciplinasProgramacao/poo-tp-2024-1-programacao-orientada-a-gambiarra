@@ -154,6 +154,14 @@ namespace RestaurantePOG
             throw new NotImplementedException();
         }
 
+        /// <summary>
+        /// Casse responsável por gerar os itens do cardápio pré-estabelecidos pelo requisitos.
+        /// </summary>
+        public void gerarCardapio()
+        {
+            cardapio.gerarItens();
+        }
+
         #endregion
 
     }
