@@ -54,7 +54,7 @@ namespace RestaurantePOG
         /// </summary>
         /// <param name="requisicao"></param>
         /// <returns></returns>
-        public bool estahAptoAtendimento(Requisicao requisicao) 
+        public bool estahAptoAtendimento(Requisicao requisicao) //verifica se há mesa disponível para atender a requisição selecionada
         {
             foreach (Mesa mesa in getMesasDisponiveis())
             {
@@ -66,7 +66,7 @@ namespace RestaurantePOG
             return false;
         }
 
-        public void atenderCliente(Requisicao requisicao)
+        public void atenderCliente(Requisicao requisicao) //Determina a mesa como ocupada pela requisição e incia a requisição
         {
             Mesa mesa;
             foreach (Mesa mesaDisp in getMesasDisponiveis())
@@ -93,12 +93,12 @@ namespace RestaurantePOG
             return getMesasDisponiveis;
         }
 
-        public void adicionaFilaEspera(Requisicao requisicao)
+        public void adicionaFilaEspera(Requisicao requisicao) //Adiciona uma requisição para a fila de espera
         {
             filaEspera.Add(requisicao);
         }
 
-        public void adicionarRequisicao(Requisicao requisicao)
+        public void adicionarRequisicao(Requisicao requisicao) //Adiciona uma nova requisição à lista de requisições do restaurante
         {
             lista_requisicao.Add(requisicao);
         }
@@ -127,43 +127,43 @@ namespace RestaurantePOG
             return tamanho;
         }
 
-        internal void finalizarAtendimento(Requisicao requisicao)
+        public void finalizarAtendimento(Requisicao requisicao) //fecha uma comanda
+        {
+            this.requisicao.finalizarRequisicao();
+        }
+
+        public void realizarPedido(Requisicao requisicao, int opcaoCardapio) //Adiciona um novo pedido na comanda de uma requisicao especificada
+        {
+            
+        }
+
+        public string exibeCardapio() // Retorna uma String que mostrar todos os itens do cardápio.
+        {
+            return cardapio.ToString();
+        }
+
+        public string exibeListaAtendimento() //Retorna uma String com todos clientes com status  de requisicao 1 (em atendimento)
         {
             throw new NotImplementedException();
         }
 
-        internal void realizarPedido(Requisicao requisicao, int opcaoCardapio)
+        public string exibeListaEspera() //Retorna uma String com todos clientes com status  de requisicao 0 (em espera)
         {
             throw new NotImplementedException();
         }
 
-        internal bool exibeCardapio()
+        public string exibeListaClientes() //Retorna uma String com todos clientes gerais
         {
-            throw new NotImplementedException();
+            
         }
 
-        internal void exibeListaAtendimento()
+        public void adicionarItem(Item novoItem) //Adiciona novo item ao cardapio
         {
-            throw new NotImplementedException();
-        }
-
-        internal bool exibeListaEspera()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal bool exibeListaClientes()
-        {
-            throw new NotImplementedException();
-        }
-
-        internal void adicionarItem(Item novoItem)
-        {
-            throw new NotImplementedException();
+            cardapio.adicionarItem(novoItem.nome, novoItem,preco);
         }
 
         /// <summary>
-        /// Casse responsável por gerar os itens do cardápio pré-estabelecidos pelo requisitos.
+        ///  responsável por gerar os itens do cardápio pré-estabelecidos pelo requisitos.
         /// </summary>
         public void gerarCardapio()
         {
