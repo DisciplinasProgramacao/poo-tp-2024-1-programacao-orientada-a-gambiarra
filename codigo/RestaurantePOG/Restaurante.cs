@@ -129,12 +129,24 @@ namespace RestaurantePOG
 
         public void finalizarAtendimento(Requisicao requisicao) //fecha uma comanda
         {
-            this.requisicao.finalizarRequisicao();
+            foreach (var req in lista_requisicao)
+            {
+                if (req.Equals(this.requisicao))
+                {
+                    this.requisicao.finalizarRequisicao();
+                }
+            }
         }
 
         public void realizarPedido(Requisicao requisicao, int opcaoCardapio) //Adiciona um novo pedido na comanda de uma requisicao especificada
         {
-            
+            foreach (var req in lista_requisicao)
+            {
+                if (req.Equals(this.requisicao))
+                {
+                    requisicao.add(opcaoCardapio); //req n tem opcao cardapio
+                }
+            }
         }
 
         public string exibeCardapio() // Retorna uma String que mostrar todos os itens do cardápio.
@@ -144,17 +156,51 @@ namespace RestaurantePOG
 
         public string exibeListaAtendimento() //Retorna uma String com todos clientes com status  de requisicao 1 (em atendimento)
         {
-            throw new NotImplementedException();
+            StringBuilder todosClientesEmAtendimento = new StringBuilder();
+            foreach (var cliente in filaEspera)
+            {
+                for (int i = 1; i <= filaEspera.Count; i++)
+                {
+                    todosClientesEmAtendimento.AppendLine(i + ".");
+                }
+                todosClientesEmAtendimento.Append(cliente);
+                todosClientesEmAtendimento.AppendLine("");
+            }
+            return todosClientesEmAtendimento.ToString();
         }
-
+//bool finalizada em requisicao nao eh 0 1 ou 2
         public string exibeListaEspera() //Retorna uma String com todos clientes com status  de requisicao 0 (em espera)
         {
-            throw new NotImplementedException();
+            StringBuilder todosClientesEmEspera = new StringBuilder();
+            foreach (var cliente in lista_requisicao)
+            {
+               /* if (cliente.finalizada == 0)
+                {
+                    for (int i = 1; i <= lista_requisicao.Count; i++)
+                {
+                    todosClientesEmEspera.AppendLine(i + ".");
+                }
+                todosClientesEmEspera.Append(cliente);
+                todosClientesEmEspera.AppendLine("");
+                }
+                */
+            }
+            return todosClientesEmEspera.ToString();
         }
 
         public string exibeListaClientes() //Retorna uma String com todos clientes gerais
         {
-            
+            StringBuilder todosClientes = new StringBuilder();
+            foreach (var cliente in lista_requisicao)
+            {
+                for (int i = 1; i <= lista_requisicao.Count; i++)
+                {
+                    todosClientes.AppendLine(i + ".");
+                }
+                todosClientes.Append(cliente);
+                todosClientes.AppendLine("");
+            }
+            return todosClientes.ToString();
         }
 
         public void adicionarItem(Item novoItem) //Adiciona novo item ao cardapio

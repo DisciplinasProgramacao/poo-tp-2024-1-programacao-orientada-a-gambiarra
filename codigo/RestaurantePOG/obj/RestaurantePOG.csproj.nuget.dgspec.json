@@ -1,31 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Wilian Souza\\Documents\\Sistema de Informação\\3º Período\\POO\\C#\\GitHub\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj": {}
+    "D:\\pedro\\Documents\\CloneGit\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Wilian Souza\\Documents\\Sistema de Informação\\3º Período\\POO\\C#\\GitHub\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj": {
+    "D:\\pedro\\Documents\\CloneGit\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Wilian Souza\\Documents\\Sistema de Informação\\3º Período\\POO\\C#\\GitHub\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj",
+        "projectUniqueName": "D:\\pedro\\Documents\\CloneGit\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj",
         "projectName": "RestaurantePOG",
-        "projectPath": "C:\\Users\\Wilian Souza\\Documents\\Sistema de Informação\\3º Período\\POO\\C#\\GitHub\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj",
-        "packagesPath": "C:\\Users\\Wilian Souza\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Wilian Souza\\Documents\\Sistema de Informação\\3º Período\\POO\\C#\\GitHub\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\obj\\",
+        "projectPath": "D:\\pedro\\Documents\\CloneGit\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj",
+        "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
+        "outputPath": "D:\\pedro\\Documents\\CloneGit\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\Wilian Souza\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\pedro\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -38,6 +32,11 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
@@ -59,7 +58,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.302/PortableRuntimeIdentifierGraph.json"
         }
       }
     }
