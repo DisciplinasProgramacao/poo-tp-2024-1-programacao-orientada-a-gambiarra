@@ -14,16 +14,13 @@ namespace RestaurantePOG
         private double valorTotalItens;
         private bool comandaFechada;
 
-        public Comanda()
-        {
-            this.listaPedidos = new LinkedList<Pedido>();
-            this.comandaFechada = false;
-            this.valorTotalItens = 0;
+        public Comanda() {
+            valorTotalItens = 0;
+            comandaFechada = false;
+            listaPedidos = new LinkedList<Pedido>();
         }
 
-        /// <summary>
-        /// Adiciona pedido no final da lista de pedidos da comanda.
-        /// </summary>
+        ///<summary>Adiciona pedido no final da lista de pedidos da comanda.</summary>
         /// <param name="pedido"></param>
         public void realizarPedido(Pedido pedido)
         {
@@ -37,6 +34,7 @@ namespace RestaurantePOG
         {
             return comandaFechada = true;
         }
+        
         /// <summary>
         /// Realiza o somátorio dos totais de pedidos dentro da comanda.
         /// </summary>

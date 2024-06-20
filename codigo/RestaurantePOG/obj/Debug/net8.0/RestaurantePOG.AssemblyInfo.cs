@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RestaurantePOG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+11092509865ad3a86197d5969c5b1e9cba4b5e2d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+93705bb0e366e7da1b2345304d4f2e246cfcc113")]
 [assembly: System.Reflection.AssemblyProductAttribute("RestaurantePOG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RestaurantePOG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

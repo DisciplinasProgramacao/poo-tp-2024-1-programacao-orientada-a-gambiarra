@@ -11,10 +11,12 @@ namespace RestaurantePOG {
         private double valorUnitario;
 
         public Pedido(int quantidade, Item item)  {
-            this.quantidade = quantidade;
+            
             this.item = item;
-            this.valorUnitario = item.getPreco();
+            this.quantidade = quantidade;
+            valorUnitario = item.getPreco();
         }
+        
         /// <summary>
         /// Retorna o valor total do pedido.
         /// </summary>
