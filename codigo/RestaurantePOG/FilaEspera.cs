@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 
 namespace RestaurantePOG { 
 
@@ -7,14 +7,14 @@ namespace RestaurantePOG {
     /// </summary>
     public class FilaEspera
     {
-        private Queue<Cliente> clientes;
+        private List<Cliente> clientes;
 
         /// <summary>
         /// Construtor padrão da classe FilaEspera
         /// </summary>
         public FilaEspera()
         {
-            clientes = new Queue<Cliente>();
+            clientes = new List<Cliente>();
         }
 
         /// <summary>

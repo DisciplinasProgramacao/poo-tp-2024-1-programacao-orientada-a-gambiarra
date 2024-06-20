@@ -5,9 +5,10 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RestaurantePOG {
-    internal class Pedido {
-        private int quantidade;
+    public class Pedido {
+
         private Item item;
+        private int quantidade;
         private double valorUnitario;
 
         public Pedido(int quantidade, Item item)  {
@@ -17,13 +18,10 @@ namespace RestaurantePOG {
             valorUnitario = item.getPreco();
         }
         
-        /// <summary>
-        /// Retorna o valor total do pedido.
-        /// </summary>
+        /// <summary>Retorna o valor total do pedido.</summary>
         /// <returns>Total dos pedidos</returns>
         public double valorTotal() {
             return valorUnitario * quantidade;
         }
-
     }
 }

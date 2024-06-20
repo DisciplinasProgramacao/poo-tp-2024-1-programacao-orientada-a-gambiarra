@@ -1,36 +1,29 @@
+using System.Text;
 using RestaurantePOG;
 
 public class Cardapio
 {
     private List <Item> itens;
 
-    public Cardapio() 
-    {
+    public Cardapio() {
         itens = new List<Item>();
     }
 
-    public void adicionarItem(string nome, double preco)
-    {
+    public Cardapio adicionarItem(string nome, double preco) {
         itens.Add(new Item(nome, preco));
+        return this;
     }
 
-    public void gerarItens()
-    {
-        // Dados fixos para as comidas
-        adicionarItem("Moqueca de Palmito", 32);
-        adicionarItem("Falafel Assado", 20);
-        adicionarItem("Salada Primavera com Macarr�o Konjac", 25);
-        adicionarItem("Escondidinho de Inhame", 18);
-        adicionarItem("Strogonoff de Cogumelos", 35);
-        adicionarItem("Cacarola de legumes", 22);
+    public override string ToString() {
+        StringBuilder sb = new StringBuilder().Append(cabecalho());
+        foreach (Item item in itens) { sb.AppendLine(item.ToString()); }
+        return sb.ToString();
+    }  
 
-        // Dados fixos para as bebidas
-        adicionarItem("Agua", 3);
-        adicionarItem("Copo de suco", 7);
-        adicionarItem("Refrigerante org�nico", 7);
-        adicionarItem("Cerveja vegana", 9);
-        adicionarItem("Taca de vinho vegano", 18);
+    public string cabecalho(){
+        return "==============================\n"+
+               "=========  CARDAPIO  =========\n"+
+               "==============================";
     }
-
 }
 

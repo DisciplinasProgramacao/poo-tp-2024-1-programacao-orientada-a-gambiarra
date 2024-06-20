@@ -9,22 +9,16 @@ namespace RestaurantePOG
     public class Cliente {
         private string? nome;
 
-        public Cliente(string? nome) {
-            this.nome = nome;
-        }
+        public Cliente(string nome) { this.nome = nome; }    
 
-       /// <summary>
-       /// Retorna a lista de clientes cadastrados
-       /// </summary>
-       /// <returns>
-       /// Nome do cliente
-       /// </returns>
+       /// <summary>Retorna o nome do Cliente</summary>
+       /// <returns>String contendo o nome do cliente</returns>
+        public string? getNome(){ return nome; }
+
         public override string ToString() {
             StringBuilder sb = new StringBuilder();
-            sb.Append(" | Cliente: " + nome);
-            return sb.ToString();
-        }
-      
+            return sb.Append(" | Cliente: " + nome).ToString();
+        }  
     }
 }
 
