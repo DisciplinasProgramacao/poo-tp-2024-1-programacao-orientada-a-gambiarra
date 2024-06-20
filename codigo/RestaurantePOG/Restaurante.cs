@@ -35,7 +35,6 @@ namespace RestaurantePOG
             };
             this.filaEspera = new List<Requisicao>();
             this.cardapio = new Cardapio();
-           
         }
         #endregion
 
@@ -140,13 +139,14 @@ namespace RestaurantePOG
 
         public void realizarPedido(Requisicao requisicao, int opcaoCardapio) //Adiciona um novo pedido na comanda de uma requisicao especificada
         {
-            foreach (var req in lista_requisicao)
+            
+            /*foreach (var req in lista_requisicao)
             {
                 if (req.Equals(this.requisicao))
                 {
                     requisicao.add(opcaoCardapio); //req n tem opcao cardapio
                 }
-            }
+            }*/
         }
 
         public string exibeCardapio() // Retorna uma String que mostrar todos os itens do cardápio.
