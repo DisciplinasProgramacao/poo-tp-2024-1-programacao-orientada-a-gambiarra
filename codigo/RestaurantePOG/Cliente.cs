@@ -8,7 +8,8 @@ namespace RestaurantePOG
     /// </summary>
     public class Cliente {
         private string? nome;
-        public Cliente(string nome) {
+
+        public Cliente(string? nome) {
             this.nome = nome;
         }
 

@@ -2,63 +2,37 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace RestaurantePOG
-{
-    /// <summary>
-    /// Classe representando uma mesa do restaurante
-    /// </summary>
-    public class Mesa
-	{
-    private int id;
-    private int proximoId;
-    private int capacidade;
-    private bool status;
+namespace RestaurantePOG {
+    
+    ///<summary>Classe representando uma Mesa</summary>
+    public class Mesa {
+
+        private static int ultimoIdId = 0;
+        private int id;
+        private int capacidade;
+        private bool ocupada; 
    
-        public Mesa(int id, int capacidade)
-        {
-        this.id = id;
+        ///<summary>Método responsável por instanciar um novo objeto da classe Mesa</summary>
+        ///<param name="capacidade">capacidade referente àquela mesa</param>
+        ///<returns>Objeto do tipo Mesa</returns>
+        public Mesa(int capacidade) {
+            id = ++ultimoIdId;
+            ocupada = false;
+            this.capacidade = capacidade;   
+        }
+        
+        ///<summary>Método responsável por verificar se a mesa está ou não ocupada</summary>
+        ///<returns>Retorna 'False' caso NAO esteja ocupada e 'True' caso esteja</returns>
+        public bool estahOcupada() { return ocupada; }
 
-        this.capacidade = capacidade;
-        this.status = false;
-        }
-        public int Id
-        {
-        get { return id; }
-        set { id = value;}
-        }
-        public int ProximoId
-        {
-        get {return proximoId; }
-        set {proximoId = value; }
-        }
-        public int Capacidade
-        {
-        get { return capacidade; }
-        set { proximoId = value; }
-        }
-        public bool Status
-        {
-        get { return status;}
-        set { status = value;}
-        }
-        public bool estahOcupada() // retorna true se a mesa estiver ocupada e false caso contrario
-        {
-        return status;
-        }
+        ///<summary>Método responsável por definir o status da mesa para ocupado(True)</summary>
+        public void ocupar(){ ocupada = true; }
 
-        public void ocupar() // define o status da mesa para ocupado
-        {
-        status = true;
-        }
+        ///<summary>Método responsável por definir o status da mesa para desocupado(False)</summary>
+        public void desocupar()  { ocupada = false; }
 
-        public void desocupar() // define o status da mesa para desocupado
-        {
-        status = false;
-        }
-
-        internal int getCapacidade()
-        {
-            return this.capacidade;
-        }
+        ///<summary>Método responsável por retornar qual a capacidade a mesa possui</summary>
+        ///<returns>Retorna um número inteiro indicando a capacidade da mesa</returns>
+        internal int getCapacidade() { return capacidade; }
     }
  }

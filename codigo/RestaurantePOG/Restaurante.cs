@@ -6,43 +6,39 @@ using System.Text;
 using System.Linq;
 using System.Reflection;
 
-namespace RestaurantePOG
-{
-    /// <summary>
-    /// Classe representando o restaurante
-    /// </summary>
-    public class Restaurante
-    {
+namespace RestaurantePOG {
+
+    ///<summary>Classe representando o restaurante </summary>
+    public class Restaurante {
+
         #region atributos
-        private static int MAX_MESA = 10;
-        private String nome;
-        private List<Requisicao> lista_requisicao; //todas
+        private String nome; 
+        private List<Requisicao> lista_requisicao;
         private List<Mesa> mesas;
-        private List<Requisicao> filaEspera;
+        private FilaEspera filaEspera;
         private Cardapio cardapio;
         #endregion
 
         #region Construtores
-        public Restaurante(String nome)
-        {
+        ///<summary>Método responsável por instanciar um novo objeto da classe Restaurante</summary>
+        ///<param name="nome">Nome que será dado ao Restaurante</param>
+        ///<returns>Objeto do tipo Restaurante</returns>
+        public Restaurante(String nome) {
             this.nome = nome;
-            this.lista_requisicao = new List<Requisicao>();
-            this.mesas = new List<Mesa>
-            {
-                new Mesa(1, 4), new Mesa(2, 4), new Mesa(3, 4), new Mesa(4, 4),
-                new Mesa(5, 6), new Mesa(6, 6), new Mesa(7, 6), new Mesa(8, 6),
-                new Mesa(9, 8), new Mesa(10, 8)
+            lista_requisicao = new List<Requisicao>();
+            filaEspera = new FilaEspera();
+            cardapio = new Cardapio();
+            mesas = new List<Mesa>{
+                new Mesa(4), new Mesa(4), new Mesa(4), new Mesa(4),
+                new Mesa(6), new Mesa(6), new Mesa(6), new Mesa(6),
+                new Mesa(8), new Mesa(8)
             };
-            this.filaEspera = new List<Requisicao>();
-            this.cardapio = new Cardapio();
         }
         #endregion
 
         #region métodos
         
-        /// <summary>
-        /// Retorna quais mesas estão em atendimento
-        /// </summary>
+        
         /// <returns>Mesa</returns>
         public List<Requisicao> consultarEmAtendimentos()
         {

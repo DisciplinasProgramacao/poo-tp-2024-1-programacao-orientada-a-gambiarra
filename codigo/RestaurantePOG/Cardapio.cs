@@ -4,7 +4,7 @@ public class Cardapio
 {
     private List <Item> itens;
 
-    public Cardapio()
+    public Cardapio() 
     {
         itens = new List<Item>();
     }
@@ -13,6 +13,7 @@ public class Cardapio
     {
         itens.Add(new Item(nome, preco));
     }
+
     public void gerarItens()
     {
         // Dados fixos para as comidas
@@ -21,14 +22,14 @@ public class Cardapio
         adicionarItem("Salada Primavera com Macarr�o Konjac", 25);
         adicionarItem("Escondidinho de Inhame", 18);
         adicionarItem("Strogonoff de Cogumelos", 35);
-        adicionarItem("Ca�arola de legumes", 22);
+        adicionarItem("Cacarola de legumes", 22);
 
         // Dados fixos para as bebidas
-        adicionarItem("�gua", 3);
+        adicionarItem("Agua", 3);
         adicionarItem("Copo de suco", 7);
         adicionarItem("Refrigerante org�nico", 7);
         adicionarItem("Cerveja vegana", 9);
-        adicionarItem("Ta�a de vinho vegano", 18);
+        adicionarItem("Taca de vinho vegano", 18);
     }
 
 }
