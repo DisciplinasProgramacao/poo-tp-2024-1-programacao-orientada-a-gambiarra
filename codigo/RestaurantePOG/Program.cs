@@ -189,6 +189,7 @@ namespace RestaurantePOG {
         public static void imprimirListaClientes(){ Console.WriteLine(restaurante.exibeListaClientes()); }
 
         /// <summary>Insere um novo Item no Cardapio</summary>
+        /// 
         public static void cadastrarItemCardapio() {
             Console.Write("Informe o nome do item que deseja adicionar: ");
             string? nome = Console.ReadLine();
