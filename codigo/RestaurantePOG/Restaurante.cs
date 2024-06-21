@@ -6,13 +6,15 @@ using System.Text;
 using System.Linq;
 using System.Reflection;
 
-namespace RestaurantePOG {
+namespace RestaurantePOG
+{
 
     ///<summary>Classe representando o restaurante </summary>
-    public class Restaurante {
+    public class Restaurante
+    {
 
         #region atributos
-        private String nome; 
+        private String nome;
         private List<Requisicao> lista_requisicao;
         private List<Mesa> mesas;
         private FilaEspera fila_espera;
@@ -23,7 +25,8 @@ namespace RestaurantePOG {
         ///<summary>Método responsável por instanciar um novo objeto da classe Restaurante</summary>
         ///<param name="nome">Nome que será dado ao Restaurante</param>
         ///<returns>Objeto do tipo Restaurante</returns>
-        public Restaurante(String nome) {
+        public Restaurante(String nome)
+        {
             this.nome = nome;
             lista_requisicao = new List<Requisicao>();
             fila_espera = new FilaEspera();
@@ -37,8 +40,8 @@ namespace RestaurantePOG {
         #endregion
 
         #region métodos
-        
-        
+
+
         /// <returns>Mesa</returns>
         public List<Requisicao> consultarEmAtendimentos()
         {
@@ -54,7 +57,7 @@ namespace RestaurantePOG {
                 if (requisicao.getQuantidadePessoas() < mesa.getCapacidade())
                 {
                     return true;
-                }  
+                }
             }
             return false;
         }
@@ -70,7 +73,7 @@ namespace RestaurantePOG {
                     requisicao.iniciarRequisicao(mesa);
                     break;
                 }
-            }    
+            }
         }
 
         private List<Mesa> getMesasDisponiveis()
@@ -102,21 +105,28 @@ namespace RestaurantePOG {
         //     else return lista_requisicao[index];
         // }
 
-         public Requisicao getRequisicao(Cliente cliente){
-            return fila_espera.Where( req => req.pertenceAoCliente(cliente)).First();
-                    
+        public Requisicao getRequisicao(Cliente cliente)
+        {
+            return fila_espera.Where(req => req.pertenceAoCliente(cliente)).First();
+
         }
-        public int getTamanhoLista(string opcao){
+        public int getTamanhoLista(string opcao)
+        {
             int tamanho = 0;
 
-            if (opcao.Equals("Atendimento")){
-                
-            } else if(opcao.Equals("Espera")){
-                
-            } else if(opcao.Equals("Cardapio")){
-                
+            if (opcao.Equals("Atendimento"))
+            {
+
             }
-        
+            else if (opcao.Equals("Espera"))
+            {
+
+            }
+            else if (opcao.Equals("Cardapio"))
+            {
+
+            }
+
             return tamanho;
         }
 
@@ -133,7 +143,7 @@ namespace RestaurantePOG {
 
         public void realizarPedido(Requisicao requisicao, int opcaoCardapio) //Adiciona um novo pedido na comanda de uma requisicao especificada
         {
-            
+
             /*foreach (var req in lista_requisicao)
             {
                 if (req.Equals(this.requisicao))
@@ -162,22 +172,22 @@ namespace RestaurantePOG {
             }
             return todosClientesEmAtendimento.ToString();
         }
-//bool finalizada em requisicao nao eh 0 1 ou 2
+        //bool finalizada em requisicao nao eh 0 1 ou 2
         public string exibeListaEspera() //Retorna uma String com todos clientes com status  de requisicao 0 (em espera)
         {
             StringBuilder todosClientesEmEspera = new StringBuilder();
             foreach (var cliente in lista_requisicao)
             {
-               /* if (cliente.finalizada == 0)
-                {
-                    for (int i = 1; i <= lista_requisicao.Count; i++)
-                {
-                    todosClientesEmEspera.AppendLine(i + ".");
-                }
-                todosClientesEmEspera.Append(cliente);
-                todosClientesEmEspera.AppendLine("");
-                }
-                */
+                /* if (cliente.finalizada == 0)
+                 {
+                     for (int i = 1; i <= lista_requisicao.Count; i++)
+                 {
+                     todosClientesEmEspera.AppendLine(i + ".");
+                 }
+                 todosClientesEmEspera.Append(cliente);
+                 todosClientesEmEspera.AppendLine("");
+                 }
+                 */
             }
             return todosClientesEmEspera.ToString();
         }
@@ -199,7 +209,7 @@ namespace RestaurantePOG {
 
         public void adicionarItem(Item novoItem) //Adiciona novo item ao cardapio
         {
-            cardapio.adicionarItem(novoItem.nome, novoItem,preco);
+            cardapio.adicionarItem(novoItem.nome, novoItem, preco);
         }
 
 
@@ -212,14 +222,15 @@ namespace RestaurantePOG {
         }
 
 
-        public void novaRequisicao(Cliente cliente, int qtdPessoas){
+        public void novaRequisicao(Cliente cliente, int qtdPessoas)
+        {
             Requisicao requisicao = new Requisicao(cliente, qtdPessoas);
             lista_requisicao.Add(requisicao);
             fila_espera.adicionarCliente();
         }
 
         /// <summary> Responsável por gerar um novo cardápio.</summary>
-        public void gerarCardapio(Cardapio cardapio) {  this.cardapio = cardapio;  }
+        public void gerarCardapio(Cardapio cardapio) { this.cardapio = cardapio; }
 
         #endregion
 

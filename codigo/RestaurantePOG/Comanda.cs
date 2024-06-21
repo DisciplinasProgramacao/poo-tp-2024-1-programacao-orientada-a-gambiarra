@@ -20,7 +20,6 @@ namespace RestaurantePOG
             listaPedidos = new LinkedList<Pedido>();
         }
 
-
         ///<summary>Adiciona pedido no final da lista de pedidos da comanda.</summary>
         ///<param name="pedido"></param>
         public void realizarPedido(Pedido pedido) {

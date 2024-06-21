@@ -2,24 +2,29 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-namespace RestaurantePOG {
-    public class Program{
+namespace RestaurantePOG
+{
+    public class Program
+    {
 
-    #region Variavel Global
-    public static Restaurante restaurante = new("POG - Comidinhas Veganas");
-    #endregion
+        #region Variavel Global
+        public static Restaurante restaurante = new("POG - Comidinhas Veganas");
+        #endregion
 
-        static void Main(string[] args) {   
+        static void Main(string[] args)
+        {
             restaurante.gerarCardapio();
 
-            int opcao=99;
+            int opcao = 99;
 
-            while(opcao!=7) {
+            while (opcao != 7)
+            {
                 exibeMenuPrincipal();
                 opcao = escolheOpcao();
                 Console.Clear();
-            
-                switch(opcao) {
+
+                switch (opcao)
+                {
                     case 1:
                         cadastrarCliente(); //Da entrada em um novo cliente e adiciona na fila de espera
                         break;
@@ -39,7 +44,7 @@ namespace RestaurantePOG {
                         imprimirListaClientes(); //Mostra todos os clientes
                         break;
                     case 7:
-                      
+
                         Console.WriteLine("Encerrando Programa...");
                         System.Threading.Thread.Sleep(500);
                         break;
@@ -48,9 +53,10 @@ namespace RestaurantePOG {
         }
 
         /// <summary> Exibe o menu principal do restaurante </summary>
-        public static void exibeMenuPrincipal() {
+        public static void exibeMenuPrincipal()
+        {
             Console.WriteLine("==============================");
-            Console.WriteLine("======= MENU PRINCIPAL ======="); 
+            Console.WriteLine("======= MENU PRINCIPAL =======");
             Console.WriteLine("==============================\n");
             Console.WriteLine("1 - Cadastrar Cliente");
             Console.WriteLine("2 - Iniciar Atendimento");
@@ -62,9 +68,10 @@ namespace RestaurantePOG {
         }
 
         /// <summary>Mostra Menu de Atendimento ao Cliente</summary>
-        public static void exibeMenuAtendimento() {
+        public static void exibeMenuAtendimento()
+        {
             Console.WriteLine("==============================");
-            Console.WriteLine("====== MENU ATENDIMENTO ======"); 
+            Console.WriteLine("====== MENU ATENDIMENTO ======");
             Console.WriteLine("==============================\n");
             Console.WriteLine("1 - Realizar Pedido.");
             Console.WriteLine("2 - Mostrar Conta");
@@ -76,21 +83,24 @@ namespace RestaurantePOG {
         /// <param name="min">Valor mínimo dentro do intervalo</param>
         /// <param name="max">Valor maximo dentro do intervalo</param>
         /// <returns>retorna a opçãpo selecionada em um numero inteiro</returns>
-        private static int escolheOpcao() {
+        private static int escolheOpcao()
+        {
             int numero = 0;
 
             int.TryParse(Console.ReadLine(), out numero);
-            return numero;    
+            return numero;
         }
 
         /// <summary>Verifica se o um numero a ser digitado é inteiro. Repete o processo até conseguir um numero válido</summary>
         /// <returns>Retorna um numero inteiro válido</returns>
-        private static int digitaInteiro(){
+        private static int digitaInteiro()
+        {
             bool numerico, valido = false;
             int inteiro = 0;
             string? input;
-            
-            while(!valido){ 
+
+            while (!valido)
+            {
                 input = Console.ReadLine();
                 numerico = int.TryParse(input, out inteiro);
                 if (numerico) { valido = true; }
@@ -101,12 +111,14 @@ namespace RestaurantePOG {
 
         /// <summary>Verifica se o um numero a ser digitado é do tipo double. Repete o processo até conseguir um numero válido</summary>
         /// <returns>Retorna um numero double válido</returns>
-        private static double digitaDouble(){
+        private static double digitaDouble()
+        {
             bool numerico, valido = false;
             double real = 0.00;
             string? input;
 
-            while(!valido){ 
+            while (!valido)
+            {
                 input = Console.ReadLine();
                 numerico = double.TryParse(input, out real);
                 if (numerico) { valido = true; }
@@ -114,12 +126,13 @@ namespace RestaurantePOG {
             }
             return real;
         }
-        
+
         /// <summary>Realiza o Cadastro do cliente no restaurante</summary>
-        public static void cadastrarCliente() {
+        public static void cadastrarCliente()
+        {
             Console.Write("Informe o nome do cliente: ");
             string? nome = Console.ReadLine();
-            
+
             Console.Write("Insira a quantidade de pessoas: ");
             int qtdPessoas = digitaInteiro();
 
@@ -131,16 +144,17 @@ namespace RestaurantePOG {
         }
 
         /// <summary>Muda o status de um cliente na Fila de espera para um cliente em atendimento (Associa uma mesa, registra Hora e muda o status)</summary>
-        public static void iniciaAtendimento(){
+        public static void iniciaAtendimento()
+        {
             bool valido = false;
             int opcao;
-           
+
             restaurante.atenderProximo();
             // Console.WriteLine(restaurante.exibeListaEspera());
             // Console.WriteLine("Selecione o Cliente que deseja atender: ");
             // nomeCli = Console.ReadLine();
             // Cliente cliente = restaurante.localizarCliente(nomeCli);
-            
+
             // Requisicao requisicao = restaurante.getRequisicao(cliente);
 
             // valido = restaurante.estahAptoAtendimento(requisicao);
@@ -150,9 +164,10 @@ namespace RestaurantePOG {
         }
 
         /// <summary>Realiza o atendimento do Cliente</summary>
-        public static void atenderCliente() { 
+        public static void atenderCliente()
+        {
             bool valido = false;
-            int opcao=99;
+            int opcao = 99;
             string nomeCli;
             Console.WriteLine("Selecione o cliente que deseja atender: ");
             nomeCli = Console.ReadLine();
@@ -160,15 +175,17 @@ namespace RestaurantePOG {
 
             // restaurante.exibeListaAtendimento();
             // opcao = escolheOpcao(1, restaurante.getTamanhoLista("Atendimento"));
-            
-             Requisicao requisicao = restaurante.getRequisicao(cliente);
+
+            Requisicao requisicao = restaurante.getRequisicao(cliente);
 
             Console.Clear();
-            while(opcao!=4){
+            while (opcao != 4)
+            {
                 exibeMenuAtendimento();
                 opcao = escolheOpcao();
 
-                switch(opcao) {
+                switch (opcao)
+                {
                     case 1:
                         realizarPedido(requisicao);
                         break;
@@ -186,26 +203,28 @@ namespace RestaurantePOG {
         /// <summary>Mostra o Cardápio do Restaurante</summary>
         public static void mostrarCardapio() { Console.WriteLine(restaurante.exibeCardapio()); }
 
-        public static void imprimirListaClientes(){ Console.WriteLine(restaurante.exibeListaClientes()); }
+        public static void imprimirListaClientes() { Console.WriteLine(restaurante.exibeListaClientes()); }
 
         /// <summary>Insere um novo Item no Cardapio</summary>
         /// 
-        public static void cadastrarItemCardapio() {
+        public static void cadastrarItemCardapio()
+        {
             Console.Write("Informe o nome do item que deseja adicionar: ");
             string? nome = Console.ReadLine();
-            
+
             Console.Write("Insira o preço unitário do item: ");
             double precoUnitario = digitaDouble();
 
             //Gera um novo item e adiciona ao cardápio
             Item novoItem = new(nome, precoUnitario);
             restaurante.adicionarItem(novoItem);
-            Console.WriteLine("\nItem Adicionado ao Cardápio!");  
+            Console.WriteLine("\nItem Adicionado ao Cardápio!");
         }
 
         /// <summary>Registra um pedido na comanda da requisição especificada</summary>
         /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
-        public static void realizarPedido(Requisicao requisicao) {
+        public static void realizarPedido(Requisicao requisicao)
+        {
             int opcaoCardapio;
 
             Console.WriteLine(restaurante.exibeCardapio());
@@ -217,17 +236,19 @@ namespace RestaurantePOG {
 
         /// <summary>Monstra as informações da Conta da requisição especificada</summary>
         /// <param name="requisicao">Requisição que deseja-se exibir as informações da conta</param>
-        public static void mostrarConta(Requisicao requisicao) {
+        public static void mostrarConta(Requisicao requisicao)
+        {
             Console.WriteLine("=============================");
-            Console.WriteLine("===         CONTA         ==="); 
+            Console.WriteLine("===         CONTA         ===");
             Console.WriteLine("=============================");
-             Console.WriteLine(requisicao.exibirDetalhes());
+            Console.WriteLine(requisicao.exibirDetalhes());
             Console.WriteLine("=============================");
         }
 
         /// <summary>Encerra o atendimento de um cliente e fecha a conta da requisição especificada </summary>
         /// <param name="requisicao">>Requisição que deseja-se fechar a conta</param>
-        public static void fecharConta(Requisicao requisicao) {
+        public static void fecharConta(Requisicao requisicao)
+        {
             restaurante.finalizarAtendimento(requisicao);
         }
     }
