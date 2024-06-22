@@ -4,22 +4,15 @@ using System.Text;
 
 namespace RestaurantePOG {
 
-    ///<summary>Enumerador que define o status de uma Requisicao</summary>
-    public enum EStatusRequisicao {
-        FILA_DE_ESPERA = 1,
-        EM_ATENDIMENTO = 2,
-        FINALIZADO = 3
-    }
-
     ///<summary> Classe representando uma requisicao de atendimento</summary>
     public class Requisicao {
         private static int ultimoId = 0;
         private int id;
         private int quantidadePessoas;
         private Cliente cliente;
-        private EStatusRequisicao statusRequisicao;
+        private bool finalizada;
         private Mesa? mesa;
-        private Comanda? comanda;
+        private Comanda comanda;
         private DateTime? hora_entrada;
         private DateTime? hora_saida;
 
@@ -28,14 +21,14 @@ namespace RestaurantePOG {
         ///<param name="qtdPessoas">Quantidade de Pessoas para a Reserva</param>
         ///<returns>Objeto do tipo Requisicao</returns>
         public Requisicao(Cliente cliente, int qtdPessoas) {
-            id = ++ultimoId;
-            this.cliente = cliente;
             quantidadePessoas = qtdPessoas;
-            statusRequisicao = EStatusRequisicao.FILA_DE_ESPERA;
-            mesa = null;
-            comanda = null;
-            hora_saida = null;
+            comanda = new Comanda();
+            this.finalizada = false;
+            this.cliente = cliente;
             hora_entrada = null;
+            hora_saida = null;
+            id = ++ultimoId;
+            mesa = null;
         }
 
         /// <summary> Método para adicionar uma mesa à requisi��o</summary>
@@ -52,7 +45,7 @@ namespace RestaurantePOG {
             mesa.desocupar();
             comanda.fecharComanda();
             hora_saida = registrar_hora();
-            statusRequisicao = EStatusRequisicao.FINALIZADO;
+            finalizada = true;
             return exibirDetalhes();
         }
 
@@ -64,7 +57,7 @@ namespace RestaurantePOG {
                              $"Titular Conta: {cliente.getNome()}\n"+
                              $"Quantidade Pessoas: {quantidadePessoas}\n"+
                              $"Valor Total Conta: R${valorTotal}\n"+
-                             $"Valor Total p/Pessoa: R${valorTotal / (double)quantidadePessoas}\n"+
+                             $"Valor Total p/Pessoa: R${calculaValorPorPessoa()}\n"+
                              $"Horario de Entrada: {hora_entrada}\n"+
                              $"Horario de Saida: {hora_saida}\n";
 
@@ -77,17 +70,15 @@ namespace RestaurantePOG {
 
         ///<summary>Método responsável por verificar se a requisição referenciada já foi finalizada ou não..</summary>
         ///<returns>Retorna 'True' caso esteja finalizada e 'False' caso contrário.</returns>
-        public bool estahFinalizada() { return statusRequisicao.Equals(EStatusRequisicao.FINALIZADO) ? true : false; }
+        public bool estahFinalizada() { return finalizada; }
 
         ///<summary>Calcula o valor para cada pessoa</summary>
         ///<returns>Valor dividido igualmente entre as pessoas da mesa</returns>
         public double calculaValorPorPessoa() { return comanda.getValorTotal() / (double)quantidadePessoas; }
 
-        public bool estahEmAtendimento(){ return statusRequisicao.Equals(EStatusRequisicao.EM_ATENDIMENTO) ? true : false; }
-
-        public bool pertenceAoCliente(Cliente cliente) { return this.cliente.Equals(cliente); }
-
         public int getQuantidadePessoas() {  return quantidadePessoas; }
+
+        public Cliente getCliente(){ return cliente; }
     }
 }
 

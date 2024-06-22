@@ -3,11 +3,9 @@ using System.Text;
 
 namespace RestaurantePOG
 {
-    /// <summary>
-    /// Classe representando o cliente do restaurante.
-    /// </summary>
+    /// <summary>Classe representando o cliente do restaurante.</summary>
     public class Cliente {
-        private string? nome;
+        private string nome { get; set; }
 
         public Cliente(string nome) { this.nome = nome; }    
 

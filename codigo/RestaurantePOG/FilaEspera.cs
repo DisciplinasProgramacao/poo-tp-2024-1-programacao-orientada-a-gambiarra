@@ -1,4 +1,4 @@
-﻿﻿using System;
+using System;
 
 namespace RestaurantePOG { 
 
@@ -23,17 +23,17 @@ namespace RestaurantePOG {
         /// <param name="cliente">Cliente a ser adicionado à fila</param>
         public void adicionarCliente(Cliente cliente)
         {
-            clientes.Enqueue(cliente);
+           //
         }
-
+        
         /// <summary>
         /// Método para remover e retornar o próximo cliente da fila de espera
         /// </summary>
         /// <returns>Próximo cliente da fila</returns>
-        public Cliente proximoCliente()
-        {
-            return clientes.Dequeue();
-        }
+        // public Cliente proximoCliente()
+        // {
+        //     return clientes.Dequeue();
+        // }
 
         /// <summary>
         /// Método para verificar se a fila de espera está vazia

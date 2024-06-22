@@ -7,20 +7,22 @@ namespace RestaurantePOG
     public class Program
     {
 
-        #region Variavel Global
+        #region Global
         public static Restaurante restaurante = new("POG - Comidinhas Veganas");
         #endregion
 
         static void Main(string[] args)
         {
-            restaurante.gerarCardapio();
+            int opcao = -1;
 
-            int opcao = 99;
+            restaurante.gerarCardapio(cardapioInicialRestaurante());
+            restaurante.gerarMesas(mesasInicialRestaurante());
 
-            while (opcao != 7)
+            while (opcao != 8)
             {
+
                 exibeMenuPrincipal();
-                opcao = escolheOpcao();
+                opcao = digitaInteiro(); ;
                 Console.Clear();
 
                 switch (opcao)
@@ -32,7 +34,7 @@ namespace RestaurantePOG
                         iniciaAtendimento(); //Tentar atender um sujeito
                         break;
                     case 3:
-                        atenderCliente(); //Registrar um pedido de um sujeito em atendimento
+                        realizarPedido(); //Registrar um pedido de um sujeito em atendimento
                         break;
                     case 4:
                         mostrarCardapio(); //Mostra o cardápio do restaurante
@@ -41,10 +43,12 @@ namespace RestaurantePOG
                         cadastrarItemCardapio(); //Adiciona um novo item 
                         break;
                     case 6:
-                        imprimirListaClientes(); //Mostra todos os clientes
+                        cadastrarNovaMesa(); //Adiciona uma nova Mesa
                         break;
                     case 7:
-
+                        imprimirListaClientes(); //Mostra todos os clientes
+                        break;
+                    case 8:
                         Console.WriteLine("Encerrando Programa...");
                         System.Threading.Thread.Sleep(500);
                         break;
@@ -52,204 +56,235 @@ namespace RestaurantePOG
             }
         }
 
-        /// <summary> Exibe o menu principal do restaurante </summary>
-        public static void exibeMenuPrincipal()
-        {
-            Console.WriteLine("==============================");
-            Console.WriteLine("======= MENU PRINCIPAL =======");
-            Console.WriteLine("==============================\n");
-            Console.WriteLine("1 - Cadastrar Cliente");
-            Console.WriteLine("2 - Iniciar Atendimento");
-            Console.WriteLine("3 - Atender Cliente");
-            Console.WriteLine("4 - Mostrar Cardápio");
-            Console.WriteLine("5 - Incluir Item no Cardápio");
-            Console.WriteLine("6 - Exibir Lista de Clientes");
-            Console.WriteLine("7 - Encerrar Programa.\n");
-        }
 
-        /// <summary>Mostra Menu de Atendimento ao Cliente</summary>
-        public static void exibeMenuAtendimento()
-        {
-            Console.WriteLine("==============================");
-            Console.WriteLine("====== MENU ATENDIMENTO ======");
-            Console.WriteLine("==============================\n");
-            Console.WriteLine("1 - Realizar Pedido.");
-            Console.WriteLine("2 - Mostrar Conta");
-            Console.WriteLine("3 - Fechar Conta");
-            Console.WriteLine("4 - Voltar Menu Principal");
-        }
-
-        /// <summary>Método que solicita que o usuário digite um valor numérico e verifica se o mesmo é um valor que está dentro de um intervalo especificado</summary>
-        /// <param name="min">Valor mínimo dentro do intervalo</param>
-        /// <param name="max">Valor maximo dentro do intervalo</param>
-        /// <returns>retorna a opçãpo selecionada em um numero inteiro</returns>
-        private static int escolheOpcao()
-        {
-            int numero = 0;
-
-            int.TryParse(Console.ReadLine(), out numero);
-            return numero;
-        }
-
-        /// <summary>Verifica se o um numero a ser digitado é inteiro. Repete o processo até conseguir um numero válido</summary>
-        /// <returns>Retorna um numero inteiro válido</returns>
-        private static int digitaInteiro()
-        {
-            bool numerico, valido = false;
-            int inteiro = 0;
-            string? input;
-
-            while (!valido)
-            {
-                input = Console.ReadLine();
-                numerico = int.TryParse(input, out inteiro);
-                if (numerico) { valido = true; }
-                else { Console.Write("Digite um valor valor válido: "); }
-            }
-            return inteiro;
-        }
-
-        /// <summary>Verifica se o um numero a ser digitado é do tipo double. Repete o processo até conseguir um numero válido</summary>
-        /// <returns>Retorna um numero double válido</returns>
-        private static double digitaDouble()
-        {
-            bool numerico, valido = false;
-            double real = 0.00;
-            string? input;
-
-            while (!valido)
-            {
-                input = Console.ReadLine();
-                numerico = double.TryParse(input, out real);
-                if (numerico) { valido = true; }
-                else { Console.Write("Digite um valor valor válido: "); }
-            }
-            return real;
-        }
-
-        /// <summary>Realiza o Cadastro do cliente no restaurante</summary>
-        public static void cadastrarCliente()
-        {
-            Console.Write("Informe o nome do cliente: ");
-            string? nome = Console.ReadLine();
-
-            Console.Write("Insira a quantidade de pessoas: ");
-            int qtdPessoas = digitaInteiro();
-
-            //Gera uma nova requisição de um novo cliente.
-            Requisicao novaRequisicao = new(nome, qtdPessoas);
-            restaurante.adicionarRequisicao(novaRequisicao);
-            restaurante.adicionaFilaEspera(novaRequisicao);
-            Console.WriteLine("\nCliente Cadastrado!");
-        }
-
-        /// <summary>Muda o status de um cliente na Fila de espera para um cliente em atendimento (Associa uma mesa, registra Hora e muda o status)</summary>
-        public static void iniciaAtendimento()
-        {
-            bool valido = false;
-            int opcao;
-
-            restaurante.atenderProximo();
-            // Console.WriteLine(restaurante.exibeListaEspera());
-            // Console.WriteLine("Selecione o Cliente que deseja atender: ");
-            // nomeCli = Console.ReadLine();
-            // Cliente cliente = restaurante.localizarCliente(nomeCli);
-
-            // Requisicao requisicao = restaurante.getRequisicao(cliente);
-
-            // valido = restaurante.estahAptoAtendimento(requisicao);
-
-            // if (valido){ restaurante.atenderCliente(requisicao); }
-            // else { Console.WriteLine("Não é possível atender esse cliente."); }
-        }
-
+        #region Métodos Restaurante
         /// <summary>Realiza o atendimento do Cliente</summary>
-        public static void atenderCliente()
+        public static void realizarPedido()
         {
-            bool valido = false;
-            int opcao = 99;
-            string nomeCli;
+            int opcao = -1;
+
+            restaurante.exibeListaAtendimento();
             Console.WriteLine("Selecione o cliente que deseja atender: ");
-            nomeCli = Console.ReadLine();
-            Cliente cliente = restaurante.localizarCliente(nomeCli);
 
-            // restaurante.exibeListaAtendimento();
-            // opcao = escolheOpcao(1, restaurante.getTamanhoLista("Atendimento"));
-
-            Requisicao requisicao = restaurante.getRequisicao(cliente);
-
-            Console.Clear();
-            while (opcao != 4)
+            Requisicao? requisicao = restaurante.getRequisicaoPorNomeCliente(new Cliente(digitaString()));
+            if (requisicao == null)
             {
-                exibeMenuAtendimento();
-                opcao = escolheOpcao();
-
-                switch (opcao)
+                Console.WriteLine("Cliente não Localizado.");
+                pressioneContinuar();
+            }
+            else
+            {
+                Console.Clear();
+                while (opcao != 4)
                 {
-                    case 1:
-                        realizarPedido(requisicao);
-                        break;
-                    case 2:
-                        mostrarConta(requisicao);
-                        break;
-                    case 3:
-                        fecharConta(requisicao);
-                        break;
+                    exibeMenuAtendimento();
+                    opcao = digitaInteiro();
 
+                    switch (opcao)
+                    {
+                        case 1:
+                            realizarPedido(requisicao);
+                            break;
+                        case 2:
+                            mostrarConta(requisicao);
+                            break;
+                        case 3:
+                            fecharConta(requisicao);
+                            break;
+                    }
                 }
             }
         }
 
-        /// <summary>Mostra o Cardápio do Restaurante</summary>
-        public static void mostrarCardapio() { Console.WriteLine(restaurante.exibeCardapio()); }
 
-        public static void imprimirListaClientes() { Console.WriteLine(restaurante.exibeListaClientes()); }
+        /// <summary> Exibe o menu principal do restaurante </summary>
+        public static void exibeMenuPrincipal()
+        {
+            Console.WriteLine("===================================");
+            Console.WriteLine("====       MENU PRINCIPAL      ====");
+            Console.WriteLine("===================================\n");
+            Console.WriteLine("1 - Cadastrar Cliente");
+            Console.WriteLine("2 - Iniciar Atendimento");
+            Console.WriteLine("3 - Realizar Pedido");
+            Console.WriteLine("4 - Mostrar Cardápio");
+            Console.WriteLine("5 - Incluir Item no Cardápio");
+            Console.WriteLine("6 - Incluir uma nova Mesa");
+            Console.WriteLine("7 - Exibir Lista de Clientes");
+            Console.WriteLine("8 - Encerrar Programa.");
+            Console.WriteLine("===================================\n");
+        }
+
+
+        /// <summary>Mostra Menu de Atendimento ao Cliente</summary>
+        public static void exibeMenuAtendimento()
+        {
+            Console.WriteLine("===================================");
+            Console.WriteLine("====      MENU ATENDIMENTO     ====");
+            Console.WriteLine("===================================\n");
+            Console.WriteLine("1 - Realizar Pedido.");
+            Console.WriteLine("2 - Mostrar Conta");
+            Console.WriteLine("3 - Fechar Conta");
+            Console.WriteLine("4 - Voltar Menu Principal");
+            Console.WriteLine("===================================\n");
+        }
+
+
+        /// <summary>Mostra a Conta atual do Cliente</summary>
+        public static void mostrarConta(Requisicao requisicao)
+        {
+            Console.WriteLine("===================================");
+            Console.WriteLine("====           CONTA           ====");
+            Console.WriteLine("===================================");
+            Console.WriteLine(requisicao.exibirDetalhes());
+            Console.WriteLine("===================================");
+        }
+
+
+        /// <summary>Gera o Cardápio Inicial do Restaurante.</summary>
+        /// <returns>Retorna um Objeto do tipo Cardápio com Itens já adicionados.</returns>
+        private static Cardapio cardapioInicialRestaurante()
+        {
+            return new Cardapio().adicionarItem("Moqueca de Palmito", 32.0)
+                                 .adicionarItem("Falafel Assado", 20.0)
+                                 .adicionarItem("Salada Primavera com Macarrão Konjac", 25.0)
+                                 .adicionarItem("Escondidinho de Inhame", 18.0)
+                                 .adicionarItem("Strogonoff de Cogumelos", 35.0)
+                                 .adicionarItem("Caçarola de legumes", 22.0)
+                                 //==========================================================//
+                                 .adicionarItem("Água", 3.0)
+                                 .adicionarItem("Copo de suco", 7.0)
+                                 .adicionarItem("Refrigerante orgânico", 7.0)
+                                 .adicionarItem("Cerveja vegana", 9.0)
+                                 .adicionarItem("Taça de vinho vegano", 18.0);
+        }
+
+
+        /// <summary>Gera uma Lista de Mesas Iniciais do Restaurante</summary>
+        /// <returns>Retorna um Objeto do tipo List<Mesa>.</returns>
+        private static List<Mesa> mesasInicialRestaurante()
+        {
+            return new List<Mesa> { new Mesa(4), new Mesa(4), new Mesa(4), new Mesa(4),
+                                    new Mesa(6), new Mesa(6), new Mesa(6), new Mesa(6),
+                                    new Mesa(8), new Mesa(8) };
+        }
+
+
+        /// <summary>Realiza o Cadastro do cliente no Estabelecimento</summary>
+        public static void cadastrarCliente()
+        {
+            Console.Write("Informe o nome do cliente: ");
+            string nome = digitaString();
+
+            Console.Write("Insira a quantidade de pessoas: ");
+            int qtdPessoas = digitaInteiro();
+
+            restaurante.cadastrarCliente(nome, qtdPessoas);
+            Console.WriteLine("\nCliente Cadastrado!");
+        }
+
 
         /// <summary>Insere um novo Item no Cardapio</summary>
-        /// 
         public static void cadastrarItemCardapio()
         {
             Console.Write("Informe o nome do item que deseja adicionar: ");
-            string? nome = Console.ReadLine();
+            string nome = digitaString();
 
             Console.Write("Insira o preço unitário do item: ");
             double precoUnitario = digitaDouble();
 
-            //Gera um novo item e adiciona ao cardápio
-            Item novoItem = new(nome, precoUnitario);
-            restaurante.adicionarItem(novoItem);
+            restaurante.adicionarItemCardapio(nome, precoUnitario);
             Console.WriteLine("\nItem Adicionado ao Cardápio!");
         }
+
+
+        /// <summary>Insere uma nova Mesa no Estabelecimento</summary>
+        public static void cadastrarNovaMesa()
+        {
+            Console.Write("Insira a capacidade da Meaa: ");
+            int qtdPessoas = digitaInteiro();
+
+            restaurante.adicionarMesa(qtdPessoas);
+            Console.WriteLine("\nMesa Cadastrada!");
+        }
+
 
         /// <summary>Registra um pedido na comanda da requisição especificada</summary>
         /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
         public static void realizarPedido(Requisicao requisicao)
         {
-            int opcaoCardapio;
-
             Console.WriteLine(restaurante.exibeCardapio());
             Console.Write("Digite o Item do Cardápio que deseja pedir: ");
-            opcaoCardapio = escolheOpcao();
-
-            restaurante.realizarPedido(requisicao, opcaoCardapio);
+            restaurante.realizarPedido(requisicao, digitaString());
         }
 
-        /// <summary>Monstra as informações da Conta da requisição especificada</summary>
-        /// <param name="requisicao">Requisição que deseja-se exibir as informações da conta</param>
-        public static void mostrarConta(Requisicao requisicao)
-        {
-            Console.WriteLine("=============================");
-            Console.WriteLine("===         CONTA         ===");
-            Console.WriteLine("=============================");
-            Console.WriteLine(requisicao.exibirDetalhes());
-            Console.WriteLine("=============================");
-        }
+
+        ///<summary>Inicia o atendimento do Próximo cliente Disponível</summary>
+        public static void iniciaAtendimento() { restaurante.atenderProximo(); }
+
+
+        /// <summary>Mostra o Cardápio do Estabelecimento</summary>
+        public static void mostrarCardapio() { Console.WriteLine(restaurante.exibeCardapio()); }
+
+
+        /// <summary>Mostra todos uma lista com todos os Clientes</summary>
+        public static void imprimirListaClientes() { Console.WriteLine(restaurante.exibeListaClientes()); }
+
 
         /// <summary>Encerra o atendimento de um cliente e fecha a conta da requisição especificada </summary>
         /// <param name="requisicao">>Requisição que deseja-se fechar a conta</param>
-        public static void fecharConta(Requisicao requisicao)
+        public static void fecharConta(Requisicao requisicao) { restaurante.finalizarAtendimento(requisicao); }
+        #endregion
+
+
+        #region Métodos Gerais
+
+        /// <summary>Método que para a execução do Programa até o usuário digitar qualquer tecla.</summary>
+        private static void pressioneContinuar() { Console.ReadLine(); }
+
+
+        /// <summary>Verifica se o um numero a ser digitado é inteiro. Repete o processo até conseguir um numero válido.</summary>
+        /// <returns>Retorna um numero inteiro válido.</returns>
+        private static int digitaInteiro()
         {
-            restaurante.finalizarAtendimento(requisicao);
+            int inteiro;
+            while (!int.TryParse(Console.ReadLine(), out inteiro))
+            {
+                Console.Write("Digite um valor válido: ");
+            }
+            return inteiro;
         }
+
+
+        /// <summary>Verifica se o um numero a ser digitado é do tipo double. Repete o processo até conseguir um numero válido.</summary>
+        /// <returns>Retorna um numero double válido.</returns>
+        private static double digitaDouble()
+        {
+            double real;
+            while (!double.TryParse(Console.ReadLine(), out real))
+            {
+                Console.Write("Digite um valor válido: ");
+            }
+            return real;
+        }
+
+
+        /// <summary>Verifica se o um numero a ser digitado é do tipo string e não nulo. Repete o processo até conseguir um valor válido.</summary>
+        /// <returns>Retorna uma string não nula.</returns>
+        private static string digitaString()
+        {
+            string? input;
+
+            do
+            {
+                input = Console.ReadLine();
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Console.Write("Digite um valor válido (Não nulo): ");
+                }
+            } while (string.IsNullOrWhiteSpace(input));
+
+            return input;
+        }
+        #endregion
     }
 }
