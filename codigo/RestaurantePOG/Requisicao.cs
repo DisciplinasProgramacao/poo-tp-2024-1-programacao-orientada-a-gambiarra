@@ -42,26 +42,30 @@ namespace RestaurantePOG {
         /// <summary> Metodo responsavel por finalizar uma requisicao. Quando uma Requisicao é finalizada, a mesma tem seu status alterado para 'FINALIZADO', tem sua hora de saída registrada e a mesa que estava alocada a tal requisição é liberada.</summary>
         ///<returns>Retorna uma string contendo as informacoes finais da Comanda.</returns>
         public string finalizarRequisicao() {
-            mesa.desocupar();
-            comanda.fecharComanda();
-            hora_saida = registrar_hora();
-            finalizada = true;
-            return exibirDetalhes();
+            string resultado;
+            try{
+                mesa.desocupar();
+                comanda.fecharComanda();
+                hora_saida = registrar_hora();
+                finalizada = true;
+                resultado = exibirDetalhes();
+            }catch(ArgumentNullException){ resultado = "Erro ao Finalizar Requisição"; }
+            return resultado; 
         }
 
         ///<summary>Exibe as informacoes atuais da comanda</summary>
         ///<returns>Retorna uma string contendo as informacoes atuais da comanda.</returns>
         public string exibirDetalhes() {
-            double valorTotal = comanda.getValorTotal();
-            string retorno = $"ID Cliente: {id}\n"+
-                             $"Titular Conta: {cliente.getNome()}\n"+
-                             $"Quantidade Pessoas: {quantidadePessoas}\n"+
-                             $"Valor Total Conta: R${valorTotal}\n"+
-                             $"Valor Total p/Pessoa: R${calculaValorPorPessoa()}\n"+
-                             $"Horario de Entrada: {hora_entrada}\n"+
-                             $"Horario de Saida: {hora_saida}\n";
-
-            return retorno;
+            return $"ID Cliente: {id}\n"+
+                   $"Titular Conta: {cliente.getNome()}\n"+
+                   $"Quantidade Pessoas: {quantidadePessoas}\n"+
+                   $"========================================="+
+                   $"TAXA Servico: R${comanda.getValorTotal()}\n"+
+                   $"Valor Total Conta: R${comanda.getValorTotal()}\n"+
+                   $"Valor Total p/Pessoa: R${calculaValorPorPessoa()}\n"+
+                   $"========================================="+
+                   $"Horario de Entrada: {hora_entrada}\n"+  
+                   $"Horario de Saida: {hora_saida}\n";
         }
 
         ///<summary>Método responsável por gerar a data e hora atual.</summary>

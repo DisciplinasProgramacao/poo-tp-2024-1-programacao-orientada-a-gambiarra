@@ -1,11 +1,13 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace RestaurantePOG { 
 
     /// <summary>
     /// Classe representando a fila de espera do restaurante
     /// </summary>
-    public class FilaEspera
+    public class FilaEspera : IEnumerable<Cliente>
     {
         private List<Cliente> clientes;
 
@@ -17,31 +19,14 @@ namespace RestaurantePOG {
             clientes = new List<Cliente>();
         }
 
-        /// <summary>
-        /// Método para adicionar um cliente à fila de espera
-        /// </summary>
-        /// <param name="cliente">Cliente a ser adicionado à fila</param>
-        public void adicionarCliente(Cliente cliente)
-        {
-           //
-        }
-        
-        /// <summary>
-        /// Método para remover e retornar o próximo cliente da fila de espera
-        /// </summary>
-        /// <returns>Próximo cliente da fila</returns>
-        // public Cliente proximoCliente()
-        // {
-        //     return clientes.Dequeue();
-        // }
+        public void adicionarCliente(Cliente cliente) {  clientes.Add(cliente); }
 
-        /// <summary>
-        /// Método para verificar se a fila de espera está vazia
-        /// </summary>
-        /// <returns>True se a fila estiver vazia, False caso contrário</returns>
-        public bool estaVazia()
-        {
-            return clientes.Count == 0;
-        }
+        public void removerFila(Cliente cliente) { clientes.Remove(cliente); }
+
+        public bool estaVazia() { return clientes.Count == 0; }
+
+        public IEnumerator<Cliente> GetEnumerator() { return clientes.GetEnumerator(); }
+
+        IEnumerator IEnumerable.GetEnumerator() { return GetEnumerator(); }
     }
 }

@@ -20,8 +20,7 @@ namespace RestaurantePOG {
         
         /// <summary>Retorna o valor total do pedido.</summary>
         /// <returns>Total dos pedidos</returns>
-        public double valorTotal() {
-            return valorUnitario * quantidade;
-        }
+        public double valorTotal() { return valorUnitario * quantidade; }
+        
     }
 }

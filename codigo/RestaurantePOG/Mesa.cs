@@ -7,8 +7,6 @@ namespace RestaurantePOG {
     ///<summary>Classe representando uma Mesa</summary>
     public class Mesa {
 
-        private static int ultimoIdId = 0;
-        private int id;
         private int capacidade;
         private bool ocupada; 
    
@@ -16,7 +14,6 @@ namespace RestaurantePOG {
         ///<param name="capacidade">capacidade referente àquela mesa</param>
         ///<returns>Objeto do tipo Mesa</returns>
         public Mesa(int capacidade) {
-            id = ++ultimoIdId;
             ocupada = false;
             this.capacidade = capacidade;   
         }

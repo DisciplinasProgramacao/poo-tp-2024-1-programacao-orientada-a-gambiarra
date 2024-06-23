@@ -23,7 +23,7 @@ namespace RestaurantePOG
 
                 exibeMenuPrincipal();
                 opcao = digitaInteiro(); ;
-                Console.Clear();
+                //Console.Clear();
 
                 switch (opcao)
                 {
@@ -31,10 +31,10 @@ namespace RestaurantePOG
                         cadastrarCliente(); //Da entrada em um novo cliente e adiciona na fila de espera
                         break;
                     case 2:
-                        iniciaAtendimento(); //Tentar atender um sujeito
+                        acomodarCliente(); //Acomoda um cliente no restaurante
                         break;
                     case 3:
-                        realizarPedido(); //Registrar um pedido de um sujeito em atendimento
+                        menuDoCliente(); //Abre as opções vínculadas à um cliente.
                         break;
                     case 4:
                         mostrarCardapio(); //Mostra o cardápio do restaurante
@@ -59,14 +59,14 @@ namespace RestaurantePOG
 
         #region Métodos Restaurante
         /// <summary>Realiza o atendimento do Cliente</summary>
-        public static void realizarPedido()
+        public static void menuDoCliente()
         {
             int opcao = -1;
 
             restaurante.exibeListaAtendimento();
             Console.WriteLine("Selecione o cliente que deseja atender: ");
 
-            Requisicao? requisicao = restaurante.getRequisicaoPorNomeCliente(new Cliente(digitaString()));
+            Requisicao? requisicao = restaurante.getRequisicaoPorCliente(new Cliente(digitaString()));
             if (requisicao == null)
             {
                 Console.WriteLine("Cliente não Localizado.");
@@ -100,43 +100,43 @@ namespace RestaurantePOG
         /// <summary> Exibe o menu principal do restaurante </summary>
         public static void exibeMenuPrincipal()
         {
-            Console.WriteLine("===================================");
-            Console.WriteLine("====       MENU PRINCIPAL      ====");
-            Console.WriteLine("===================================\n");
+            Console.WriteLine("=========================================");
+            Console.WriteLine("====          MENU PRINCIPAL         ====");
+            Console.WriteLine("=========================================\n");
             Console.WriteLine("1 - Cadastrar Cliente");
-            Console.WriteLine("2 - Iniciar Atendimento");
-            Console.WriteLine("3 - Realizar Pedido");
+            Console.WriteLine("2 - Acomodar um Cliente");
+            Console.WriteLine("3 - Atender um Cliente");
             Console.WriteLine("4 - Mostrar Cardápio");
             Console.WriteLine("5 - Incluir Item no Cardápio");
             Console.WriteLine("6 - Incluir uma nova Mesa");
             Console.WriteLine("7 - Exibir Lista de Clientes");
             Console.WriteLine("8 - Encerrar Programa.");
-            Console.WriteLine("===================================\n");
+            Console.WriteLine("=========================================\n");
         }
 
 
         /// <summary>Mostra Menu de Atendimento ao Cliente</summary>
         public static void exibeMenuAtendimento()
         {
-            Console.WriteLine("===================================");
-            Console.WriteLine("====      MENU ATENDIMENTO     ====");
-            Console.WriteLine("===================================\n");
+            Console.WriteLine("=========================================");
+            Console.WriteLine("====        MENU DE ATENDIMENTO      ====");
+            Console.WriteLine("=========================================\n");
             Console.WriteLine("1 - Realizar Pedido.");
             Console.WriteLine("2 - Mostrar Conta");
             Console.WriteLine("3 - Fechar Conta");
             Console.WriteLine("4 - Voltar Menu Principal");
-            Console.WriteLine("===================================\n");
+            Console.WriteLine("=========================================\n");
         }
 
 
         /// <summary>Mostra a Conta atual do Cliente</summary>
         public static void mostrarConta(Requisicao requisicao)
         {
-            Console.WriteLine("===================================");
-            Console.WriteLine("====           CONTA           ====");
-            Console.WriteLine("===================================");
+            Console.WriteLine("=========================================");
+            Console.WriteLine("====              CONTA              ====");
+            Console.WriteLine("=========================================");
             Console.WriteLine(requisicao.exibirDetalhes());
-            Console.WriteLine("===================================");
+            Console.WriteLine("=========================================");
         }
 
 
@@ -219,7 +219,7 @@ namespace RestaurantePOG
 
 
         ///<summary>Inicia o atendimento do Próximo cliente Disponível</summary>
-        public static void iniciaAtendimento() { restaurante.atenderProximo(); }
+        public static void acomodarCliente() { restaurante.atenderCliente(); }
 
 
         /// <summary>Mostra o Cardápio do Estabelecimento</summary>

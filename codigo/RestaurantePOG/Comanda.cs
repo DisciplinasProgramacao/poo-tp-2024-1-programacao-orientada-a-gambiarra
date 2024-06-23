@@ -9,23 +9,37 @@ namespace RestaurantePOG
 {
     internal class Comanda
     {
-        protected static float TAXA_SERVICO = 0.1f;
-        private LinkedList<Pedido> listaPedidos;
+        protected static double TAXA_SERVICO = 0.1;
+        private List<Pedido> listaPedidos;
         private double valorTotalItens;
         private bool comandaFechada;
 
         public Comanda() {
-            valorTotalItens = 0;
+            valorTotalItens = 0.00;
             comandaFechada = false;
-            listaPedidos = new LinkedList<Pedido>();
+            listaPedidos = new List<Pedido>();
         }
 
 
         ///<summary>Adiciona pedido no final da lista de pedidos da comanda.</summary>
         ///<param name="pedido"></param>
-        public void realizarPedido(Pedido pedido) {
-            listaPedidos.AddLast(pedido);
-            valorTotalItens = calcularValorConta();
+        public bool realizarPedido(Pedido pedido) {
+            bool pedidoRealizado = false;
+
+            if(!comandaFechada){
+                listaPedidos.Add(pedido);
+                valorTotalItens = calcularValorConta();
+                pedidoRealizado = true;
+            }
+            return pedidoRealizado;
+        }
+
+        ///<summary> Realiza o somátorio dos totais de pedidos dentro da comanda juntamenta à taxa de servico. </summary>
+        ///<returns> Valor total da comanda. </returns>
+        private double calcularValorConta() { 
+            double total = listaPedidos.Select(l => l.valorTotal()).Sum();
+            total += total * TAXA_SERVICO;
+            return  total;
         }
 
 
@@ -37,9 +51,5 @@ namespace RestaurantePOG
         ///<returns> Valor total da comanda. </returns>
         public double getValorTotal(){ return valorTotalItens; }
 
-
-        ///<summary> Realiza o somátorio dos totais de pedidos dentro da comanda. </summary>
-        ///<returns> Valor total da comanda. </returns>
-        private double calcularValorConta() { return listaPedidos.Select(l => l.valorTotal()).Sum(); }
-    }
+    }  
 }
