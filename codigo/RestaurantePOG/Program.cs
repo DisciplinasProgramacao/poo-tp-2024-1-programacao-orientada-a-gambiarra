@@ -44,12 +44,24 @@ namespace RestaurantePOG {
                         imprimirFilaEspera();
                         break;
                     case 8:
+                        removerClienteFilaEspera();
+                        break;
+                    case 9:
                         continuar = false;
                         Console.WriteLine("Encerrando Programa...");
                         System.Threading.Thread.Sleep(500);
                         break;
                 }
             }
+        }
+
+        private static void removerClienteFilaEspera()
+        {
+            Console.WriteLine("Informe o número da requisição:");
+            int idReq = digitaInteiro();
+            restaurante.removerFilaEsperaPorId(idReq);
+            Console.Clear();
+            
         }
 
         private static void imprimirFilaEspera() {
@@ -68,7 +80,8 @@ namespace RestaurantePOG {
             Console.WriteLine("5 - Incluir Item no Cardápio");
             Console.WriteLine("6 - Exibir Lista de Clientes");
             Console.WriteLine("7 - Exibir Fila de Espera");
-            Console.WriteLine("8 - Encerrar Programa.\n");
+            Console.WriteLine("8 - Remover Cliente da Fila de Espera");
+            Console.WriteLine("9 - Encerrar Programa.\n");
         }
 
         /// <summary>Mostra Menu de Atendimento ao Cliente</summary>

@@ -101,6 +101,10 @@ namespace RestaurantePOG
         {
             return this.status;
         }
+        public int getId()
+        {
+            return this.id;
+        }
 
         internal int getQuantidadePessoas()
         {

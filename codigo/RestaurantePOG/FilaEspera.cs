@@ -46,18 +46,25 @@ namespace RestaurantePOG {
         public void removerRequisicao (Requisicao requisicao) { 
             requisicoes.Remove(requisicao);
         }
+
+        public Requisicao buscarRequisicaoPorId(int id) {
+            Requisicao req = requisicoes.Where(req => req.getId() == id).FirstOrDefault();
+            return req;
+        }
+
+
         /// <summary>
         /// imprimi a lista de requisições ordenado pela demanda de pessoas da requisição.
         /// </summary>
         /// <returns></returns>
         public override string ToString() {
             StringBuilder aux = new StringBuilder();
-            foreach (var requisicao in requisicoes.OrderBy(req => req.getQuantidadePessoas())) { 
+            foreach (var requisicao in requisicoes.OrderBy(req => req.getId())) { 
                 aux.AppendLine(requisicao.ToString());
 
             }
             return aux.ToString();
-        }
+       }
 
         /// <summary>
         /// Método para verificar se a fila de espera está vazia

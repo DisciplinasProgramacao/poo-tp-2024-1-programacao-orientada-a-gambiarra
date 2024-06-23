@@ -100,10 +100,27 @@ namespace RestaurantePOG
             filaEspera.addRequisicao(requisicao);
         }
 
+        public void removerFilaEsperaPorId(int id)
+        {
+            try
+            {
+                Requisicao req = filaEspera.buscarRequisicaoPorId(id);
+                filaEspera.removerRequisicao(req);
+
+                Console.WriteLine("Requisição removida com sucesso !!!\n");
+            }
+            catch { 
+                Console.WriteLine("Requisição não encontrada na fila de espera !!!");
+            }
+        
+        }
+      
+
         public void adicionarRequisicao(Requisicao requisicao)
         {
             lista_requisicao.Add(requisicao);
         }
+
 
         public Requisicao getRequisicao(int index){
             return lista_requisicao[index];

@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RestaurantePOG")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+26957194f2a48439d791de81d7e1e2c6f7601ae5")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cd1cef37df00bc3849f078e9af103c87e5b9863c")]
 [assembly: System.Reflection.AssemblyProductAttribute("RestaurantePOG")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RestaurantePOG")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
