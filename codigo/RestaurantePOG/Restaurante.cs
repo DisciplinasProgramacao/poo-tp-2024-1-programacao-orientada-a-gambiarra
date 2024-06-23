@@ -17,7 +17,7 @@ namespace RestaurantePOG
         private String nome;
         private List<Requisicao> lista_requisicao;
         private List<Mesa> mesas;
-        private List<Requisicao> filaEspera;
+        private FilaEspera filaEspera;
         private Cardapio cardapio;
         #endregion
 
@@ -32,7 +32,7 @@ namespace RestaurantePOG
                 new Mesa(5, 6), new Mesa(6, 6), new Mesa(7, 6), new Mesa(8, 6),
                 new Mesa(9, 8), new Mesa(10, 8)
             };
-            this.filaEspera = new List<Requisicao>();
+            this.filaEspera = new FilaEspera();
             this.cardapio = new Cardapio();
            
         }
@@ -91,10 +91,13 @@ namespace RestaurantePOG
             }
             return getMesasDisponiveis;
         }
-
+        /// <summary>
+        /// Adiciona requsição a fila de espera.
+        /// </summary>
+        /// <param name="requisicao"></param>
         public void adicionaFilaEspera(Requisicao requisicao)
         {
-            filaEspera.Add(requisicao);
+            filaEspera.addRequisicao(requisicao);
         }
 
         public void adicionarRequisicao(Requisicao requisicao)
@@ -139,9 +142,9 @@ namespace RestaurantePOG
             throw new NotImplementedException();
         }
 
-        internal bool exibeListaEspera()
+        public string exibeFilaEspera()
         {
-            throw new NotImplementedException();
+            return filaEspera.ToString();
         }
 
         internal bool exibeListaClientes()

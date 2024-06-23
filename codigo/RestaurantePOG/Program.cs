@@ -18,7 +18,7 @@ namespace RestaurantePOG {
 
             while(continuar) {
                 exibeMenuPrincipal();
-                opcao = escolheOpcao(1, 7);
+                opcao = escolheOpcao(1, 8);
                 Console.Clear();
             
                 switch(opcao) {
@@ -41,12 +41,19 @@ namespace RestaurantePOG {
                         imprimirListaClientes();
                         break;
                     case 7:
+                        imprimirFilaEspera();
+                        break;
+                    case 8:
                         continuar = false;
                         Console.WriteLine("Encerrando Programa...");
                         System.Threading.Thread.Sleep(500);
                         break;
                 }
             }
+        }
+
+        private static void imprimirFilaEspera() {
+                Console.WriteLine(restaurante.exibeFilaEspera());
         }
 
         /// <summary> Exibe o menu principal do restaurante </summary>
@@ -60,7 +67,8 @@ namespace RestaurantePOG {
             Console.WriteLine("4 - Mostrar Cardápio");
             Console.WriteLine("5 - Incluir Item no Cardápio");
             Console.WriteLine("6 - Exibir Lista de Clientes");
-            Console.WriteLine("7 - Encerrar Programa.\n");
+            Console.WriteLine("7 - Exibir Fila de Espera");
+            Console.WriteLine("8 - Encerrar Programa.\n");
         }
 
         /// <summary>Mostra Menu de Atendimento ao Cliente</summary>
@@ -141,7 +149,7 @@ namespace RestaurantePOG {
             bool valido = false;
             int opcao;
 
-            Console.WriteLine(restaurante.exibeListaEspera());
+            Console.WriteLine(restaurante.exibeFilaEspera());
             Console.WriteLine("Selecione o Cliente que deseja atender: ");
             opcao = escolheOpcao(1, restaurante.getTamanhoLista("Espera"));
             

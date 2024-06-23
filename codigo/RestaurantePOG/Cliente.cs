@@ -23,6 +23,11 @@ namespace RestaurantePOG
             sb.Append(" | Cliente: " + nome);
             return sb.ToString();
         }
+
+        public string getNome()
+        {
+            return this.nome;
+        }
       
     }
 }

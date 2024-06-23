@@ -116,5 +116,22 @@ namespace RestaurantePOG
         {
             throw new NotImplementedException();
         }
+
+        public override string ToString()
+        {
+            StringBuilder sb = new StringBuilder();
+            
+            sb.AppendLine($"======== REQUISICAO - ID: {id} ========");
+            sb.AppendLine($"Status: {(status == 0 ? "Fila de espera" : (status == 1 ? "Em Atendimento":"Finalizada")) }");
+            sb.AppendLine($"Cliente: {cliente.getNome()}");
+            sb.AppendLine($"Quantidade de Pessoas: {quantidadedePessoas}");
+            sb.AppendLine($"Mesa: {(mesa != null ? mesa.getId().ToString() : "Aguardando")}");
+            sb.AppendLine($"Hora de Entrada: {(hora_entrada.HasValue ? hora_entrada.Value.ToString("HH:mm:ss") : "Aguardando")}");
+            sb.AppendLine($"Hora de Saída: {(hora_saida.HasValue ? hora_saida.Value.ToString("HH:mm:ss") : "Aguardando")}");
+            sb.AppendLine($"====================================");
+
+            return sb.ToString();
+        }
+
     }
 }

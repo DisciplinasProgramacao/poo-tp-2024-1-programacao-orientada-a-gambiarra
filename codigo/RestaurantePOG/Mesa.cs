@@ -60,5 +60,9 @@ namespace RestaurantePOG
         {
             return this.capacidade;
         }
+        public int getId()
+        {
+            return this.id; 
+        }
     }
  }
