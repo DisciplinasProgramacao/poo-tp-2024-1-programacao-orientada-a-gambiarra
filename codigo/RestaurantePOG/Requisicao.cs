@@ -70,7 +70,7 @@ namespace RestaurantePOG {
 
         ///<summary>Método responsável por gerar a data e hora atual.</summary>
         ///<returns>Retorna um formato DD/MM/AAAA HH:MM:SS</returns>
-        private DateTime registrar_hora() { return DateTime.Now; }
+        public DateTime registrar_hora() { return DateTime.Now; }
 
         ///<summary>Método responsável por verificar se a requisição referenciada já foi finalizada ou não..</summary>
         ///<returns>Retorna 'True' caso esteja finalizada e 'False' caso contrário.</returns>
@@ -83,6 +83,7 @@ namespace RestaurantePOG {
         public int getQuantidadePessoas() {  return quantidadePessoas; }
 
         public Cliente getCliente(){ return cliente; }
+
     }
 }
 
