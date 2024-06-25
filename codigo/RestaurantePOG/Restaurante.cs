@@ -50,7 +50,15 @@ namespace RestaurantePOG {
         }
 
         public override string exibeListaAtendimento()  {
-            return "";
+            StringBuilder listaAtendimento = new StringBuilder();
+            foreach (var requisicao in lista_requisicao)
+            {
+                if (requisicao.estaEmAtendimento() == true)
+                {
+                    listaAtendimento.AppendLine(requisicao.exibirDetalhes().ToString());
+                }
+            }
+            return listaAtendimento.ToString();
         }
 
         public override void cadastrarCliente(string nome, int qtdPessoas){
