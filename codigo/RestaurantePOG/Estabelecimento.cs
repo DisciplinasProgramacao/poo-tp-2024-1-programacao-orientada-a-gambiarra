@@ -4,13 +4,15 @@ using RestaurantePOG;
 namespace RestaurantePOG{
 
     public abstract class Estabelecimento{
-
+        #region Atributos
         protected String nome; 
         protected List<Mesa> mesas;
         protected List<Requisicao> lista_requisicao;
         protected List<Cliente> lista_clientes;
         protected Cardapio cardapio;
+        #endregion
 
+        #region Construtor
         public Estabelecimento(string nome) {
             this.nome = nome;
             lista_requisicao = new List<Requisicao>();
@@ -18,7 +20,9 @@ namespace RestaurantePOG{
             cardapio = new Cardapio();
             mesas = new List<Mesa>();
         }
+        #endregion
 
+        #region Métodos
         public abstract void cadastrarCliente(string nome, int qtdPessoas);
 
         public abstract string exibeListaAtendimento();
@@ -63,5 +67,6 @@ namespace RestaurantePOG{
         }
 
         public void finalizarAtendimento(Requisicao requisicao) { requisicao.finalizarRequisicao(); }
+        #endregion
     }
 }
