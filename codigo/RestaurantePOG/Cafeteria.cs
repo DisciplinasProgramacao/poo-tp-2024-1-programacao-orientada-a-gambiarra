@@ -9,12 +9,15 @@ namespace RestaurantePOG
 {
     internal class Cafeteria : Estabelecimento
     {
+        #region Atributos
         private Requisicao requisicao;
-
+        #endregion
+        #region Construtor
         public Cafeteria(string nome) : base(nome) {
             this.nome = nome;
             Requisicao requisicao;
 
+        #endregion
         }
         /// <summary>
         /// Registra início do atendimento ao cliente
@@ -23,6 +26,7 @@ namespace RestaurantePOG
             requisicao.registrar_hora();
 
         }
+        #region Métodos
         /// <summary>
         /// Cadasta cliente e cria requisição.
         /// </summary>
@@ -55,5 +59,6 @@ namespace RestaurantePOG
             }
                         
         }
+        #endregion
     }
 }
