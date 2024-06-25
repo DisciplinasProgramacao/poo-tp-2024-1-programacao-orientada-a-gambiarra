@@ -5,10 +5,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RestaurantePOG {
-
     ///<summary>Classe representando um Item</summary>
     public class Item {
-        #region
+
         private string nome;
         private double preco;
         #endregion
@@ -24,6 +23,7 @@ namespace RestaurantePOG {
         }
         #endregion
 
+        #region Métodos
         ///<summary>Método responsável por retornar o preco do item referido.</summary>
         ///<returns>Retorna um valor 'double' indicando o preco do item.</returns>
         public double getPreco() { return preco; }

@@ -9,9 +9,15 @@ namespace RestaurantePOG
 {
     internal class Cafeteria : Estabelecimento
     {
-        public Cafeteria(string nome) : base(nome)
-        {
+        #region Atributos
+        private Requisicao requisicao;
+        #endregion
+        #region Construtor
+        public Cafeteria(string nome) : base(nome) {
             this.nome = nome;
+            Requisicao requisicao;
+
+        #endregion
         }
         /// <summary>
         /// Registra início do atendimento ao cliente
@@ -19,6 +25,7 @@ namespace RestaurantePOG
         public override void atenderCliente()
         {
         }
+        #region Métodos
         /// <summary>
         /// Cadasta cliente e cria requisição.
         /// </summary>
@@ -55,10 +62,14 @@ namespace RestaurantePOG
             {
                 sb.AppendLine(requisicao.exibirDetalhes());
 
+                }
+                return sb.ToString();
             }
-            return sb.ToString();
+            catch {
+                return "Não há registros de atendimento";
+            }
+                        
         }
-
-
+        #endregion
     }
 }

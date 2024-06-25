@@ -20,7 +20,7 @@ namespace RestaurantePOG {
             valorUnitario = item.getPreco();
         }
         #endregion
-
+        
         #region Métodos
         /// <summary>Retorna o valor total do pedido.</summary>
         /// <returns>Total dos pedidos</returns>

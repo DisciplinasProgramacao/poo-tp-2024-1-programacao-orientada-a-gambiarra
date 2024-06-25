@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 namespace RestaurantePOG
@@ -90,15 +90,17 @@ namespace RestaurantePOG
                         break;
                 }
             }
+
         }
+
         #region Métodos Restaurante
         //Inicializador Restaurante
-        public static void iniciarRestaurante()
-        {
+                public static void iniciarRestaurante(){
             Console.Clear();
             restaurante.gerarCardapio(cardapioInicialRestaurante());
             restaurante.gerarMesas(mesasInicialRestaurante());
         }
+
         /// <summary>Realiza o atendimento do Cliente</summary>
         public static void menuDoCliente()
         {
@@ -133,6 +135,7 @@ namespace RestaurantePOG
                 }
             }
         }
+
         /// <summary> Exibe o menu principal do restaurante </summary>
         public static void exibeMenuPrincipalR()
         {
@@ -149,7 +152,7 @@ namespace RestaurantePOG
             Console.WriteLine("8 - Encerrar Programa.");
             Console.WriteLine("=========================================\n");
         }
-
+        
         /// <summary>Mostra Menu de Atendimento ao Cliente</summary>
         public static void exibeMenuAtendimento()
         {
@@ -171,7 +174,7 @@ namespace RestaurantePOG
             Console.WriteLine(requisicao.exibirDetalhes());
             Console.WriteLine("=========================================");
         }
-
+        
         /// <summary>Gera o Cardápio Inicial do Restaurante.</summary>
         /// <returns>Retorna um Objeto do tipo Cardápio com Itens já adicionados.</returns>
         private static Cardapio cardapioInicialRestaurante()
@@ -232,6 +235,7 @@ namespace RestaurantePOG
         /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
         public static void realizarPedidoCafeteria(Requisicao requisicao)
         {
+            Console.Clear();
             Console.WriteLine(restaurante.exibeCardapio());
             Console.Write("Digite o Item do Cardápio que deseja pedir: ");
             String item = digitaString();
@@ -249,17 +253,17 @@ namespace RestaurantePOG
         /// <param name="requisicao">>Requisição que deseja-se fechar a conta</param>
         public static void fecharConta(Requisicao requisicao) { restaurante.finalizarAtendimento(requisicao); }
         #endregion
-
+        
         #region Métodos Cafeteria
         //Inicializador Cafeteria
-        public static void iniciarCafeteria()
-        {
+            public static void iniciarCafeteria(){
             Console.Clear();
             cafeteria.gerarCardapio(cardapioInicialCafeteria());
             cafeteria.gerarMesas(mesasInicialCafeteria());
         }
+
         /// <summary> Exibe o menu principal da cafeteria </summary>
-        public static void exibeMenuPrincipalC()
+         public static void exibeMenuPrincipalC()
         {
             Console.WriteLine("=========================================");
             Console.WriteLine("====          MENU PRINCIPAL         ====");
@@ -272,6 +276,7 @@ namespace RestaurantePOG
             Console.WriteLine("6 - Encerrar Programa.");
             Console.WriteLine("=========================================\n");
         }
+
         /// <summary>Gera o Cardápio Inicial da Cafeteria.</summary>
         /// <returns>Retorna um Objeto do tipo Cardápio com Itens já adicionados.</returns>
         private static Cardapio cardapioInicialCafeteria()
@@ -288,19 +293,22 @@ namespace RestaurantePOG
                                  .adicionarItem("Copo de suco", 7.0)
                                  .adicionarItem("café expresso vegano", 15.0);
         }
+
         private static List<Mesa> mesasInicialCafeteria()
         {
-            return new List<Mesa> { }; //em processo
+            return new List<Mesa> {  }; //em processo
         }
+
         #endregion
+
         #region Métodos Gerais
         /// <summary> Método para o menu inicial de escolha de estabelecimentos </summary>
-        public static void menuInicial()
-        {
-            Console.WriteLine("1. Entrar no restaurante: POG - Comidinhas Veganas");
-            Console.WriteLine("2. Entrar na cafeteria: POG - Café Vegano");
-            Console.WriteLine("3. Ignorar e ir embora...\n(Essa ação terá consequências...)");
-        }
+            public static void menuInicial(){
+                    Console.WriteLine("1. Entrar no restaurante: POG - Comidinhas Veganas");
+                    Console.WriteLine("2. Entrar na cafeteria: POG - Café Vegano");
+                    Console.WriteLine("3. Ignorar e ir embora...\n(Essa ação terá consequências...)");
+               }
+
         /// <summary>Método que para a execução do Programa até o usuário digitar qualquer tecla.</summary>
         private static void pressioneContinuar() { Console.ReadLine(); }
         /// <summary>Verifica se o um numero a ser digitado é inteiro. Repete o processo até conseguir um numero válido.</summary>

@@ -1,12 +1,13 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace RestaurantePOG {
 
     ///<summary> Classe representando uma requisicao de atendimento</summary>
     public class Requisicao {
-        #region Atributos
+    #region Atributos
         private static int ultimoId = 0;
         private int id;
         private int quantidadePessoas;
@@ -17,7 +18,8 @@ namespace RestaurantePOG {
         private DateTime? hora_entrada;
         private DateTime? hora_saida;
         private bool emAtendimento;
-        #endregion
+    #endregion
+
         ///<summary>Método responsável por instanciar um novo objeto da classe Requisicao</summary>
         ///<param name="nome">Nome do cliente que está sendo atendido</param>
         ///<param name="qtdPessoas">Quantidade de Pessoas para a Reserva</param>
@@ -32,7 +34,6 @@ namespace RestaurantePOG {
             id = ++ultimoId;
             mesa = null;
             this.emAtendimento = false;
-
         }
 
         /// <summary> Método para adicionar uma mesa à requisi��o</summary>
@@ -57,7 +58,7 @@ namespace RestaurantePOG {
                 comanda.fecharComanda();
                 hora_saida = registrar_hora();
                 finalizada = true;
-                emAtendimento=false;
+                emAtendimento = false;
                 resultado = exibirDetalhes();
             }catch(ArgumentNullException){ resultado = "Erro ao Finalizar Requisição"; }
             return resultado; 
@@ -93,7 +94,7 @@ namespace RestaurantePOG {
         public bool estahFinalizada() { return finalizada; }
         /// <summary>Informa se o cliente esta atualmente em atendimento..</summary>
         /// <returns>Retorna 'True" caso estaja em atendimento e 'False' caso não</returns>
-        public bool estaEmAtendimento() { return emAtendimento; }
+        public bool estaEmAtendimento() {return emAtendimento;}
 
         ///<summary>Calcula o valor para cada pessoa</summary>
         ///<returns>Valor dividido igualmente entre as pessoas da mesa</returns>
