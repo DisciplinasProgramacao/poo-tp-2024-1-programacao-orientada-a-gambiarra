@@ -9,18 +9,22 @@ namespace RestaurantePOG
 {
     internal class Comanda
     {
+        #region Atributos
         protected static double TAXA_SERVICO = 0.1;
         private List<Pedido> listaPedidos;
         private double valorTotalItens;
         private bool comandaFechada;
-
+        #endregion
+            
+        #region Construtor
         public Comanda() {
             valorTotalItens = 0.00;
             comandaFechada = false;
             listaPedidos = new List<Pedido>();
         }
+        #endregion
 
-
+        #region Métodos
         ///<summary>Adiciona pedido no final da lista de pedidos da comanda.</summary>
         ///<param name="pedido"></param>
         public bool realizarPedido(Pedido pedido) {
@@ -50,6 +54,7 @@ namespace RestaurantePOG
         ///<summary> Retorna o valor Total da Comanda Atualmente </summary>
         ///<returns> Valor total da comanda. </returns>
         public double getValorTotal(){ return valorTotalItens; }
+        #endregion
 
     }  
 }
