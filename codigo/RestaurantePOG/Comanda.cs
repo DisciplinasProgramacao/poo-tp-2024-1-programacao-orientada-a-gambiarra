@@ -4,6 +4,7 @@ using System.Linq;
 using System.Numerics;
 using System.Text;
 using System.Threading.Tasks;
+using System.Transactions;
 
 namespace RestaurantePOG
 {
@@ -13,6 +14,7 @@ namespace RestaurantePOG
         protected static double TAXA_SERVICO = 0.1;
         private List<Pedido> listaPedidos;
         private double valorTotalItens;
+        private double valorTaxaServico;
         private bool comandaFechada;
         #endregion
             
@@ -40,15 +42,34 @@ namespace RestaurantePOG
 
         ///<summary> Realiza o somátorio dos totais de pedidos dentro da comanda juntamenta à taxa de servico. </summary>
         ///<returns> Valor total da comanda. </returns>
-        private double calcularValorConta() { 
+        public double calcularValorConta() { 
+            double totalConta = calcularTotalPedidos() + calcularTaxaServico();
+            return  totalConta;
+        }
+        public double calcularTaxaServico() {
+            valorTaxaServico = calcularTotalPedidos() * TAXA_SERVICO;
+            return valorTaxaServico;
+
+        }
+        public double calcularTotalPedidos()
+        {
             double total = listaPedidos.Select(l => l.valorTotal()).Sum();
-            total += total * TAXA_SERVICO;
-            return  total;
+             return total;
         }
 
+        public string imprimirPedidos()
+        {   
+            StringBuilder sb = new StringBuilder();
+            foreach (var pedido in listaPedidos)
+            {
+               sb.AppendLine(pedido.ToString());
 
-        /// <summary>Altera a comanda para o status fechada.</summary>
-        public void fecharComanda() { comandaFechada = true; }
+            }
+            return sb.ToString();
+        }
+
+    /// <summary>Altera a comanda para o status fechada.</summary>
+    public void fecharComanda() { comandaFechada = true; }
 
 
         ///<summary> Retorna o valor Total da Comanda Atualmente </summary>

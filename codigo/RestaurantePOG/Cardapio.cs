@@ -16,6 +16,19 @@ namespace RestaurantePOG{
             return this;
         }
 
+        public Item? buscarItem(string nome)
+        {
+            Item? item = itens.Find(item => item.getNome().Equals(nome));
+            if (item != null)
+                return item;
+            else
+            {
+                Console.WriteLine("Item não encontrado no cardápio");
+                return null;
+            }
+                
+        }
+
         public override string ToString() {
             StringBuilder sb = new StringBuilder().Append(cabecalho());
             foreach (Item item in itens) {

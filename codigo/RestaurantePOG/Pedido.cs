@@ -6,21 +6,30 @@ using System.Threading.Tasks;
 
 namespace RestaurantePOG {
     public class Pedido {
-
+        #region Atributos
         private Item item;
         private int quantidade;
         private double valorUnitario;
+        #endregion
 
+        #region Construtor
         public Pedido(int quantidade, Item item)  {
             
             this.item = item;
             this.quantidade = quantidade;
             valorUnitario = item.getPreco();
         }
-        
+        #endregion
+
+        #region Métodos
         /// <summary>Retorna o valor total do pedido.</summary>
         /// <returns>Total dos pedidos</returns>
         public double valorTotal() { return valorUnitario * quantidade; }
-        
+
+        public override string ToString() {
+            return $"Qdt: {quantidade}: {this.item.getNome()}: Total: R$ {valorTotal()}";
+        }
+        #endregion
+
     }
 }
