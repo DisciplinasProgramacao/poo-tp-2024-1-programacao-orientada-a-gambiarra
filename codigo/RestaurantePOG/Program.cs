@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -9,55 +9,100 @@ namespace RestaurantePOG
 
         #region Global
         public static Restaurante restaurante = new("POG - Comidinhas Veganas");
+        public static Cafeteria cafeteria = new("POG - Café Vegano");
         #endregion
-
         static void Main(string[] args)
         {
-            int opcao = -1;
-
-            restaurante.gerarCardapio(cardapioInicialRestaurante());
-            restaurante.gerarMesas(mesasInicialRestaurante());
-
-            while (opcao != 8)
+            menuInicial();
+            int opcaoInicial = -1;
+            while (opcaoInicial != 3)
             {
-
-                exibeMenuPrincipal();
-                opcao = digitaInteiro(); ;
-                //Console.Clear();
-
-                switch (opcao)
+                opcaoInicial = digitaInteiro();
+                switch (opcaoInicial)
                 {
-                    case 1:
+                    case 1: //Entrar no restaurante
+                    iniciarRestaurante();
+                    int opcao = -1;
+                       while (opcao != 8)
+                       {
+                        exibeMenuPrincipalR(); //Menu do Restaurante
+                        opcao = digitaInteiro(); 
+
+                        switch (opcao)
+                            {
+                            case 1:
                         cadastrarCliente(); //Da entrada em um novo cliente e adiciona na fila de espera
-                        break;
-                    case 2:
+                                break;
+                            case 2:
                         acomodarCliente(); //Acomoda um cliente no restaurante
-                        break;
-                    case 3:
+                                break;
+                            case 3:
                         menuDoCliente(); //Abre as opções vínculadas à um cliente.
-                        break;
-                    case 4:
+                                break;
+                            case 4:
                         mostrarCardapio(); //Mostra o cardápio do restaurante
-                        break;
-                    case 5:
+                                break;
+                            case 5:
                         cadastrarItemCardapio(); //Adiciona um novo item 
-                        break;
-                    case 6:
+                                break;
+                            case 6:
                         cadastrarNovaMesa(); //Adiciona uma nova Mesa
-                        break;
-                    case 7:
+                                break;
+                            case 7:
                         imprimirListaClientes(); //Mostra todos os clientes
-                        break;
-                    case 8:
-                        Console.WriteLine("Encerrando Programa...");
+                                break;
+                            case 8:
+                        Console.WriteLine("Voltando para a rua.");
+                        Console.ReadKey();
+                        opcao = 8;
+                                break;
+                            }
+                        }break;
+
+                    case 2: //Entrar na cafeteria
+                    iniciarCafeteria();
+                    int opcao2 = -1;
+                    while (opcao2 != 6){
+                        exibeMenuPrincipalC(); //Menu da Cafeteria
+                        opcao2 = digitaInteiro();
+                        switch (opcao2)
+                        {
+                            case 1: //cadastrar cliente
+                                break;
+                            case 2: //atender cliente
+                                break;
+                            case 3: //mostrar cardapio
+                                break;
+                            case 4: //incluir item no cardapio
+                                break;
+                            case 5: //exibir lista clientes
+                                break;
+                            case 6: 
+                            Console.WriteLine("Voltando para a rua.");
+                            Console.ReadKey();
+                                break;
+                        }
+                    }break;
+
+                    case 3: //Sair
+                    Console.WriteLine("Encerrando Programa...");
+                    Console.ReadKey();
+                    System.Diagnostics.Process.Start("https://matias.me/nsfw/");
                         System.Threading.Thread.Sleep(500);
                         break;
                 }
             }
+
         }
 
-
         #region Métodos Restaurante
+        //Inicializador Restaurante
+                public static void iniciarRestaurante(){
+            Console.Clear();
+            restaurante.gerarCardapio(cardapioInicialRestaurante());
+            restaurante.gerarMesas(mesasInicialRestaurante());
+        }
+
         /// <summary>Realiza o atendimento do Cliente</summary>
         public static void menuDoCliente()
         {
@@ -96,9 +141,8 @@ namespace RestaurantePOG
             }
         }
 
-
         /// <summary> Exibe o menu principal do restaurante </summary>
-        public static void exibeMenuPrincipal()
+        public static void exibeMenuPrincipalR()
         {
             Console.WriteLine("=========================================");
             Console.WriteLine("====          MENU PRINCIPAL         ====");
@@ -113,8 +157,7 @@ namespace RestaurantePOG
             Console.WriteLine("8 - Encerrar Programa.");
             Console.WriteLine("=========================================\n");
         }
-
-
+        
         /// <summary>Mostra Menu de Atendimento ao Cliente</summary>
         public static void exibeMenuAtendimento()
         {
@@ -138,8 +181,7 @@ namespace RestaurantePOG
             Console.WriteLine(requisicao.exibirDetalhes());
             Console.WriteLine("=========================================");
         }
-
-
+        
         /// <summary>Gera o Cardápio Inicial do Restaurante.</summary>
         /// <returns>Retorna um Objeto do tipo Cardápio com Itens já adicionados.</returns>
         private static Cardapio cardapioInicialRestaurante()
@@ -172,6 +214,7 @@ namespace RestaurantePOG
         /// <summary>Realiza o Cadastro do cliente no Estabelecimento</summary>
         public static void cadastrarCliente()
         {
+            Console.Clear();
             Console.Write("Informe o nome do cliente: ");
             string nome = digitaString();
 
@@ -186,6 +229,7 @@ namespace RestaurantePOG
         /// <summary>Insere um novo Item no Cardapio</summary>
         public static void cadastrarItemCardapio()
         {
+            Console.Clear();
             Console.Write("Informe o nome do item que deseja adicionar: ");
             string nome = digitaString();
 
@@ -200,6 +244,7 @@ namespace RestaurantePOG
         /// <summary>Insere uma nova Mesa no Estabelecimento</summary>
         public static void cadastrarNovaMesa()
         {
+            Console.Clear();
             Console.Write("Insira a capacidade da Meaa: ");
             int qtdPessoas = digitaInteiro();
 
@@ -212,6 +257,7 @@ namespace RestaurantePOG
         /// <param name="requisicao">Requisição que deseja-se registrar um pedido</param>
         public static void realizarPedido(Requisicao requisicao)
         {
+            Console.Clear();
             Console.WriteLine(restaurante.exibeCardapio());
             Console.Write("Digite o Item do Cardápio que deseja pedir: ");
             restaurante.realizarPedido(requisicao, digitaString());
@@ -234,9 +280,61 @@ namespace RestaurantePOG
         /// <param name="requisicao">>Requisição que deseja-se fechar a conta</param>
         public static void fecharConta(Requisicao requisicao) { restaurante.finalizarAtendimento(requisicao); }
         #endregion
+        
+        #region Métodos Cafeteria
+        //Inicializador Cafeteria
+            public static void iniciarCafeteria(){
+            Console.Clear();
+            cafeteria.gerarCardapio(cardapioInicialCafeteria());
+            cafeteria.gerarMesas(mesasInicialCafeteria());
+        }
 
+        /// <summary> Exibe o menu principal da cafeteria </summary>
+         public static void exibeMenuPrincipalC()
+        {
+            Console.WriteLine("=========================================");
+            Console.WriteLine("====          MENU PRINCIPAL         ====");
+            Console.WriteLine("=========================================\n");
+            Console.WriteLine("1 - Cadastrar Cliente");
+            Console.WriteLine("2 - Atender um Cliente");
+            Console.WriteLine("3 - Mostrar Cardápio");
+            Console.WriteLine("4 - Incluir Item no Cardápio");
+            Console.WriteLine("5 - Exibir Lista de Clientes");
+            Console.WriteLine("6 - Encerrar Programa.");
+            Console.WriteLine("=========================================\n");
+        }
+
+        /// <summary>Gera o Cardápio Inicial da Cafeteria.</summary>
+        /// <returns>Retorna um Objeto do tipo Cardápio com Itens já adicionados.</returns>
+        private static Cardapio cardapioInicialCafeteria()
+        {
+            return new Cardapio().adicionarItem("Não de queijo", 5.0)
+                                 .adicionarItem("Bolinha de cogumelo", 7.0)
+                                 .adicionarItem("Rissole de palmito", 7.0)
+                                 .adicionarItem("Coxinha de carne de jaca", 8.0)
+                                 .adicionarItem("Fatia de Queijo de caju", 9.0)
+                                 .adicionarItem("Biscoito amanteigado", 3.0)
+                                 .adicionarItem("Cheesecake de frutas vermelhas", 15.0)
+                                 //==========================================================//
+                                 .adicionarItem("Água", 3.0)
+                                 .adicionarItem("Copo de suco", 7.0)
+                                 .adicionarItem("café expresso vegano", 15.0);
+        }
+
+        private static List<Mesa> mesasInicialCafeteria()
+        {
+            return new List<Mesa> {  }; //em processo
+        }
+
+        #endregion
 
         #region Métodos Gerais
+        /// <summary> Método para o menu inicial de escolha de estabelecimentos </summary>
+            public static void menuInicial(){
+                    Console.WriteLine("1. Entrar no restaurante: POG - Comidinhas Veganas");
+                    Console.WriteLine("2. Entrar na cafeteria: POG - Café Vegano");
+                    Console.WriteLine("3. Ignorar e ir embora...\n(Essa ação terá consequências...)");
+               }
 
         /// <summary>Método que para a execução do Programa até o usuário digitar qualquer tecla.</summary>
         private static void pressioneContinuar() { Console.ReadLine(); }
