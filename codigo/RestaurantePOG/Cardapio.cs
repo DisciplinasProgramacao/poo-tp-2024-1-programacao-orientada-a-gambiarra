@@ -2,12 +2,15 @@ using System.Text;
 
 namespace RestaurantePOG{
     public class Cardapio {
+        #region Atributos
         private List <Item> itens;
-
+        #endregion
+        #region Construtor
         public Cardapio() {
             itens = new List<Item>();
         }
-
+        #endregion
+        #region Métodos
         public Cardapio adicionarItem(string nome, double preco) {
             itens.Add(new Item(nome, preco));
             return this;
@@ -24,5 +27,6 @@ namespace RestaurantePOG{
                    "====             CARDAPIO            ====\n"+
                    "=========================================\n";
         }
+        #endregion
     }
 }
