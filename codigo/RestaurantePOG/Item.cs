@@ -5,13 +5,15 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace RestaurantePOG {
-
     ///<summary>Classe representando um Item</summary>
     public class Item {
 
+        #region Atributos
         private string nome;
         private double preco;
+        #endregion
 
+        #region Construtor
         ///<summary>Método responsável por instanciar um novo objeto da classe Item</summary>
         ///<param name="nome">Nome do item</param>
         ///<param name="preco">Preco atribuido ao item</param>
@@ -20,11 +22,14 @@ namespace RestaurantePOG {
             this.nome = nome;
             this.preco = preco;
         }
+        #endregion
 
+        #region Métodos
         ///<summary>Método responsável por retornar o preco do item referido.</summary>
         ///<returns>Retorna um valor 'double' indicando o preco do item.</returns>
         public double getPreco() { return preco; }   
 
         public override string ToString() { return $"{nome}  |  R${preco}"; }
+        #endregion
     }
 }
