@@ -7,22 +7,22 @@ using System.Linq;
 using System.Reflection;
 
 namespace RestaurantePOG {
-
     ///<summary>Classe representando o restaurante </summary>
     public class Restaurante : Estabelecimento{
-
-
+        #region Atributos
         private FilaEspera fila_espera;
+        #endregion
 
-
-
+        #region Construtor
         ///<summary>Método responsável por instanciar um novo objeto da classe Restaurante</summary>
         ///<param name="nome"></param>
         ///<returns>Objeto do tipo Restaurante</returns>
         public Restaurante(string nome) : base(nome) {
             fila_espera = new FilaEspera();
         }
+        #endregion
 
+        #region Métodos
 
         public override void atenderCliente() {
             bool alocado = false;
@@ -63,5 +63,6 @@ namespace RestaurantePOG {
             fila_espera.adicionarCliente(cliente); // inserir na lista de espera
         }
 
+        #endregion
     }
 }
