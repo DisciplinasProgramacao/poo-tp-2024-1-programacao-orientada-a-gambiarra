@@ -25,6 +25,6 @@ namespace RestaurantePOG {
         ///<returns>Retorna um valor 'double' indicando o preco do item.</returns>
         public double getPreco() { return preco; }   
 
-        public override string ToString() { return $"{nome}  |  R${preco}"; }
+        public override string ToString() { return $"{nome.PadRight(36)} | R${preco.ToString("F2").PadLeft(7)}"; }
     }
 }

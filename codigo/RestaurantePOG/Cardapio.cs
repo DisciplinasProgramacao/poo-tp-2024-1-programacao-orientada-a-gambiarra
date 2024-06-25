@@ -18,14 +18,17 @@ namespace RestaurantePOG{
 
         public override string ToString() {
             StringBuilder sb = new StringBuilder().Append(cabecalho());
-            foreach (Item item in itens) { sb.AppendLine(item.ToString()); }
-            return sb.ToString();
+            foreach (Item item in itens) {
+                sb.AppendLine(item.ToString());
+                
+                }
+            return sb.ToString() + ("================================================"); ;
         }  
 
         public string cabecalho(){
-            return "=========================================\n"+
-                   "====             CARDAPIO            ====\n"+
-                   "=========================================\n";
+            return "================================================\n"+
+                   "========             CARDAPIO            =======\n"+
+                   "================================================\n";
         }
         #endregion
     }
