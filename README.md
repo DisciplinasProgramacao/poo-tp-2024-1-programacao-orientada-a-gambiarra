@@ -6,8 +6,6 @@ O projeto se trata de uma aplicação responsável por gerir os atendimentos de 
 ## Alunos integrantes da equipe
 
 * Arthur Souza Grossi
-* Gabriel Carlos Freitas
-* João Victor Horta Fontes
 * Matheus da Costa Silva
 * Pedro Henrique Lückeroth
 * Wilian Souza dos Santos
