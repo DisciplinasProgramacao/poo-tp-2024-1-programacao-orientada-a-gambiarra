@@ -11,7 +11,7 @@ namespace RestaurantePOG
     internal class Comanda
     {
         #region Atributos
-        protected static double TAXA_SERVICO = 0.1;
+        private static double TAXA_SERVICO = 0.1;
         private List<Pedido> listaPedidos;
         private double valorTotalItens;
         private double valorTaxaServico;
@@ -26,56 +26,31 @@ namespace RestaurantePOG
         }
         #endregion
 
-        #region Métodos
-        ///<summary>Adiciona pedido no final da lista de pedidos da comanda.</summary>
-        ///<param name="pedido"></param>
         public bool realizarPedido(Pedido pedido) {
             bool pedidoRealizado = false;
 
             if(!comandaFechada){
                 listaPedidos.Add(pedido);
-                valorTotalItens = calcularValorConta();
+                calcularValorConta();
                 pedidoRealizado = true;
             }
             return pedidoRealizado;
         }
 
-        ///<summary> Realiza o somátorio dos totais de pedidos dentro da comanda juntamenta à taxa de servico. </summary>
-        ///<returns> Valor total da comanda. </returns>
-        public double calcularValorConta() { 
-            double totalConta = calcularTotalPedidos() + calcularTaxaServico();
-            return  totalConta;
-        }
-        public double calcularTaxaServico() {
-            valorTaxaServico = calcularTotalPedidos() * TAXA_SERVICO;
-            return valorTaxaServico;
+        public double calcularValorConta() { return calcularTotalPedidos() + calcularTaxaServico(); }
 
-        }
-        public double calcularTotalPedidos()
-        {
-            double total = listaPedidos.Select(l => l.valorTotal()).Sum();
-             return total;
-        }
+        public double calcularTaxaServico() { return valorTaxaServico = calcularTotalPedidos() * TAXA_SERVICO; }
 
-        public string imprimirPedidos()
-        {   
+        public double calcularTotalPedidos() { return valorTotalItens = listaPedidos.Select(l => l.valorTotal()).Sum(); }
+
+        public void fecharComanda() { comandaFechada = true; }
+
+        public double getValorTotal(){ return valorTotalItens; }
+
+        public string listarPedidos() {   
             StringBuilder sb = new StringBuilder();
-            foreach (var pedido in listaPedidos)
-            {
-               sb.AppendLine(pedido.ToString());
-
-            }
+            foreach (Pedido pedido in listaPedidos){ sb.AppendLine(pedido.ToString()); }
             return sb.ToString();
         }
-
-    /// <summary>Altera a comanda para o status fechada.</summary>
-    public void fecharComanda() { comandaFechada = true; }
-
-
-        ///<summary> Retorna o valor Total da Comanda Atualmente </summary>
-        ///<returns> Valor total da comanda. </returns>
-        public double getValorTotal(){ return valorTotalItens; }
-        #endregion
-
     }  
 }

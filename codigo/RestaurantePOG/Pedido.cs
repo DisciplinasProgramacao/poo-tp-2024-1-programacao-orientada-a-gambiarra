@@ -14,7 +14,6 @@ namespace RestaurantePOG {
 
         #region Construtor
         public Pedido(int quantidade, Item item)  {
-            
             this.item = item;
             this.quantidade = quantidade;
             valorUnitario = item.getPreco();
@@ -27,7 +26,7 @@ namespace RestaurantePOG {
         public double valorTotal() { return valorUnitario * quantidade; }
 
         public override string ToString() {
-            return $"Qdt: {quantidade}: {this.item.getNome()}: Total: R$ {valorTotal()}";
+            return $"{item.getNome()} ***** x{quantidade}: R$ {valorTotal()}";
         }
         #endregion
 

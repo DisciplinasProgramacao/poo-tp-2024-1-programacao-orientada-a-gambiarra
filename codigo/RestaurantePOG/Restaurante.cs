@@ -24,7 +24,21 @@ namespace RestaurantePOG {
 
         #region Métodos
 
-        public override void atenderCliente() {
+        public override void atenderCliente(Requisicao requisicao) {
+            // Procurar mesas livres
+            List<Mesa> mesas_disponiveis = mesas.Where(m => !m.estahOcupada()).ToList();
+
+            // Encontrar a primeira requisição que cabe em uma mesa disponível
+            foreach (Mesa mesa in mesas_disponiveis) {
+                if (requisicao.getQuantidadePessoas() <= mesa.getCapacidade()) {
+                    requisicao.iniciarRequisicao(mesa); // Iniciar atendimento da requisicao
+                    fila_espera.removerFila(requisicao.getCliente());
+                    break; // Interrompe o loop de mesas assim que a requisição é alocada
+                }
+            }    
+        }
+
+        public void atenderProximo() {
             bool alocado = false;
             Requisicao? requisicao;
 
@@ -51,14 +65,14 @@ namespace RestaurantePOG {
 
         public override string exibeListaAtendimento()  {
             StringBuilder listaAtendimento = new StringBuilder();
-            foreach (var requisicao in lista_requisicao)
-            {
-                if (requisicao.estaEmAtendimento() == true)
-                {
-                    listaAtendimento.AppendLine(requisicao.exibirDetalhes().ToString());
+
+            foreach(Requisicao requisicao in lista_requisicao){
+                if(!requisicao.estahFinalizada() && requisicao.estahAlocadaEmMesa()){
+                    listaAtendimento.AppendLine(requisicao.getCliente().ToString());
                 }
             }
-            return listaAtendimento.ToString();
+
+            return listaAtendimento.ToString();            
         }
 
         public override void cadastrarCliente(string nome, int qtdPessoas){

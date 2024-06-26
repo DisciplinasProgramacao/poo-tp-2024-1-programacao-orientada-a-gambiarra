@@ -25,9 +25,9 @@
             #region Métodos
             public abstract void cadastrarCliente(string nome, int qtdPessoas);
 
-            public abstract string exibeListaAtendimento();
+            public abstract void atenderCliente(Requisicao requisicao);
 
-            public abstract void atenderCliente();
+            public abstract string exibeListaAtendimento();
 
             public string exibeCardapio() { return cardapio.ToString(); }
     
@@ -54,38 +54,15 @@
 
                 return requisicao;
             }
-            public Requisicao buscarRequisicaoPorCliente(string cliente) {
-                try
-                {
-                    Requisicao? requisicao = lista_requisicao.Find(req => req.getNomeCliente().Equals(cliente));
-                    if(requisicao != null)
-                        return requisicao;
-                    else
-                    {
-                        Console.WriteLine("Não há requisições para esse cliente");
-                        return null;
-                    }
-                }
-                catch
-                {
-                    Console.WriteLine("Erro ao executar a pesquisa de cliente");
-                    return null;
 
-                }
-            }
+            public bool realizarPedido(Requisicao requisicao, string nomeItem, int quantidade)  {
+                bool resultado = false;
+                
+                Item? item = cardapio.buscarItemPorNome(nomeItem);
 
-            public void realizarPedido(Requisicao requisicao, string opcaoCardapio, int quantidade)  {
-                Item? item = cardapio.buscarItem(opcaoCardapio);
-                if(item == null) {
-                    Console.WriteLine("Item não encontrado");
-
-                }
-                else {
-                    requisicao.addPedido(quantidade, item);
-                    Console.WriteLine("Pedido realizado com sucesso.");
-
-                }
-            
+                if(item != null) { resultado = requisicao.addPedido(quantidade, item); }
+                
+                return resultado;
             }
 
             public string exibeListaClientes() {
@@ -94,7 +71,11 @@
                 return sb.ToString();
             }
 
-            public string finalizarAtendimento(Requisicao requisicao) { return requisicao.finalizarRequisicao(); }
+            public string finalizarAtendimento(Requisicao requisicao) {
+                string resultado = requisicao.finalizarRequisicao(); 
+                lista_clientes.Remove(requisicao.getCliente());
+                return resultado;
+            }
             #endregion
         }
     }

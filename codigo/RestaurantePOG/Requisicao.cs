@@ -17,7 +17,6 @@ namespace RestaurantePOG {
         private Comanda comanda;
         private DateTime? hora_entrada;
         private DateTime? hora_saida;
-        private bool emAtendimento;
     #endregion
 
         ///<summary>Método responsável por instanciar um novo objeto da classe Requisicao</summary>
@@ -27,13 +26,12 @@ namespace RestaurantePOG {
         public Requisicao(Cliente cliente, int qtdPessoas) {
             quantidadePessoas = qtdPessoas;
             comanda = new Comanda();
-            this.finalizada = false;
             this.cliente = cliente;
             hora_entrada = null;
+            finalizada = false;
             hora_saida = null;
             id = ++ultimoId;
             mesa = null;
-            this.emAtendimento = false;
         }
 
         /// <summary> Método para adicionar uma mesa à requisi��o</summary>
@@ -42,75 +40,62 @@ namespace RestaurantePOG {
             this.mesa = mesa;
             this.mesa.ocupar();
             hora_entrada = registrar_hora();
-            emAtendimento = true;
         }
+
+        public void iniciarRequisicao() { hora_entrada = registrar_hora(); }
 
         /// <summary> Metodo responsavel por finalizar uma requisicao. Quando uma Requisicao é finalizada, a mesma tem seu status alterado para 'FINALIZADO', tem sua hora de saída registrada e a mesa que estava alocada a tal requisição é liberada.</summary>
         ///<returns>Retorna uma string contendo as informacoes finais da Comanda.</returns>
         public string finalizarRequisicao() {
             string resultado;
-            try{
-                if(mesa != null)
-                {
-                    mesa.desocupar();
-                }
-                   
-                comanda.fecharComanda();
-                hora_saida = registrar_hora();
-                finalizada = true;
-                emAtendimento = false;
-                resultado = exibirDetalhes();
-            }catch(ArgumentNullException){ resultado = "Erro ao Finalizar Requisição"; }
+            
+            if(mesa != null){ 
+                mesa.desocupar(); 
+                mesa = null;
+            }  
+            comanda.fecharComanda();
+            hora_saida = registrar_hora();
+            resultado = exibirDetalhes();
+            finalizada = true;
             return resultado; 
         }
 
         ///<summary>Exibe as informacoes atuais da comanda</summary>
         ///<returns>Retorna uma string contendo as informacoes atuais da comanda.</returns>
         public string exibirDetalhes() {
-            return $"ID Cliente: {id}\n" +
-                   $"Titular Conta: {cliente.getNome()}\n" +
-                   $"Quantidade de Pessoas: {quantidadePessoas}\n" +
-                   $"\n=========================================\n" +
-                   $"\n{comanda.imprimirPedidos()}\n" +
-                   $"Total dos Pedidos: R$ {comanda.calcularTotalPedidos():F2}\n" +
-                   $"============================================\n" +
-                   $"TAXA de Serviço: R$ {comanda.calcularTaxaServico():F2}\n" +
-                   $"TOTAL DA COMANDA: R$ {comanda.calcularValorConta():F2}\n" +
-                   $"Valor Total por Pessoa: R$ {calculaValorPorPessoa():F2}\n" +
-                   $"============================================\n" +
-                   $"Horário de Entrada: {hora_entrada?.ToString("dd/MM/yyyy HH:mm:ss")}\n" +
+            return $"ID Cliente: {id}\n"+
+                   $"Titular Conta: {cliente.getNome()}\n"+
+                   $"Quantidade Pessoas: {quantidadePessoas}\n"+
+                   $"========================================="+
+                   $"{comanda.listarPedidos()}"+
+                   $"========================================="+
+                   $"TAXA Servico: R${comanda.calcularTaxaServico():f2}\n"+
+                   $"Valor Total Conta: R${comanda.getValorTotal():f2}\n"+
+                   $"Valor Total p/Pessoa: R${calculaValorPorPessoa():f2}\n"+
+                   $"========================================="+
+                   $"Horario de Entrada: {hora_entrada?.ToString("dd/MM/yyyy HH:mm:ss")}\n" +
                    $"Horário de Saída: {hora_saida?.ToString("dd/MM/yyyy HH:mm:ss")}\n";
         }
-
 
         ///<summary>Método responsável por gerar a data e hora atual.</summary>
         ///<returns>Retorna um formato DD/MM/AAAA HH:MM:SS</returns>
         private DateTime registrar_hora() { return DateTime.Now; }
 
-        public void registrarEntrada() { this.hora_entrada = registrar_hora(); }
-
-        ///<summary>Método responsável por verificar se a requisição referenciada já foi finalizada ou não..</summary>
+        ///<summary>Método responsável por verificar se a requisição referenciada já foi finalizada ou não.</summary>
         ///<returns>Retorna 'True' caso esteja finalizada e 'False' caso contrário.</returns>
         public bool estahFinalizada() { return finalizada; }
-        /// <summary>Informa se o cliente esta atualmente em atendimento..</summary>
-        /// <returns>Retorna 'True" caso estaja em atendimento e 'False' caso não</returns>
-        public bool estaEmAtendimento() {return emAtendimento;}
 
         ///<summary>Calcula o valor para cada pessoa</summary>
         ///<returns>Valor dividido igualmente entre as pessoas da mesa</returns>
-        public double calculaValorPorPessoa() { return comanda.getValorTotal() / (double)quantidadePessoas; }
+        public double calculaValorPorPessoa() { return comanda.getValorTotal() / quantidadePessoas; }
 
         public int getQuantidadePessoas() {  return quantidadePessoas; }
 
-        public Cliente getCliente() { return cliente; }
+        public Cliente getCliente(){ return cliente; }
 
-        public string getNomeCliente() { return cliente.getNome(); }
+        public bool addPedido(int quantidade, Item item){ return comanda.realizarPedido(new Pedido(quantidade, item)); }
 
-
-        public void addPedido(int quantidade, Item item) {
-            Pedido pedido = new(quantidade, item);
-            comanda.realizarPedido(pedido);
-        }
+        public bool estahAlocadaEmMesa() { return (mesa != null) ? true : false; }
 
     }
 }

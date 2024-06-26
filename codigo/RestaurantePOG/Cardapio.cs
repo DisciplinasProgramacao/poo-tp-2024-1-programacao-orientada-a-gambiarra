@@ -16,32 +16,29 @@ namespace RestaurantePOG{
             return this;
         }
 
-        public Item? buscarItem(string nome)
-        {
-            Item? item = itens.Find(item => item.getNome().Equals(nome));
-            if (item != null)
-                return item;
-            else
-            {
-                Console.WriteLine("Item não encontrado no cardápio");
-                return null;
-            }
-                
+        public Item? buscarItemPorNome(string nome) {
+            Item? item = null;
+            try{
+                item = itens.Find(item => item.getNome().Equals(nome));
+            } catch(ArgumentException){ }
+            return item;
         }
 
         public override string ToString() {
             StringBuilder sb = new StringBuilder().Append(cabecalho());
-            foreach (Item item in itens) {
-                sb.AppendLine(item.ToString());
-                
-                }
-            return sb.ToString() + ("================================================"); ;
+            foreach (Item item in itens) { sb.AppendLine(item.ToString()); }
+            sb.Append(rodape());
+            return sb.ToString();
         }  
 
         public string cabecalho(){
             return "================================================\n"+
                    "========             CARDAPIO            =======\n"+
                    "================================================\n";
+        }
+
+        public string rodape(){
+            return "================================================";
         }
         #endregion
     }
