@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Diagnostics;
 namespace RestaurantePOG
 {
     public class Program
@@ -18,89 +18,133 @@ namespace RestaurantePOG
                 opcaoInicial = digitaInteiro();
                 switch (opcaoInicial)
                 {
-                    case 1: //Entrar no restaurante
-                        iniciarRestaurante();
-                        int opcao = -1;
-                        while (opcao != 8)
-                        {
-                            exibeMenuPrincipalR(); //Menu do Restaurante
-                            opcao = digitaInteiro();
-                            switch (opcao)
-                            {
-                                case 1:
-                                    cadastrarCliente(); //Da entrada em um novo cliente e adiciona na fila de espera
-                                    break;
-                                case 2:
-                                    acomodarCliente(); //Acomoda um cliente no restaurante
-                                    break;
-                                case 3:
-                                    menuDoCliente(); //Abre as opções vínculadas à um cliente.
-                                    break;
-                                case 4:
-                                    mostrarCardapio(); //Mostra o cardápio do restaurante
-                                    break;
-                                case 5:
-                                    cadastrarItemCardapio(); //Adiciona um novo item 
-                                    break;
-                                case 6:
-                                    cadastrarNovaMesa(); //Adiciona uma nova Mesa
-                                    break;
-                                case 7:
-                                    imprimirListaClientes(); //Mostra todos os clientes
-                                    break;
-                                case 8:
-                                    Console.WriteLine("Voltando para a rua.");
-                                    Console.ReadKey();
-                                    opcao = 8;
-                                    break;
-                            }
-                        }
+                    case 1: //Entrar no restaurante [region Case 1]
+                        inicializarRestaurante();
                         break;
-                    case 2: //Entrar na cafeteria
-                        iniciarCafeteria();
-                        int opcao2 = -1;
-                        while (opcao2 != 6)
-                        {
-                            exibeMenuPrincipalC(); //Menu da Cafeteria
-                            opcao2 = digitaInteiro();
-                            switch (opcao2)
-                            {
-                                case 1: //cadastrar cliente
-                                    break;
-                                case 2: //atender cliente
-                                    break;
-                                case 3: //mostrar cardapio
-                                    break;
-                                case 4: //incluir item no cardapio
-                                    break;
-                                case 5: //exibir lista clientes
-                                    break;
-                                case 6:
-                                    Console.WriteLine("Voltando para a rua.");
-                                    Console.ReadKey();
-                                    break;
-                            }
-                        }
+                    case 2: //Entrar na cafeteria [region Case 2]
+                        inicializarCafeteria();
                         break;
-                    case 3: //Sair
-                        Console.WriteLine("Encerrando Programa...");
-                        Console.ReadKey();
-                        System.Diagnostics.Process.Start("https://matias.me/nsfw/");
-                        System.Threading.Thread.Sleep(500);
+                    case 3: //Sair [region Case 3]
+                        sairDoProgram();
                         break;
                 }
             }
 
         }
+        #region Case 1
+        /// <summary> Inicia o restaurante e exibe o menu </summary>
+        public static void inicializarRestaurante(){
+                Console.Clear();
+                restaurante.gerarCardapio(cardapioInicialRestaurante());
+                restaurante.gerarMesas(mesasInicialRestaurante());
+                int opcao = -1;
+                while (opcao != 8)
+                {
+                    exibeMenuPrincipalR(); //Menu do Restaurante
+                    opcao = digitaInteiro();
+                    switch (opcao)
+                    {
+                        case 1:
+                        cadastrarCliente(); //Da entrada em um novo cliente e adiciona na fila de espera
+                            break;
+                        case 2:
+                        acomodarCliente(); //Acomoda um cliente no restaurante
+                            break;
+                        case 3:
+                        menuDoCliente(); //Abre as opções vínculadas à um cliente.
+                            break;
+                        case 4:
+                        mostrarCardapio(); //Mostra o cardápio do restaurante
+                            break;
+                        case 5:
+                        cadastrarItemCardapio(); //Adiciona um novo item 
+                            break;
+                        case 6:
+                        cadastrarNovaMesa(); //Adiciona uma nova Mesa
+                            break;
+                        case 7:
+                        imprimirListaClientes(); //Mostra todos os clientes
+                            break;
+                        case 8:
+                    Console.WriteLine("Voltando para a rua.");
+                    Console.ReadKey();
+                    opcao = 8;
+                            break;
+                    }
+                }
+            }
+        #endregion
+        #region Case 2
+        /// <summary> Inicia a Cafeteria e exibe o menu </summary>
+        public static void inicializarCafeteria(){                
+            Console.Clear();
+            cafeteria.gerarCardapio(cardapioInicialCafeteria());
+            cafeteria.gerarMesas(mesasInicialCafeteria());
+            int opcao2 = -1;
+            while (opcao2 != 6)
+            {
+                exibeMenuPrincipalC(); //Menu da Cafeteria
+                opcao2 = digitaInteiro();
+                switch (opcao2)
+                    {
+                        case 1: //cadastrar cliente
+                            break;
+                        case 2: //atender cliente
+                            break;
+                        case 3: //mostrar cardapio
+                            break;
+                        case 4: //incluir item no cardapio
+                            break;
+                        case 5: //exibir lista clientes
+                            break;
+                        case 6:
+                        Console.WriteLine("Voltando para a rua.");
+                        Console.ReadKey();
+                            break;
+                    }
+            }
+        }
+        #endregion
+        #region Case 3
+        /// <summary> Executa código para sair da execução do Program e abre uma Url </summary>
+        public static void sairDoProgram(){
+            Console.WriteLine("Encerrando Programa...");
+                        Console.ReadKey();
+                        OpenUrl("https://matias.me/nsfw/");
+                        System.Threading.Thread.Sleep(500);
+        }
+        /// <summary> Tenta abrir a url usando Process.Start, se houver erros de acordo com a possível plataforma não windows, executa um código alternativo </summary>
+        /// <param name="url"></param>
+        public static void OpenUrl(string url)
+    {
+        try
+        {
+            Process.Start(url);
+        }
+        catch
+        {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+            {
+                url = url.Replace("&", "^&");
+                Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+            {
+                Process.Start("xdg-open", url);
+            }
+            else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+            {
+                Process.Start("open", url);
+            }
+            else
+            {
+                throw;
+            }
+        }
+    }
+    #endregion
 
         #region Métodos Restaurante
-        //Inicializador Restaurante
-                public static void iniciarRestaurante(){
-            Console.Clear();
-            restaurante.gerarCardapio(cardapioInicialRestaurante());
-            restaurante.gerarMesas(mesasInicialRestaurante());
-        }
-
         /// <summary>Realiza o atendimento do Cliente</summary>
         public static void menuDoCliente()
         {
@@ -255,15 +299,10 @@ namespace RestaurantePOG
         #endregion
         
         #region Métodos Cafeteria
-        //Inicializador Cafeteria
-            public static void iniciarCafeteria(){
-            Console.Clear();
-            cafeteria.gerarCardapio(cardapioInicialCafeteria());
-            cafeteria.gerarMesas(mesasInicialCafeteria());
-        }
+
 
         /// <summary> Exibe o menu principal da cafeteria </summary>
-         public static void exibeMenuPrincipalC()
+        public static void exibeMenuPrincipalC()
         {
             Console.WriteLine("=========================================");
             Console.WriteLine("====          MENU PRINCIPAL         ====");
@@ -296,7 +335,7 @@ namespace RestaurantePOG
 
         private static List<Mesa> mesasInicialCafeteria()
         {
-            return new List<Mesa> {  }; //em processo
+            return new List<Mesa> { }; //em processo
         }
 
         #endregion
