@@ -26,3 +26,4 @@ Diagrama UML - 4.0:
 
 
 Diagrama UML - 4.1:
+![uml v4 0](https://github.com/DisciplinasProgramacao/poo-tp-2024-1-programacao-orientada-a-gambiarra/assets/51711866/3ce54e71-8878-4bd7-ab87-a5cd8dd9af37)
