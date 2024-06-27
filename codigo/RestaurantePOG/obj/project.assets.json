@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\pedro\\Documents\\CloneGit\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj",
+      "projectUniqueName": "D:\\pedro\\Documents\\trabalhoPoo\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj",
       "projectName": "RestaurantePOG",
-      "projectPath": "D:\\pedro\\Documents\\CloneGit\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj",
+      "projectPath": "D:\\pedro\\Documents\\trabalhoPoo\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\RestaurantePOG.csproj",
       "packagesPath": "C:\\Users\\pedro\\.nuget\\packages\\",
-      "outputPath": "D:\\pedro\\Documents\\CloneGit\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\obj\\",
+      "outputPath": "D:\\pedro\\Documents\\trabalhoPoo\\poo-tp-2024-1-programacao-orientada-a-gambiarra\\codigo\\RestaurantePOG\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\pedro\\AppData\\Roaming\\NuGet\\NuGet.Config"

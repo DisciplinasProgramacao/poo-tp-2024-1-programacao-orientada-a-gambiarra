@@ -9,7 +9,7 @@ namespace RestaurantePOG {
             int opcaoInicial = -1;
 
             while (opcaoInicial != 3) {
-                //Console.Clear();
+                Console.Clear();
                 menuInicial();
                 opcaoInicial = digitaInteiro();
                 
@@ -22,7 +22,7 @@ namespace RestaurantePOG {
                         Cafeteria cafeteria = new Cafeteria("POG - Café Vegano");
                         inicializar(cafeteria, cardapioInicialCafeteria(), mesasInicialCafeteria());
                         break;
-                    case 3: //Sair [region Case 3]
+                    case 3: //Sair
                         sairDoProgram();
                         break;
                 }
@@ -124,7 +124,7 @@ namespace RestaurantePOG {
 
         /// <summary> Exibe o Menu Inicial</summary>
         public static void menuInicial(){
-            Console.WriteLine("1. Inicializar Restaurante: POG - Comidinhas Veganas");
+            Console.WriteLine("1. Inicializar Restaurante: POG - Comidinhas Veganas\n");
             Console.WriteLine("2. Inicializar Cafeteria: POG - Café Vegano\n");
             Console.WriteLine("3. Ignorar e ir embora (Essa ação terá consequências...)");
         }
@@ -132,6 +132,7 @@ namespace RestaurantePOG {
 
         /// <summary> Exibe o Menu Principal</summary>
         public static void exibeMenuPrincipal() {
+            Console.Clear();
             Console.WriteLine("=========================================");
             Console.WriteLine("====          MENU PRINCIPAL         ====");
             Console.WriteLine("=========================================\n");

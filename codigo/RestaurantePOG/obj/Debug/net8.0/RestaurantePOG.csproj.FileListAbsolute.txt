@@ -1,0 +1,15 @@
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\bin\Debug\net8.0\RestaurantePOG.exe
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\bin\Debug\net8.0\RestaurantePOG.deps.json
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\bin\Debug\net8.0\RestaurantePOG.runtimeconfig.json
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\bin\Debug\net8.0\RestaurantePOG.dll
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\bin\Debug\net8.0\RestaurantePOG.pdb
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\RestaurantePOG.GeneratedMSBuildEditorConfig.editorconfig
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\RestaurantePOG.AssemblyInfoInputs.cache
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\RestaurantePOG.AssemblyInfo.cs
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\RestaurantePOG.csproj.CoreCompileInputs.cache
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\RestaurantePOG.sourcelink.json
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\RestaurantePOG.dll
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\refint\RestaurantePOG.dll
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\RestaurantePOG.pdb
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\RestaurantePOG.genruntimeconfig.cache
+D:\pedro\Documents\trabalhoPoo\poo-tp-2024-1-programacao-orientada-a-gambiarra\codigo\RestaurantePOG\obj\Debug\net8.0\ref\RestaurantePOG.dll
