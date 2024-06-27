@@ -63,7 +63,7 @@ namespace RestaurantePOG {
                 if (alocado) { break; } // Interrompe o loop de clientes assim que uma requisição é alocada
             }
         }
-        /// <summary>Exibe uma lista dos clientes que estão alocados em uma mesa (prontos para serem atendidos)</summary>
+        /// <summary>Método responsável por exibir uma lista dos clientes que estão alocados em uma mesa (prontos para serem atendidos)</summary>
         /// <returns>lista de clientes em atendimento .ToString()</returns>
         public override string exibeListaAtendimento()  {
             StringBuilder listaAtendimento = new StringBuilder();
@@ -76,7 +76,8 @@ namespace RestaurantePOG {
 
             return listaAtendimento.ToString();            
         }
-        /// <summary>Cadastra um cliente, porém, se a quantidade de pessoas exceder a quantidade de pessoas que cabe nas mesas do restaurante, o cliente não é cadastrado, pois nunca poderá ser atendido.<summary>
+        
+        /// <summary>Método responsável por cadastrar um cliente<summary>
         /// <param name="nome">Nome do cliente</param>
         /// <param name="qtdPessoas">Quantidade de pessoas</param>
         public override void cadastrarCliente(string nome, int qtdPessoas){
