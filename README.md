@@ -7,7 +7,7 @@ O projeto se trata de uma aplicação responsável por gerir os atendimentos de 
 
 * Arthur Souza Grossi
 * Matheus da Costa Silva
-* Pedro Henrique Lückeroth
+* Pedro Henrique Gomes Lückeroth
 * Wilian Souza dos Santos
 
 ## Professores responsáveis
