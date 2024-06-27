@@ -20,3 +20,9 @@ Diagrama UML - v3.0:
 
 Diagrama UML - v3.1:
 ![image](https://github.com/DisciplinasProgramacao/poo-tp-2024-1-programacao-orientada-a-gambiarra/assets/100168353/e7bdce94-fb45-4257-81b1-f9864d192f18)
+
+Diagrama UML - 4.0:
+![image](https://github.com/DisciplinasProgramacao/poo-tp-2024-1-programacao-orientada-a-gambiarra/assets/51711866/fb5dd4c8-b1f7-4a87-9dff-12635972f19e)
+
+
+Diagrama UML - 4.1:
