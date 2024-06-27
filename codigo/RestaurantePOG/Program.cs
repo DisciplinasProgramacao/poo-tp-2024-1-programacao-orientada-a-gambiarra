@@ -30,10 +30,6 @@ namespace RestaurantePOG {
         }
         #endregion
 
-
-
-
-
         #region Métodos Aplicação
         /// <summary> Inicia o restaurante e exibe o menu </summary>
         public static void inicializar(Estabelecimento estabelecimento, Cardapio cardapio, List<Mesa> mesas){
@@ -306,10 +302,6 @@ namespace RestaurantePOG {
         }
         #endregion
 
-
-
-
-
         #region Métodos Gerais
         /// <summary>Método que para a execução do Programa até o usuário digitar qualquer tecla.</summary>
         private static void pressioneContinuar() { Console.ReadLine(); }
@@ -349,14 +341,11 @@ namespace RestaurantePOG {
         }
         #endregion
 
-
-
-
-
+        #region Easter-Egg
         // ATENCAO:
         // Os métodos a seguir só podem ser julgados para aumentar a nota do grupo. Caso contrário, o método DEVE ser ignorado e
         // começará a seguir o primeiro ensinamento de P.O.O... Ele "Não interessa!" ;)
-        #region Easter-Egg
+        
         /// <summary> Executa código para sair da execução do Program e abre uma Url</summary>
         public static void sairDoProgram(){
             Console.WriteLine("Encerrando Programa");

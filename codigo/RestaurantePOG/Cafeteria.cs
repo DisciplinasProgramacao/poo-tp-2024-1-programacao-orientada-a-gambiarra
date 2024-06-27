@@ -1,16 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace RestaurantePOG
+﻿namespace RestaurantePOG
 {
     public class Cafeteria : Estabelecimento {
-        
         public Cafeteria(string nome) : base(nome) { }
-
+        #region Métodos
         /// <summary>Método responsável por cadastrar um cliente e automaticamente iniciar o seu atendimento independente de uma mesa<summary>
         /// <param name="nome">Nome do cliente</param>
         /// <param name="qtdPessoas">Quantidade de pessoas</param>
@@ -61,5 +53,6 @@ namespace RestaurantePOG
             }
             return alocado;
         }
+        #endregion
     }
 }

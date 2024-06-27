@@ -35,7 +35,7 @@ namespace RestaurantePOG{
 
         /// <summary>Cabeçalho do cardápio</summary>
         /// <returns>O cabeçalho</returns>
-        public string cabecalho(){
+        private string cabecalho(){
             return "================================================\n"+
                    "=======             CARDAPIO             =======\n"+
                    "================================================\n";

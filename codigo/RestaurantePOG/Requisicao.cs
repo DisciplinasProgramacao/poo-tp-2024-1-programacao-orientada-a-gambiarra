@@ -18,7 +18,7 @@ namespace RestaurantePOG {
         private DateTime? hora_entrada;
         private DateTime? hora_saida;
     #endregion
-
+    #region Construtor
         ///<summary>Método responsável por instanciar um novo objeto da classe Requisicao</summary>
         ///<param name="nome">Nome do cliente que está sendo atendido</param>
         ///<param name="qtdPessoas">Quantidade de Pessoas para a Reserva</param>
@@ -33,8 +33,8 @@ namespace RestaurantePOG {
             id = ++ultimoId;
             mesa = null;
         }
-
-
+    #endregion
+    #region Métodos
         /// <summary> Método para adicionar uma mesa à requisi��o</summary>
         /// <returns>A mesa adicionada à requisição</returns>
         public void iniciarRequisicao(Mesa? mesa) {
@@ -119,7 +119,7 @@ namespace RestaurantePOG {
         /// <summary>Para saber se a requisição está com o status de alocada em uma mesa</summary>
         /// <returns>True caso esteja alocada, false caso contrário</returns>
         public bool estahAlocadaEmMesa() { return (mesa != null) ? true : false; }
-
+    #endregion
     }
 }
 
