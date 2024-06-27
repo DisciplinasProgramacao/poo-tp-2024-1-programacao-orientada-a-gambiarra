@@ -5,7 +5,7 @@ using System.Text;
 
 namespace RestaurantePOG {
 
-    ///<summary> Classe representando uma requisicao de atendimento</summary>
+    ///<summary>Classe representando uma requisicao de atendimento</summary>
     public class Requisicao {
     #region Atributos
         private static int ultimoId = 0;
@@ -41,7 +41,7 @@ namespace RestaurantePOG {
             this.mesa.ocupar();
             hora_entrada = registrar_hora();
         }
-
+        /// <summary>Inicializa a requisição sem necessariamente ter uma mesa</summary>
         public void iniciarRequisicao() { hora_entrada = registrar_hora(); }
 
         /// <summary> Metodo responsavel por finalizar uma requisicao. Quando uma Requisicao é finalizada, a mesma tem seu status alterado para 'FINALIZADO', tem sua hora de saída registrada e a mesa que estava alocada a tal requisição é liberada.</summary>
@@ -88,13 +88,21 @@ namespace RestaurantePOG {
         ///<summary>Calcula o valor para cada pessoa</summary>
         ///<returns>Valor dividido igualmente entre as pessoas da mesa</returns>
         public double calculaValorPorPessoa() { return comanda.getValorTotal() / quantidadePessoas; }
-
+        
+        /// <summary>Para saber a quantidade de pessoas na requisição</summary>
+        /// <returns>Retorna a quantidade de pessoas</returns>
         public int getQuantidadePessoas() {  return quantidadePessoas; }
-
+        
+        /// <summary>Para saber o nome do cliente da requisição</summary>
+        /// <returns>Cliente</returns>
         public Cliente getCliente(){ return cliente; }
-
+        
+         /// <summary>Para adicionar um pedido na comanda</summary>
+        /// <returns>Retorna o item e a quantidade de itens para a comanda</returns>
         public bool addPedido(int quantidade, Item item){ return comanda.realizarPedido(new Pedido(quantidade, item)); }
-
+        
+        /// <summary>Para saber se a requisição está com o status de alocada em uma mesa</summary>
+        /// <returns>True caso esteja alocada, false caso contrário</returns>
         public bool estahAlocadaEmMesa() { return (mesa != null) ? true : false; }
 
     }
