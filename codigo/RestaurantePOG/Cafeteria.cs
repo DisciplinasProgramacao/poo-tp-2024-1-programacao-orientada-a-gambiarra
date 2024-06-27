@@ -11,6 +11,9 @@ namespace RestaurantePOG
         
         public Cafeteria(string nome) : base(nome) { }
 
+        /// <summary>Método responsável por cadastrar um cliente<summary>
+        /// <param name="nome">Nome do cliente</param>
+        /// <param name="qtdPessoas">Quantidade de pessoas</param>
         public override void cadastrarCliente(string nome, int qtdPessoas) {
             // Gerar uma requisicao com as informações especificadas
             Cliente cliente = new (nome);
@@ -21,8 +24,12 @@ namespace RestaurantePOG
             atenderCliente(requisicao);
         }
 
+        /// <summary>Atende o cliente especificado de acordo com sua requisição. Inicia sua requisição</summary>
+        /// <param name="requisicao">A requisição do cliente</param>
         public override void atenderCliente(Requisicao requisicao) { requisicao.iniciarRequisicao(); }
-    
+
+        /// <summary>Método responsável por exibir uma lista dos clientes em atendimento</summary>
+        /// <returns>Lista de clientes em atendimento .ToString()</returns>
         public override string exibeListaAtendimento()  { return exibeListaClientes(); }
     }
 }
