@@ -1,9 +1,3 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
 namespace RestaurantePOG {
     ///<summary>Classe representando um Item</summary>
     public class Item {
@@ -27,9 +21,13 @@ namespace RestaurantePOG {
         ///<summary>Método responsável por retornar o preco do item referido.</summary>
         ///<returns>Retorna um valor 'double' indicando o preco do item.</returns>
         public double getPreco() { return preco; }
-        #region
-        public string getNome() { return nome; }  
 
+        /// <summary>Método responsável por retornar o nome do item referido.</summary>
+        /// <returns>Retorna uma 'string' indicando o nome do item.</returns>
+        public string getNome() { return nome; }  
+        
+        /// <summary>Transforma Item em uma String</summary>
+        /// <returns>Uma string com as informações do Item de forma formatada</returns>
         public override string ToString() { return $"{nome.PadRight(36)} | R${preco.ToString("F2").PadLeft(7)}"; }
         #endregion
     }
