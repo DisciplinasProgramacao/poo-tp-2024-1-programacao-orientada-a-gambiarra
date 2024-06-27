@@ -20,6 +20,7 @@ namespace RestaurantePOG
         }
         #endregion
 
+        #region Métodos
         /// <summary>Método responsável por realizar o pedido da comanda</summary>
         /// <param name="pedido">O pedido específico</param>
         /// <returns>Se o pedido foi realizado ou não</returns>
@@ -34,25 +35,31 @@ namespace RestaurantePOG
             return pedidoRealizado;
         }
 
+
         /// <summary>Método responsável por calcular o valor da conta, considerando a taxa de serviço</summary>
         /// <returns>Valor da conta + a taxa de serviço</returns>
         public double calcularValorConta() { return calcularTotalPedidos() + calcularTaxaServico(); }
+
 
         /// <summary>Método responsável por calcular a taxa de serviço</summary>
         /// <returns>o valor da taxa de serviço</returns>
         public double calcularTaxaServico() { return valorTaxaServico = calcularTotalPedidos() * TAXA_SERVICO; }
 
+
         /// <summary>Método responsável por calcular o valor total dos pedidos</summary>
         /// <returns>Valor total dos pedidos</returns>
         public double calcularTotalPedidos() { return valorTotalItens = listaPedidos.Select(l => l.valorTotal()).Sum(); }
 
+
         /// <summary>Método responsável por fechar a comanda</summary>
         public void fecharComanda() { comandaFechada = true; }
 
+
         /// <summary>Método responsável por retornar o valor total da comanda</summary>
         /// <returns>Valor total dos itens da comanda</returns>
-        public double getValorTotal(){ return valorTotalItens; }
+        public double getValorTotal(){ return calcularValorConta(); }
         
+
         /// <summary>Mostra os pedidos em lista</summary>
         /// <returns>Retorna uma string contendo todos os pedidos</returns>
         public string listarPedidos() {   
@@ -60,5 +67,6 @@ namespace RestaurantePOG
             foreach (Pedido pedido in listaPedidos){ sb.AppendLine(pedido.ToString()); }
             return sb.ToString();
         }
+        #endregion
     }  
 }

@@ -20,6 +20,7 @@ namespace RestaurantePOG{
             return this;
         }
 
+
         /// <summary>Busca o item especificado</summary>
         /// <param name="nome">Nome do item</param>
         /// <returns>O item</returns>
@@ -31,28 +32,24 @@ namespace RestaurantePOG{
             return item;
         }
 
-        /// <summary>O cabeçalho como string</summary>
-        /// <returns>O cabeçalho como string formatado</returns>
-        public override string ToString() {
-            StringBuilder sb = new StringBuilder().Append(cabecalho());
-            foreach (Item item in itens) { sb.AppendLine(item.ToString()); }
-            sb.Append(rodape());
-            return sb.ToString();
-        }  
 
         /// <summary>Cabeçalho do cardápio</summary>
         /// <returns>O cabeçalho</returns>
         public string cabecalho(){
             return "================================================\n"+
-                   "========             CARDAPIO            =======\n"+
+                   "=======             CARDAPIO             =======\n"+
                    "================================================\n";
         }
         
-        /// <summary>Rodapé do cardápio</summary>
-        /// <returns>O rodapé</returns>
-        public string rodape(){
-            return "================================================";
-        }
+
+        /// <summary>O cabeçalho como string</summary>
+        /// <returns>O cabeçalho como string formatado</returns>
+        public override string ToString() {
+            StringBuilder sb = new StringBuilder().Append(cabecalho());
+            foreach (Item item in itens) { sb.AppendLine(item.ToString()); }
+            sb.Append("================================================");
+            return sb.ToString();
+        }  
         #endregion
     }
 }

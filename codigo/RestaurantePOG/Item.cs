@@ -1,7 +1,7 @@
 namespace RestaurantePOG {
     ///<summary>Classe representando um Item</summary>
     public class Item {
-
+        #region  Atributos
         private string nome;
         private double preco;
         #endregion

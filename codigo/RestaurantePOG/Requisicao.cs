@@ -34,47 +34,58 @@ namespace RestaurantePOG {
             mesa = null;
         }
 
+
         /// <summary> Método para adicionar uma mesa à requisi��o</summary>
         /// <returns>A mesa adicionada à requisição</returns>
-        public void iniciarRequisicao(Mesa mesa) {
-            this.mesa = mesa;
-            this.mesa.ocupar();
+        public void iniciarRequisicao(Mesa? mesa) {
+            if(mesa != null){
+                this.mesa = mesa;
+                this.mesa.ocupar();
+            }
             hora_entrada = registrar_hora();
         }
-        /// <summary>Inicializa a requisição sem necessariamente ter uma mesa</summary>
-        public void iniciarRequisicao() { hora_entrada = registrar_hora(); }
 
         /// <summary> Metodo responsavel por finalizar uma requisicao. Quando uma Requisicao é finalizada, a mesma tem seu status alterado para 'FINALIZADO', tem sua hora de saída registrada e a mesa que estava alocada a tal requisição é liberada.</summary>
         ///<returns>Retorna uma string contendo as informacoes finais da Comanda.</returns>
         public string finalizarRequisicao() {
-            string resultado;
+            string resultado = "Conta já está finalizada...";
+
+            if(!finalizada){
+                if(mesa != null){ 
+                    mesa.desocupar(); 
+                    mesa = null;
+                }
+
+                comanda.fecharComanda();
+                hora_saida = registrar_hora();
+                finalizada = true;
+                resultado = exibirDetalhes();
+            }
             
-            if(mesa != null){ 
-                mesa.desocupar(); 
-                mesa = null;
-            }  
-            comanda.fecharComanda();
-            hora_saida = registrar_hora();
-            resultado = exibirDetalhes();
-            finalizada = true;
             return resultado; 
         }
 
         ///<summary>Exibe as informacoes atuais da comanda</summary>
         ///<returns>Retorna uma string contendo as informacoes atuais da comanda.</returns>
         public string exibirDetalhes() {
-            return $"ID Cliente: {id}\n"+
+            return $"=========================================\n"+
+                   $"====              CONTA              ====\n"+
+                   $"=========================================\n"+
+                   $"ID Cliente: {id}\n"+
                    $"Titular Conta: {cliente.getNome()}\n"+
                    $"Quantidade Pessoas: {quantidadePessoas}\n"+
-                   $"========================================="+
+                   $"Finalizada:{finalizada}\n"+
+                   $"=========================================\n"+
+                   $"Pedidos Realizados:\n"+
                    $"{comanda.listarPedidos()}"+
-                   $"========================================="+
+                   $"=========================================\n"+
                    $"TAXA Servico: R${comanda.calcularTaxaServico():f2}\n"+
                    $"Valor Total Conta: R${comanda.getValorTotal():f2}\n"+
                    $"Valor Total p/Pessoa: R${calculaValorPorPessoa():f2}\n"+
-                   $"========================================="+
+                   $"=========================================\n"+
                    $"Horario de Entrada: {hora_entrada?.ToString("dd/MM/yyyy HH:mm:ss")}\n" +
-                   $"Horário de Saída: {hora_saida?.ToString("dd/MM/yyyy HH:mm:ss")}\n";
+                   $"Horário de Saída: {hora_saida?.ToString("dd/MM/yyyy HH:mm:ss")}\n"+
+                   $"=========================================";
         }
 
         ///<summary>Método responsável por gerar a data e hora atual.</summary>
@@ -92,7 +103,11 @@ namespace RestaurantePOG {
         /// <summary>Para saber a quantidade de pessoas na requisição</summary>
         /// <returns>Retorna a quantidade de pessoas</returns>
         public int getQuantidadePessoas() {  return quantidadePessoas; }
-        
+
+
+        /// <summary>Víncula uma Mesa à Requisição</summary>
+        public void registrarMesa(Mesa mesa){ this.mesa = mesa; }
+    
         /// <summary>Para saber o nome do cliente da requisição</summary>
         /// <returns>Cliente</returns>
         public Cliente getCliente(){ return cliente; }
