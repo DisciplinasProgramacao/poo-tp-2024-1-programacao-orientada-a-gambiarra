@@ -142,7 +142,7 @@ namespace RestaurantePOG
             }
         }
     }
-    #endregion
+        #endregion
 
         #region Métodos Restaurante
         /// <summary>Realiza o atendimento do Cliente</summary>
