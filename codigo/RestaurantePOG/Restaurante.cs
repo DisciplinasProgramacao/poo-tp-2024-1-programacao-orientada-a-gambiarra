@@ -17,7 +17,28 @@ namespace RestaurantePOG {
         ///<summary>Construtor do restaurante</summary>
         ///<param name="nome">Nome do restaurante</param>
         ///<returns>Objeto do tipo Restaurante</returns>
-        public Restaurante(string nome) : base(nome) { fila_espera = new FilaEspera(); }
+        public Restaurante(string nome) : base(nome) {     
+        fila_espera = new FilaEspera();
+
+        cardapio = new Cardapio().adicionarItem("Moqueca de Palmito", 32.0)
+                                 .adicionarItem("Falafel Assado", 20.0)
+                                 .adicionarItem("Salada Primavera com Macarrão Konjac", 25.0)
+                                 .adicionarItem("Escondidinho de Inhame", 18.0)
+                                 .adicionarItem("Strogonoff de Cogumelos", 35.0)
+                                 .adicionarItem("Caçarola de legumes", 22.0)
+                                 //==========================================================//
+                                 .adicionarItem("Água", 3.0)
+                                 .adicionarItem("Copo de suco", 7.0)
+                                 .adicionarItem("Refrigerante orgânico", 7.0)
+                                 .adicionarItem("Cerveja vegana", 9.0)
+                                 .adicionarItem("Taça de vinho vegano", 18.0);
+
+        mesas = new List<Mesa> { new Mesa(4), new Mesa(4), new Mesa(4), new Mesa(4),
+                                    new Mesa(6), new Mesa(6), new Mesa(6), new Mesa(6),
+                                    new Mesa(8), new Mesa(8) };
+
+        tipo_estabelecimento = 2;
+        }
         #endregion
 
         #region Métodos
@@ -54,6 +75,24 @@ namespace RestaurantePOG {
         }
 
 
+        /// <summary> Exibe o Menu Principal</summary>
+        public override string exibeMenuEstabelecimento(){
+            return  "=========================================\n"+
+                    "====          MENU PRINCIPAL         ====\n"+
+                    "=========================================\n"+
+                    "1 - Cadastrar Cliente\n"+
+                    "2 - Realizar um Pedido de um Cliente\n"+
+                    "3 - Mostrar Lista de Clientes\n"+
+                    "4 - Mostrar Cardápio\n"+
+                    "5 - Adicionar Item no Cardápio\n"+
+                    "6 - Adicionar uma nova Mesa\n"+
+                    "7 - Acomodar um Cliente a uma Mesa\n"+
+                    "8 - Encerrar Programa.\n"+
+                    "=========================================\n";
+        }
+
+
+
         /// <summary>Atende o próximo cliente da fila de espera, por ordem de chegada, porém é atendido apenas se tiver mesa disponível para a quantidade de pessoas</summary>
         private bool atenderProximo() {
             bool alocado = false;
@@ -79,6 +118,19 @@ namespace RestaurantePOG {
                 if (alocado) { break; } // Interrompe o loop de clientes assim que uma requisição é alocada
             }
             return alocado;
+        }
+
+        // <summary>Método responsável por criar uma nova mesa</summary>
+        /// <param name="qtdPessoas">A quantidade de pessoas que caberá na mesa</param>
+        public void adicionarMesa(int qtdPessoas){ mesas.Add(new Mesa(qtdPessoas)); }
+
+        public override bool validarAtendimento(string nome) {
+            Requisicao? requisicao = getRequisicaoPorNomeCliente(nome);
+
+            if(requisicao != null && requisicao.estahAlocadaEmMesa()) {
+                return true;
+            }
+            return false;
         }
 
         #endregion

@@ -10,6 +10,7 @@
             protected List<Requisicao> lista_requisicao;
             protected List<Cliente> lista_clientes;
             protected Cardapio cardapio;
+            public int tipo_estabelecimento;
             #endregion
 
             #region Construtor
@@ -26,21 +27,13 @@
             public abstract void cadastrarCliente(string nome, int qtdPessoas);
             public abstract bool atenderCliente(Requisicao? requisicao);
             public abstract string exibeListaAtendimento();
+            public abstract string exibeMenuEstabelecimento();
+            public abstract bool validarAtendimento(string nome);
 
 
             /// <summary>Método responsável por mostrar o cardápio</summary>
             /// <returns>O cardapio em string</returns>
             public string exibeCardapio() { return cardapio.ToString(); }
-
-
-            /// <summary>Método responsável por gerar o cardápio</summary>
-            /// <param name="cardapio">O cardápio completo</param>
-            public void gerarCardapio(Cardapio cardapio) {  this.cardapio = cardapio;  }
-
-            
-            /// <summary>Cria os objetos mesa do restaure</summary>
-            /// <param name="mesas">As meses que queira gerar</param>
-            public void gerarMesas(List<Mesa> mesas) { this.mesas = mesas; }
 
 
             /// <summary>Método responsável por adicionar um novo item ao cardápio de itens</summary>
@@ -49,11 +42,6 @@
             public void adicionarItemCardapio(string nome, double preco) { cardapio.adicionarItem(nome, preco); }
             
 
-            /// <summary>Método responsável por criar uma nova mesa</summary>
-            /// <param name="qtdPessoas">A quantidade de pessoas que caberá na mesa</param>
-            public void adicionarMesa(int qtdPessoas){ mesas.Add(new Mesa(qtdPessoas)); }
-
-
             /// <summary>Método responsável por retornar a requisição de acordo com o cliente referido.</summary>
             /// <param name="cliente">Nome do cliente</param>
             /// <returns>A requisição do cliente</returns>
@@ -61,9 +49,9 @@
                 Requisicao? requisicao = null;
 
                 try {
-                    Cliente? clienteEncontrado = lista_clientes.Find(c => c.getNome() == nome);
+                    Cliente? clienteEncontrado = lista_clientes.Find(c => c.Equals(nome));
                     if (clienteEncontrado != null) {
-                        requisicao = lista_requisicao.Find(r => r.getCliente().getNome() == nome);
+                        requisicao = lista_requisicao.Find(r => r.getCliente().Equals(nome));
                     }
                     else { throw new ArgumentNullException(); }
                 }

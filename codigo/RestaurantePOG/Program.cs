@@ -7,6 +7,7 @@ namespace RestaurantePOG {
         #region Main
         static void Main(string[] args) {
             int opcaoInicial = -1;
+            Estabelecimento? estabelecimento = null;
 
             while (opcaoInicial != 3) {
                 Console.Clear();
@@ -15,31 +16,30 @@ namespace RestaurantePOG {
                 
                 switch (opcaoInicial) {
                     case 1: //Entrar no restaurante
-                        Restaurante restaurante = new Restaurante("POG - Comidinhas Veganas");
-                        inicializar(restaurante, cardapioInicialRestaurante(), mesasInicialRestaurante());
+                        estabelecimento  = new Restaurante("POG - Comidinhas Veganas");
                         break;
                     case 2: //Entrar na cafeteria
-                        Cafeteria cafeteria = new Cafeteria("POG - Café Vegano");
-                        inicializar(cafeteria, cardapioInicialCafeteria(), mesasInicialCafeteria());
+                        estabelecimento  = new Cafeteria("POG - Café Vegano");
                         break;
-                    case 3: //Sair
+                    case 3: //Sair 
                         sairDoProgram();
                         break;
                 }
+                if (estabelecimento != null) { inicializar(estabelecimento); }
             }
         }
         #endregion
 
+
+
         #region Métodos Aplicação
         /// <summary> Inicia o restaurante e exibe o menu </summary>
-        public static void inicializar(Estabelecimento estabelecimento, Cardapio cardapio, List<Mesa> mesas){
+        public static void inicializar(Estabelecimento estabelecimento){
             int opcao = -1;
-            estabelecimento.gerarCardapio(cardapio);
-            estabelecimento.gerarMesas(mesas);
-            
+        
             while (opcao != 8) {
-                //Console.Clear();
-                exibeMenuPrincipal(); //Menu do estabelecimento
+                Console.Clear();
+                Console.WriteLine(estabelecimento.exibeMenuEstabelecimento()); //Menu do estabelecimento
                 opcao = digitaInteiro();
                 
                 switch (opcao) {
@@ -47,29 +47,32 @@ namespace RestaurantePOG {
                         cadastrarCliente(estabelecimento); //Da entrada em um novo cliente e adiciona na fila de espera
                         break;
                     case 2:
-                        acomodarCliente(estabelecimento); //Acomoda um cliente no estabelecimento
-                        break;
-                    case 3:
                         menuDeAtendimento(estabelecimento); //Abre as opções vínculadas à um cliente.
                         break;
+                    case 3:
+                        imprimirListaClientes(estabelecimento); //Mostra todos os clientes
+                        break;
                     case 4:
-                        cadastrarNovaMesa(estabelecimento); //Adiciona uma nova Mesa
+                        mostrarCardapio(estabelecimento); //Mostra o cardápio do estabelecimento
                         break;
                     case 5:
                         cadastrarItemCardapio(estabelecimento); //Adiciona um novo item 
                         break;
                     case 6:
-                        mostrarCardapio(estabelecimento); //Mostra o cardápio do estabelecimento
+                        if(estabelecimento is Restaurante){ //Adiciona uma nova Mesa
+                            Restaurante? restaurante = estabelecimento as Restaurante;
+                            cadastrarNovaMesa(restaurante);
+                        }
                         break;
                     case 7:
-                        imprimirListaClientes(estabelecimento); //Mostra todos os clientes
+                        if(estabelecimento is Restaurante){ //Acomoda um cliente no estabelecimento
+                            Restaurante? restaurante = estabelecimento as Restaurante;
+                            acomodarCliente(restaurante); 
+                        } 
                         break;
                     case 8:
                         Console.WriteLine("Encerrando Aplicação. Voltando ao Menu Inicial...");
                         opcao = 8;
-                        break;
-                    default:
-                        Console.WriteLine("Digite uma opção válida...");
                         break;
                 }
                 pressioneContinuar();
@@ -79,17 +82,21 @@ namespace RestaurantePOG {
         /// <summary>Realiza o atendimento do Cliente</summary>
         public static void menuDeAtendimento(Estabelecimento estabelecimento) {
             int opcao = -1;
-
+            Requisicao? requisicao = null;
+            
             Console.WriteLine(estabelecimento.exibeListaAtendimento());
             Console.WriteLine("Selecione o cliente que deseja atender: ");
+            string nome = digitaString();
 
-            Requisicao? requisicao = estabelecimento.getRequisicaoPorNomeCliente(digitaString());
+            if(estabelecimento.validarAtendimento(nome)){
+                requisicao = estabelecimento.getRequisicaoPorNomeCliente(nome);
+            }
 
             if (requisicao == null) {
                 Console.WriteLine("Cliente não Localizado.");
                 pressioneContinuar();
             } else {
-
+                
                 while (opcao != 4) {
                     Console.Clear();
                     exibeMenuAtendimento();
@@ -120,29 +127,11 @@ namespace RestaurantePOG {
 
         /// <summary> Exibe o Menu Inicial</summary>
         public static void menuInicial(){
-            Console.WriteLine("1. Inicializar Restaurante: POG - Comidinhas Veganas\n");
+            Console.WriteLine("\n1. Inicializar Restaurante: POG - Comidinhas Veganas\n");
             Console.WriteLine("2. Inicializar Cafeteria: POG - Café Vegano\n");
             Console.WriteLine("3. Ignorar e ir embora (Essa ação terá consequências...)");
         }
 
-
-        /// <summary> Exibe o Menu Principal</summary>
-        public static void exibeMenuPrincipal() {
-            Console.Clear();
-            Console.WriteLine("=========================================");
-            Console.WriteLine("====          MENU PRINCIPAL         ====");
-            Console.WriteLine("=========================================\n");
-            Console.WriteLine("1 - Cadastrar Cliente");
-            Console.WriteLine("2 - Acomodar um Cliente a uma Mesa");
-            Console.WriteLine("3 - Realizar um Pedido de um Cliente");
-            Console.WriteLine("4 - Adicionar uma nova Mesa");
-            Console.WriteLine("5 - Adicionar Item no Cardápio");
-            Console.WriteLine("6 - Mostrar Cardápio");
-            Console.WriteLine("7 - Mostrar Lista de Clientes");
-            Console.WriteLine("8 - Encerrar Programa.");
-            Console.WriteLine("=========================================\n");
-        }
-        
 
         /// <summary>Mostra Menu de Atendimento ao Cliente</summary>
         public static void exibeMenuAtendimento() {
@@ -155,54 +144,6 @@ namespace RestaurantePOG {
             Console.WriteLine("4 - Voltar Menu Principal");
             Console.WriteLine("=========================================\n");
         }
-        
-
-        /// <summary>Gera o Cardápio Inicial do Restaurante.</summary>
-        /// <returns>Retorna um Objeto do tipo Cardápio com Itens já adicionados.</returns>
-        private static Cardapio cardapioInicialRestaurante()
-        {
-            return new Cardapio().adicionarItem("Moqueca de Palmito", 32.0)
-                                 .adicionarItem("Falafel Assado", 20.0)
-                                 .adicionarItem("Salada Primavera com Macarrão Konjac", 25.0)
-                                 .adicionarItem("Escondidinho de Inhame", 18.0)
-                                 .adicionarItem("Strogonoff de Cogumelos", 35.0)
-                                 .adicionarItem("Caçarola de legumes", 22.0)
-                                 //==========================================================//
-                                 .adicionarItem("Água", 3.0)
-                                 .adicionarItem("Copo de suco", 7.0)
-                                 .adicionarItem("Refrigerante orgânico", 7.0)
-                                 .adicionarItem("Cerveja vegana", 9.0)
-                                 .adicionarItem("Taça de vinho vegano", 18.0);
-        }
-
-
-        private static Cardapio cardapioInicialCafeteria(){
-            return new Cardapio().adicionarItem("Não de queijo", 5.0)
-                                 .adicionarItem("Bolinha de cogumelo", 7.0)
-                                 .adicionarItem("Rissole de palmito", 7.0)
-                                 .adicionarItem("Coxinha de carne de jaca", 8.0)
-                                 .adicionarItem("Fatia de Queijo de caju", 9.0)
-                                 .adicionarItem("Biscoito amanteigado", 3.0)
-                                 .adicionarItem("Cheesecake de frutas vermelhas", 15.0)
-                                 //==========================================================//
-                                 .adicionarItem("Água", 3.0)
-                                 .adicionarItem("Copo de suco", 7.0)
-                                 .adicionarItem("café expresso vegano", 15.0);
-        }
-
-
-
-        /// <summary>Gera uma Lista de Mesas Iniciais do Restaurante</summary>
-        /// <returns>Retorna um Objeto do tipo List<Mesa>.</returns>
-        private static List<Mesa> mesasInicialRestaurante() {
-            return new List<Mesa> { new Mesa(4), new Mesa(4), new Mesa(4), new Mesa(4),
-                                    new Mesa(6), new Mesa(6), new Mesa(6), new Mesa(6),
-                                    new Mesa(8), new Mesa(8) };
-        }
-
-
-        private static List<Mesa> mesasInicialCafeteria() { return new List<Mesa> { }; }
-
 
         /// <summary>Realiza o Cadastro do cliente no Estabelecimento</summary>
         public static void cadastrarCliente(Estabelecimento estabelecimento) {
@@ -231,12 +172,13 @@ namespace RestaurantePOG {
 
 
         /// <summary>Insere uma nova Mesa no Estabelecimento</summary>
-        public static void cadastrarNovaMesa(Estabelecimento estabelecimento) {
-            Console.Write("Insira a capacidade da Mesa: ");
-            int capacidade = digitaInteiro();
-
-            estabelecimento.adicionarMesa(capacidade);
-            Console.WriteLine("\nMesa Cadastrada!");
+        public static void cadastrarNovaMesa(Restaurante? estabelecimento) {
+            if(estabelecimento != null){
+                Console.Write("Insira a capacidade da Mesa: ");
+                int capacidade = digitaInteiro();
+                estabelecimento.adicionarMesa(capacidade);
+                Console.WriteLine("\nMesa Cadastrada!");
+            }
         }
 
 
@@ -259,29 +201,15 @@ namespace RestaurantePOG {
 
         
         ///<summary>Inicia o atendimento do Próximo cliente Disponível</summary>
-        public static void acomodarCliente(Estabelecimento estabelecimento) { 
-            if (estabelecimento is Cafeteria) {
-                Cafeteria? cafeteria = estabelecimento as Cafeteria;
-
-                if(cafeteria != null){
-                    Console.WriteLine("Selecione o nome do cliente que deseja atender: ");
-                    imprimirListaClientes(estabelecimento);
-
-                    if(cafeteria.vincularMesa(digitaString())){
-                        Console.WriteLine("Mesa vínculada com Sucesso.");
-                    } else { Console.WriteLine("Não foi possivel víncular o cliente à Mesa."); }
-                }
-            } else if (estabelecimento is Restaurante) {
-                Restaurante? restaurante = estabelecimento as Restaurante;
-                if(restaurante != null){
-                    if(restaurante.atenderCliente(null)){
-                        Console.WriteLine("Próximo Cliente Atendido com Sucesso!");
-                    } else{ Console.WriteLine("Não foi possivel atender o Próximo Cliente"); }
+        public static void acomodarCliente(Restaurante? estabelecimento) { 
+            if(estabelecimento != null){
+                if(estabelecimento.atenderCliente(null)){
+                    Console.WriteLine("Próximo Cliente Atendido com Sucesso!");
+                } else{ 
+                    Console.WriteLine("Não foi possivel atender o Próximo Cliente"); 
                 }
             }
-            else { Console.WriteLine("Estabelecimento não suportado."); }
         }
-
 
         /// <summary>Mostra o Cardápio do Estabelecimento</summary>
         public static void mostrarCardapio(Estabelecimento estabelecimento) { Console.WriteLine(estabelecimento.exibeCardapio()); }
@@ -301,6 +229,10 @@ namespace RestaurantePOG {
             Console.WriteLine(estabelecimento.finalizarAtendimento(requisicao));
         }
         #endregion
+
+
+
+
 
         #region Métodos Gerais
         /// <summary>Método que para a execução do Programa até o usuário digitar qualquer tecla.</summary>
@@ -341,11 +273,14 @@ namespace RestaurantePOG {
         }
         #endregion
 
-        #region Easter-Egg
+
+
+
+
         // ATENCAO:
         // Os métodos a seguir só podem ser julgados para aumentar a nota do grupo. Caso contrário, o método DEVE ser ignorado e
         // começará a seguir o primeiro ensinamento de P.O.O... Ele "Não interessa!" ;)
-        
+        #region Easter-Egg
         /// <summary> Executa código para sair da execução do Program e abre uma Url</summary>
         public static void sairDoProgram(){
             Console.WriteLine("Encerrando Programa");

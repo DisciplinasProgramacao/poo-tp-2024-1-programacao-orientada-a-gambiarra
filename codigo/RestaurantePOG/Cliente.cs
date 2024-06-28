@@ -1,7 +1,7 @@
 namespace RestaurantePOG
 {
     /// <summary>Classe representando o cliente do restaurante</summary>
-    public class Cliente {
+    public class Cliente : IEquatable<string>{
         #region Atributos
         private string nome;
         #endregion
@@ -19,6 +19,8 @@ namespace RestaurantePOG
         /// <summary>Nome formatado em string</summary>
         /// <returns>O Nome formatado em string</returns>
         public override string ToString() { return $"-> {nome}"; }
+
+        public bool Equals(string? other) { return nome == other; }
 
         #endregion
     }
